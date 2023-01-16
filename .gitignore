@@ -3,6 +3,9 @@ node_modules
 uploads
 delete.js
 backend/commons/common.js
+backend/data
+utils/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
