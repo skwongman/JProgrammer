@@ -26,3 +26,83 @@ html {
     min-height: 100%;
 }
 
+
+/* Navigation Bar */
+.nav-bar-center {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    color: #1f2b3e;;
+    font-size: 17px;
+    font-weight: bold;
+    z-index: 10;
+}
+
+.nav-bar-width {
+    width: 1200px;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.nav-bar-left-title {
+    display: flex;
+    flex: auto;
+    align-items: center;
+    width: 50%;
+}
+
+.nav-bar-left-title-web-title {
+    flex: none;
+    cursor: pointer;
+}
+
+.nav-bar-left-title-web-title-color {
+    color: #1f2b3e;
+}
+
+.nav-bar-left-title-drama-list {
+    flex: none;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.nav-bar-right-title {
+    display: flex;
+    flex: auto;
+    align-items: center;
+    justify-content: flex-end;
+    width: 50%;
+}
+
+.nav-bar-right-title-add-drama {
+    flex: none;
+    cursor: pointer;
+}
+
+.nav-bar-right-title-signin {
+    flex: none;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    background-color: #1f2b3e;
+    height: 200px;
+    margin-top: 30px;
+}

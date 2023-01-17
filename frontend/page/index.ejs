@@ -7,14 +7,380 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="#"/>
     <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>JProgrammer</title>
 </head>
 
 <body>
-    
-    <div>Text</div>
 
+    <!-- Navigation Bar -->
+    <div class="nav-bar-container">
+        <div class="nav-bar-center">
+            <div class="nav-bar-width">
+                <div class="nav-bar">
+                    <div class="nav-bar-left-title">
+                        <div class="nav-bar-left-title-web-title">
+                            <a class="nav-bar-left-title-web-title-color" href="/">JProgrammer</a>
+                        </div>
+                        <div class="nav-bar-left-title-drama-list">最新日本劇集</div>
+                    </div>
+                    <div class="nav-bar-right-title">
+                        <div class="nav-bar-right-title-add-drama">提供劇集資料</div>
+                        <div class="nav-bar-right-title-signin">登入</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Banner -->
+    <div class="banner">
+        <div class="search-bar">
+            <div class="search-bar-title">最新2023冬季日本劇集在等你探索，立即瀏覽吧！</div>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="尋找日本劇集" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-primary" type="button" id="button-addon2"></button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Carousel -->
+    <div class="carousel-container">
+        <div class="carousel-wide">
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                </div>        
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://statics.tver.jp/images/content/thumbnail/special/xlarge/win23-mon01.jpg?v=10" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://statics.tver.jp/images/content/thumbnail/special/xlarge/win23-tue01.jpg?v=7" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://statics.tver.jp/images/content/thumbnail/special/xlarge/win23-wed01.jpg?v=11" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://statics.tver.jp/images/content/thumbnail/special/xlarge/win23-thu01.jpg?v=10" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://statics.tver.jp/images/content/thumbnail/special/xlarge/win23-fri01.jpg?v=7" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://statics.tver.jp/images/content/thumbnail/special/xlarge/win23-sat01.jpg?v=8" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://statics.tver.jp/images/content/thumbnail/special/xlarge/win23-sun01.jpg?v=6" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Latest Drama List-->
+    <div class="drama-card-container">
+        <div class="drama-card-header">本季最新日本劇集</div>
+        <div class="row row-cols-1 row-cols-xl-6 row-cols-lg-3 row-cols-sm-2 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/srn3ypc7cg.jpg?v=4" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">ひともんちゃくなら喜んで！</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/srxmr1z44t.jpg?v=10" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">大病院占拠</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/srqe0wiy79.jpg?v=8" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">ハマる男に蹴りたい女</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/srzrytirvz.jpg?v=6" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">わたしの夫は ―あの娘の恋人― </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/srp1dtwsvj.jpg?v=6" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">6秒間の軌跡～花火師・望月星太郎の憂鬱</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/srzcg7do3m.jpg?v=10" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">100万回 言えばよかった</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popular Drama List -->
+    <div class="drama-card-container">
+        <div class="drama-card-header">最受歡迎日本劇集</div>
+        <div class="row row-cols-1 row-cols-xl-6 row-cols-lg-3 row-cols-sm-2 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/sr84opbk2g.jpg?v=6" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">リバーサルオーケストラ</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/sr9vwa57tg.jpg?v=4" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">夫を社会的に抹殺する5つの方法</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/srli4l3rxs.jpg?v=11" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">女神の教室～リーガル青春白書～</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/srwkhouxv9.jpg?v=6" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Get Ready!</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/sr8npss1x1.jpg?v=6" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">ブラッシュアップライフ</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://statics.tver.jp/images/content/thumbnail/series/small/srod9bk0sk.jpg?v=13" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">花嫁未満エスケープ 完結編</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Timetable -->
+    <div class="timetable-container">
+        <div class="timetable-width">
+            <div class="timetable-header">本季播放時間表</div>
+            <div class="timetable">
+
+                <div class="timetable-list">
+                    <div class="timetable-list-header">星期一</div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/srqe0wiy79.jpg?v=8" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/srzrytirvz.jpg?v=6" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/srp1dtwsvj.jpg?v=6" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timetable-list">
+                    <div class="timetable-list-header">星期二</div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/srzcg7do3m.jpg?v=10" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/sr84opbk2g.jpg?v=6" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/sr9vwa57tg.jpg?v=4" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timetable-list">
+                    <div class="timetable-list-header">星期三</div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/srod9bk0sk.jpg?v=13" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/sr8npss1x1.jpg?v=7" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/srwkhouxv9.jpg?v=6" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timetable-list">
+                    <div class="timetable-list-header">星期四</div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/srli4l3rxs.jpg?v=11" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/srjgkxugna.jpg?v=11" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/srjqfpikg5.jpg?v=6" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timetable-list">
+                    <div class="timetable-list-header">星期五</div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/series/small/sr4x2fqjd5.jpg?v=12" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/special/small/win23-mon01.jpg?v=10" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/special/small/win23-tue01.jpg?v=7" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timetable-list">
+                    <div class="timetable-list-header">星期六</div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/special/small/win23-wed01.jpg?v=11" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/special/small/win23-thu01.jpg?v=10" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/special/small/win23-fri01.jpg?v=7" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timetable-list">
+                    <div class="timetable-list-header">星期日</div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/special/small/win23-sat01.jpg?v=8" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/special/small/win23-sun01.jpg?v=6" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                    <div class="timetable-list-border">
+                        <img class="timetable-list-photo" src="https://statics.tver.jp/images/content/thumbnail/episode/small/ep8hm0lveb.jpg?v=6" alt="">
+                        <div class="timetable-list-title">
+                            <div>ブラッシュアップライフ</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <div>
+        <div class="footer">
+            <div>Copyright © 2023 JProgrammer All Rights Reserved.</div>
+        </div>
+    </div>
+
+
+    <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script type="module" src="js/index.js"></script>

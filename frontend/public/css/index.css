@@ -1,0 +1,187 @@
+/* Banner */
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 700px;
+    background-image: url("https://statics.tver.jp/images/content/thumbnail/episode/xlarge/ep8kibho4e.jpg?v=35");
+    background-position: 0px 60px center;
+    background-repeat: no-repeat;
+    /* background-size: 100% auto; */
+    background-size: cover;
+    /* filter: brightness(0.8) contrast(120%); */
+}
+
+/* Search Bar */
+.search-bar {
+    top: 35%;
+    width: 50%;
+}
+
+.input-group, .form-control {
+    height: 45px;
+}
+
+.btn {
+    width: 60px;
+    height: 45px;
+    padding: 0;
+    border: none;
+    background-image: url(/img/icon_search.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.search-bar-title {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 42px;
+    font-weight: bold;
+}
+
+
+/* Carousel */
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-wide {
+    width: 1000px;
+    margin: 20px;
+}
+
+.carousel-item > img {
+    cursor: pointer;
+}
+
+
+/* Lastest and Popular Drama List */
+.drama-card-container {  
+    margin: 35px;
+}
+
+.drama-card-header {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.col {
+    cursor: pointer;
+}
+
+.card {
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+
+/* Timetable */
+.timetable-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timetable-width {
+    width: auto;
+    margin: 25px;
+}
+
+.timetable-header {
+    margin: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.timetable {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timetable-list {
+    flex: auto;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid rgb(209, 206, 206);
+    border-radius: 5px;
+}
+
+.timetable-list-header {
+    margin: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.timetable-list-border {
+    margin: 10px 10px 15px 10px;
+    border: 1px solid rgb(209, 206, 206);
+    border-radius: 5px;
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.timetable-list-photo {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.timetable-list-title {
+    display: flex;
+    position: relative;
+    bottom: 40px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    margin-bottom: -40px;
+    padding: 15px;
+    border-radius: 0px 0px 5px 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 0.8vw;
+    font-weight: bold;
+}
+
+
+/* Other Devices */
+@media(max-width:1200px) {
+    
+    .timetable {
+        flex-wrap: wrap;
+    }
+    
+    .timetable-list {
+        width: 25%;
+    }
+
+    .timetable-list-title {
+        font-size: 15px;
+    }
+
+}
+
+@media(max-width:1000px) {
+        
+    .timetable-list {
+        width: 45%;
+    }
+
+}
+
+@media(max-width:575px) {
+        
+    .timetable-list {
+        width: 90%;
+    }
+
+}
