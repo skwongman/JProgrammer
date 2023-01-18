@@ -13,6 +13,7 @@
     /* filter: brightness(0.8) contrast(120%); */
 }
 
+
 /* Search Bar */
 .search-bar {
     top: 35%;
@@ -57,13 +58,27 @@
     cursor: pointer;
 }
 
+.card-img-top {
+    width: auto;
+    height: 70%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.card-title {
+    text-align: center;
+}
+
 
 /* Lastest and Popular Drama List */
-.drama-card-container {  
+.latest-drama-container,
+.popular-drama-container {  
     margin: 35px;
 }
 
-.drama-card-header {
+.latest-drama-header,
+.popular-drama-header {
     margin-bottom: 15px;
     font-size: 20px;
     font-weight: bold;
@@ -102,16 +117,21 @@
 
 .timetable {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
 }
 
 .timetable-list {
     flex: auto;
+    width: 100%;
+    height: auto;
     margin: 10px;
     padding: 10px;
     border: 1px solid rgb(209, 206, 206);
     border-radius: 5px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .timetable-list-header {
@@ -138,18 +158,19 @@
 .timetable-list-title {
     display: flex;
     position: relative;
-    bottom: 40px;
+    bottom: 45px;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 40px;
-    margin-bottom: -40px;
+    height: 45px;
+    margin-bottom: -45px;
     padding: 15px;
     border-radius: 0px 0px 5px 5px;
     background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
     font-size: 0.8vw;
     font-weight: bold;
+    text-align: center;
 }
 
 

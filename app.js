@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const pageRouter = require("./backend/commons/pages");
 const dramaAPIRouter = require("./backend/routes/dramaAPI.route");
+const timetableAPIRouter = require("./backend/routes/timetableAPI.route");
+const popularAPIRouter = require("./backend/routes/popularAPI.route");
 const bodyParser = require("body-parser");
 
 
@@ -36,6 +38,12 @@ app.get("/", pageRouter);
 
 // Get drama API
 app.get("/api/drama", dramaAPIRouter);
+
+// Get timetable API
+app.get("/api/timetable", timetableAPIRouter);
+
+// Get popular drama API
+app.get("/api/popular", popularAPIRouter);
 
 // 404 Error page
 app.use(pageRouter);
