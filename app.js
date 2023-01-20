@@ -4,6 +4,7 @@ const pageRouter = require("./backend/commons/pages");
 const dramaAPIRouter = require("./backend/routes/dramaAPI.route");
 const timetableAPIRouter = require("./backend/routes/timetableAPI.route");
 const popularAPIRouter = require("./backend/routes/popularAPI.route");
+const dramaQueryStringAPIRouter = require("./backend/routes/dramaQueryStringAPI.route");
 const bodyParser = require("body-parser");
 
 
@@ -36,14 +37,20 @@ app.use(bodyParser.urlencoded({extended:true}));
 // Index
 app.get("/", pageRouter);
 
+// index.html
 // Get drama API
 app.get("/api/drama", dramaAPIRouter);
+
+// Get popular drama API
+app.get("/api/popular", popularAPIRouter);
 
 // Get timetable API
 app.get("/api/timetable", timetableAPIRouter);
 
-// Get popular drama API
-app.get("/api/popular", popularAPIRouter);
+// drama.html
+// Get drama API
+app.get("/api/drama/:id", dramaQueryStringAPIRouter)
+
 
 // 404 Error page
 app.use(pageRouter);

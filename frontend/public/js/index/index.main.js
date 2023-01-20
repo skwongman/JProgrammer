@@ -2,10 +2,9 @@ import getLatestSeasonDramaData from "./index.getLatestSeasonDramaData.js";
 import getPopularDramaData from "./index.getPopularDramaData.js";
 import getTimetableData from "./index.getTimetableData.js";
 
-export default function indexMain(){
-
-    getLatestSeasonDramaData();
-    getPopularDramaData();
-    getTimetableData();
-
+try{
+    await Promise.all([getLatestSeasonDramaData(), getPopularDramaData(), getTimetableData()]);
+}
+catch(err){
+    console.log(err);
 };

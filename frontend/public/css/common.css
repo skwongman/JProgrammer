@@ -19,6 +19,7 @@ a:visited {
 
 body {
     margin-bottom: 160px;
+    font-family: "Source Sans Pro", Arial, sans-serif;
 }
 
 html {
@@ -30,6 +31,7 @@ html {
 /* Navigation Bar */
 .nav-bar-center {
     display: flex;
+    z-index: 10;
     position: fixed;
     align-items: center;
     justify-content: center;
@@ -39,7 +41,6 @@ html {
     color: #1f2b3e;;
     font-size: 17px;
     font-weight: bold;
-    z-index: 10;
 }
 
 .nav-bar-width {
@@ -97,12 +98,15 @@ html {
 /* Footer */
 .footer {
     display: flex;
-    justify-content: center;
+    position: absolute;
+    bottom: 20;
     align-items: center;
-    text-align: center;
-    color: #fff;
-    font-weight: bold;
-    background-color: #1f2b3e;
+    justify-content: center;
+    width: 100%;
     height: 200px;
     margin-top: 30px;
+    background-color: #1f2b3e;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
 }

@@ -2,27 +2,11 @@ const express = require("express");
 const { client } = require("../commons/common");
 const router = express.Router();
 
-
-// let activeConnections = 0;
-
-// Connect to the MongoDB server
-// client.connect()
-// .then(() => {
-//     console.log("Connected to MongoDB!");
-//     activeConnections++;
-//     console.log(`Active connections: ${activeConnections}`);
-// })
-// .catch(err => console.error("Error connecting to MongoDB: " + err));
-
-
-// Release the connection
-function closeConnection(req, res, next){
-    res.on("finish", () => {
-        client.close();
-    });
+// Middleware function to add the database connection to the request object
+router.use(function(req, res, next){
+    req.db = client.db("website");
     next();
-}
-
+});
 
 router.get("/api/drama", (req, res) => {
 
@@ -34,40 +18,38 @@ router.get("/api/drama", (req, res) => {
 
     // Connect to database and fetch drama API data
     client.connect(err => {
-
-        try{
-            const collection = client.db("website").collection("dramaTest");
-            const sortlisted = { projection: {_id: 0, dramaDoramaWebLink: 0, dramaAllPhoto: 0, dramaCreatedTime: 0} };
-            let keywordSearch = {};
-            // Keyword search for drama_title and drama_category
-            if(keyword){
-                keywordSearch = {
-                    $or: [
-                        { dramaTitle: {$regex: keyword} },
-                        { dramaCategory: {$regex: keyword} },
-                        { dramaWeek: {$regex: keyword} }
-                    ]
-                };
-            };
-            
-            collection.find(keywordSearch, sortlisted).skip(dataOrderPerPage).limit(dataPerPage).toArray((err, result) => {
-                try{
-                    const nextPage = (result.length + 1 == 7) ? page + 1 : null;
-                    res.status(200).json({"nextPage": nextPage, "data": result});
-                }
-                catch(err){
-                    res.status(500).json({"error": true, "message": err});
-                    console.log("Error(1): " + err);
-                };
-            }); 
-        }
-        catch(err){
-            res.status(500).json({"error": true, "message": err});
-            console.log("Error(2): " + err);
+        if(err){
+            res.status(500).json({"error": true, "message": err.message});
+            console.log("Error(dramaAPI.route - 1): " + err);
+            return;
         };
 
+        const collection = req.db.collection("dramaTest3");
+        const sortlisted = { projection: {_id: 0, dramaDoramaWebLink: 0, dramaAllPhoto: 0, dramaCreatedTime: 0} };
+        let keywordSearch = {};
+        // Keyword search for drama_title and drama_category
+        if(keyword){
+            keywordSearch = {
+                $or: [
+                    { dramaTitle: {$regex: keyword} },
+                    { dramaCategory: {$regex: keyword} },
+                    { dramaWeek: {$regex: keyword} }
+                ]
+            };
+        };
+        
+        collection.find(keywordSearch, sortlisted).skip(dataOrderPerPage).limit(dataPerPage).toArray((err, result) => {
+            if(err){
+                res.status(500).json({"error": true, "message": err.message});
+                console.log("Error(dramaAPI.route - 2): " + err);
+                return;
+            };
+
+            const nextPage = (result.length + 1 == 7) ? page + 1 : null;
+            res.status(200).json({"nextPage": nextPage, "data": result});
+        }); 
     });
 
-}, closeConnection);
+});
 
 module.exports = router;
