@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
 });
 
 // drama/id.html
-router.get("/drama", (req, res) => {
+router.get("/drama/:id", (req, res) => {
     res.render("drama");
 });
 

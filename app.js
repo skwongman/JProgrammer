@@ -33,11 +33,11 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 
-// API Endpoints
-// Index
+// Index page
 app.get("/", pageRouter);
 
-// index.html
+
+// API Endpoints
 // Get drama API
 app.get("/api/drama", dramaAPIRouter);
 
@@ -47,9 +47,8 @@ app.get("/api/popular", popularAPIRouter);
 // Get timetable API
 app.get("/api/timetable", timetableAPIRouter);
 
-// drama.html
 // Get drama API
-app.get("/api/drama/:id", dramaQueryStringAPIRouter)
+app.get("/api/drama/:id", dramaQueryStringAPIRouter);
 
 
 // 404 Error page

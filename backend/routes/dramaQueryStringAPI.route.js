@@ -28,7 +28,7 @@ router.get("/api/drama/:id", (req, res) => {
             };
 
             if(result == null){
-                res.status(400).json({"error": true, "message": "ID not found."});
+                res.status(400).json({"error": true, "message": "ID not found"});
             }
             else{
                 res.status(200).json({"data": result});

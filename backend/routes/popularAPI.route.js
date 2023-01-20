@@ -18,7 +18,7 @@ router.get("/api/popular", (req, res) => {
         };
 
         const collection = req.db.collection("dramaTest3");
-        const sortlisted = { projection: {_id: 0, dramaTitle: 1, dramaCoverPhoto: 1, dramaViewCount: 1} };
+        const sortlisted = { projection: {_id: 0, dramaID: 1, dramaTitle: 1, dramaCoverPhoto: 1, dramaViewCount: 1} };
         const dramaViewCountDescending = { dramaViewCount: -1 };
 
         collection.find({}, sortlisted).limit(6).sort(dramaViewCountDescending).toArray((err, result) => {

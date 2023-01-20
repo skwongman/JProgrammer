@@ -31,7 +31,7 @@
 .drama-photo-container {
     z-index: 3;
     flex: auto;
-    width: 50%;
+    width: 30%;
     text-align: center;
 }
 
@@ -49,7 +49,7 @@
     /* font-weight: bold; */
     z-index: 3;
     flex: auto;
-    width: 50%;
+    width: 70%;
 }
 
 .drama-details-title {

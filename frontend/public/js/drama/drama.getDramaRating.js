@@ -1,89 +1,127 @@
 export default function getDramaRating(){
 
-    // Get the context of the canvas element we want to select
-    const ctx = document.getElementById("myChart").getContext("2d");
+    // Fetch drama rating API
+    const dramaID = location.href.split("/").pop();
 
-    // Data for the chart
-    const data = {
-        labels: ["第一週", "第二週", "第三週", "第四週", "第五週"],
-        datasets: [{
-            label: "收視率",
-            data: [10.5, 7.9, 5.2, 8.1, 6.7],
-            backgroundColor: "rgba(255, 99, 132, 0.2)",
-            borderColor: "rgba(255, 99, 132, 1)",
-            borderWidth: 1
-        }]
+    async function getData(url){
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
     };
 
+    getData(`/api/drama/${dramaID}`)
+    .then(data => {
+        if(data.error == true && data.message == "ID not found"){
+            location.href = "/";
+        };
 
-    const avgRating = (data.datasets[0].data.reduce((a, b) => a + b, 0) / data.datasets[0].data.length).toFixed(1);
+        if(data.data){
+            const rating = data.data.dramaRating;
+            const avgRating = rating.pop();
+            const episode = [];
 
-    // Configuration for the chart
-    const options = {
-        annotation: {
-            annotations: [{
-                type: "line",
-                mode: "horizontal",
-                scaleID: "y-axis-0",
-                value: avgRating,
-                borderColor: "dodgerblue",
-                borderWidth: 1.5,
-                label: {
-                    content: `平均收視率: ${avgRating}%`,
-                    enabled: true,
-                    position: "top"
-                }
+            for(let i=0; i<rating.length; i++){
+                episode.push(`第${i+1}話`);
+            };
+
+            // Callback function
+            ratingData(rating, avgRating, episode);
+        };
+    })
+    .catch(error => {
+        console.log("Error(drama.getEachDramaData.js): " + error);
+    });
+
+
+    // Drama rating chart setting
+    function ratingData(cbRating, cbAvgRating, cbEpisode){
+
+        // Get the context of the canvas element we want to select
+        const ctx = document.getElementById("myChart").getContext("2d");
+
+        // Data for the chart
+        const data = {
+            labels: cbEpisode, // ["第一週", "第二週", "第三週", "第四週", "第五週"]
+            datasets: [{
+                label: "收視率",
+                data: cbRating, // [10.5, 7.9, 5.2, 8.1, 6.7]
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                borderColor: "rgba(255, 99, 132, 1)",
+                borderWidth: 1
             }]
-        },        
-        responsive: true,
-        scales: {
-            xAxes: [{
-                ticks: {
-                    fontSize: 16
-                }
-            }],
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                    fontSize: 16,
-                    callback: function(value, index, values) {
-                        if(value !== 0) {
-                            return value + "%";
-                        };
+        };
+
+
+        // const avgRating = (data.datasets[0].data.reduce((a, b) => a + b, 0) / data.datasets[0].data.length).toFixed(1);
+
+        // Configuration for the chart
+        const options = {
+            annotation: {
+                annotations: [{
+                    type: "line",
+                    mode: "horizontal",
+                    scaleID: "y-axis-0",
+                    value: cbAvgRating,
+                    borderColor: "dodgerblue",
+                    borderWidth: 1.5,
+                    label: {
+                        content: `平均收視率: ${cbAvgRating}%`,
+                        enabled: true,
+                        position: "top"
+                    }
+                }]
+            },        
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        fontSize: 16
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 16,
+                        callback: function(value, index, values) {
+                            if(value !== 0) {
+                                return value + "%";
+                            };
+                        }
+                    }
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.yLabel + "%";
                     }
                 }
-            }]
-        },
-        tooltips: {
-            callbacks: {
-                label: function(tooltipItem, data) {
-                    return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.yLabel + "%";
+            },
+            legend: {
+                display: false
+            },
+            plugins: {
+                datalabels: {
+                    align: "end",
+                    anchor: "end",
+                    display: true,
+                    formatter: function(value) {
+                        return value + "%";
+                    },
+                    font: {
+                        size: 16
+                    }
                 }
             }
-        },
-        legend: {
-            display: false
-        },
-        plugins: {
-            datalabels: {
-                align: "end",
-                anchor: "end",
-                display: true,
-                formatter: function(value) {
-                    return value + "%";
-                },
-                font: {
-                    size: 16
-                }
-            }
-        }
-    };
+        };
 
-    // Create the chart
-    const chart = new Chart(ctx, {
-        type: "line",
-        data: data,
-        options: options
-    });
+        // Create the chart
+        const chart = new Chart(ctx, {
+            type: "line",
+            data: data,
+            options: options
+        });
+
+    };
 
 };

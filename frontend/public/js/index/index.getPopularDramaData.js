@@ -24,12 +24,14 @@ export default function getPopularDramaData(){
                 data.data.map(result => {
                     $("#popularDramaContainer").append(`
                         <div class="col">
-                            <div class="card h-100">
-                                <img src="${result.dramaCoverPhoto}" class="card-img-top">
-                                <div class="card-body">
-                                    <h5 class="card-title">${result.dramaTitle}</h5>
+                            <a href="https://localhost:5000/drama/${result.dramaID}">
+                                <div class="card h-100">
+                                    <img src="${result.dramaCoverPhoto}" class="card-img-top">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${result.dramaTitle}</h5>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     `);
                 });
