@@ -23,7 +23,7 @@ export default function getTimetableData(){
             if(data.data){
                 data.data.map(result => {
                     const timetableHTML = `
-                        <a href="https://localhost:5000/drama/${result.dramaID}">
+                        <a href="/drama/${result.dramaID}">
                             <div class="timetable-list-border">
                                 <img class="timetable-list-photo" src="${result.dramaCoverPhoto}" title="${result.dramaTimeOfBoardcast.slice(0,5)}">
                                 <div class="timetable-list-title">

@@ -24,7 +24,7 @@ export default function getLatestSeasonDramaData(){
                 data.data.map(result => {
                     $("#latestDramaContainer").append(`
                         <div class="col">
-                            <a href="https://localhost:5000/drama/${result.dramaID}">
+                            <a href="/drama/${result.dramaID}">
                                 <div class="card h-100">
                                     <img src="${result.dramaCoverPhoto}" class="card-img-top">
                                     <div class="card-body">
