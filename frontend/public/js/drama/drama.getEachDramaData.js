@@ -21,12 +21,23 @@ export default function getEachDramaData(){
             $("#dramaCoverPhoto").attr("src", dramaData.dramaCoverPhoto);
             $("#dramaTitle").text(dramaData.dramaTitle + yearOfDrama);
             $("#dramaCategory").text(dramaData.dramaCategory);
-            (dramaData.dramaIntroduction == "None") ? $("#dramaIntroduction").text("暫無概要") : $("#dramaIntroduction").text(dramaData.dramaIntroduction)
+            (dramaData.dramaIntroduction == "None") ? $("#dramaIntroduction").text("暫無概要") : $("#dramaIntroduction").text(dramaData.dramaIntroduction);
             $("#dramaTV").text(dramaData.dramaTV);
             $("#dramaWeek").text(dramaData.dramaWeek);
             $("#dramaTimeOfBoardcast").text(dramaData.dramaTimeOfBoardcast);
             $("#dramaDateOfBoardcast").text(`首播日期: (${dramaData.dramaDateOfBoardcast})`);
-            
+
+            if(dramaData.dramaMedia == "None"){
+                $("#dramaMedia").append(`
+                    <div>暫時沒有媒體資訊</div>
+                `);
+            }
+            else{
+                $("#dramaMedia").append(`
+                    <iframe class="media-video" src="${dramaData.dramaMedia}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                `);
+            };
+
             for(let i = 0; i < dramaData.dramaDownload.reverse().length; i ++){
                 $("#dramaDownload").append(`
                     <div class="drama-episode-title">

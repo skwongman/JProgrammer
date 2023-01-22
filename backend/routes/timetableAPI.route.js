@@ -16,7 +16,7 @@ router.get("/api/timetable", (req, res) => {
             console.log("Error(timetableAPI.route - 1): " + err);
         };
 
-        const collection = req.db.collection("dramaTest3");
+        const collection = req.db.collection("drama");
         const sortlisted = { projection: {_id: 0, dramaID: 1, dramaTitle: 1, dramaCoverPhoto: 1, dramaWeek: 1, dramaTimeOfBoardcast: 1} };
         const filter = { dramaWeek: {$ne: "None"} };
 

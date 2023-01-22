@@ -20,7 +20,7 @@ router.get("/api/drama/:id", (req, res) => {
         // Assign names
         let id = req.params.id;
         id = parseInt(id);
-        const collection = req.db.collection("dramaTest3");
+        const collection = req.db.collection("drama");
         const matchDramaID = { $match: { dramaID: id } };
         const unwind = {
             $unwind: "$dramaActor"
@@ -48,7 +48,8 @@ router.get("/api/drama/:id", (req, res) => {
                 dramaRating: { $first: "$dramaRating" },
                 dramaTV: { $first: "$dramaTV" },
                 dramaWeek: { $first: "$dramaWeek" },
-                dramaTimeOfBoardcast: { $first: "$dramaTimeOfBoardcast" }
+                dramaTimeOfBoardcast: { $first: "$dramaTimeOfBoardcast" },
+                dramaMedia: { $first: "$dramaMedia" }
             }
         };
         const dramaDownload = {

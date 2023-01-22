@@ -24,7 +24,7 @@ router.get("/api/drama", (req, res) => {
             return;
         };
 
-        const collection = req.db.collection("dramaTest3");
+        const collection = req.db.collection("drama");
         const sortlisted = { projection: {_id: 0, dramaDoramaWebLink: 0, dramaAllPhoto: 0, dramaCreatedTime: 0} };
         let keywordSearch = {};
         // Keyword search for drama_title and drama_category
