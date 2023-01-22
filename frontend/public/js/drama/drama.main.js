@@ -1,8 +1,13 @@
-import getDramaRating from "./drama.getDramaRating.js";
+import getDramaRatingData from "./drama.getDramaRatingData.js";
 import getEachDramaData from "./drama.getEachDramaData.js";
+import getActorData from "./drama.getActorData.js";
 
 try{
-    await Promise.all([getDramaRating(), getEachDramaData()]);
+    await Promise.all([
+        getDramaRatingData(),
+        getEachDramaData(),
+        getActorData()
+    ]);
 }
 catch(err){
     console.log(err);

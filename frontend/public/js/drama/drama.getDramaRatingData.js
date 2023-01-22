@@ -1,4 +1,4 @@
-export default function getDramaRating(){
+export default function getDramaRatingData(){
 
     // Fetch drama rating API
     const dramaID = location.href.split("/").pop();

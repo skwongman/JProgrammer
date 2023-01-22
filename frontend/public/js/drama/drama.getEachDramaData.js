@@ -26,6 +26,14 @@ export default function getEachDramaData(){
             $("#dramaWeek").text(dramaData.dramaWeek);
             $("#dramaTimeOfBoardcast").text(dramaData.dramaTimeOfBoardcast);
             $("#dramaDateOfBoardcast").text(`首播日期: (${dramaData.dramaDateOfBoardcast})`);
+            
+            for(let i = 0; i < dramaData.dramaDownload.reverse().length; i ++){
+                $("#dramaDownload").append(`
+                    <div class="drama-episode-title">
+                        <a href="${dramaData.dramaDownload[i].downloadLink}">第${i+1}話</a>
+                    </div>
+                `)
+            };
         };
     })
     .catch(error => {
