@@ -16,16 +16,23 @@ export default function getDramaRatingData(){
         };
 
         if(data.data){
-            const rating = data.data.dramaRating;
-            const avgRating = rating.pop();
-            const episode = [];
-
-            for(let i=0; i<rating.length; i++){
-                episode.push(`第${i+1}話`);
+            if(data.data.dramaRating == "None"){
+                $("#dramaRating").append(`<div>暫無收視率資料</div>`);
+                $("#myChart").remove();
+            }
+            else{
+                const rating = data.data.dramaRating;
+                const sum = rating.reduce((acc, val) => acc + parseFloat(val), 0);
+                const avgRating = (sum / rating.length).toFixed(1);
+                const episode = [];
+    
+                for(let i = 0; i < rating.length; i ++){
+                    episode.push(`第${i + 1}話`);
+                };
+    
+                // Callback function
+                ratingData(rating, avgRating, episode);
             };
-
-            // Callback function
-            ratingData(rating, avgRating, episode);
         };
     })
     .catch(error => {

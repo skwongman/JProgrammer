@@ -81,7 +81,6 @@
     font-size: 17px;
     margin: 10px;
     font-weight: bold;
-    cursor: pointer;
 }
 
 .drama-episode-title {
@@ -288,8 +287,8 @@
 .media-video {
     border-radius: 10px;
     box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
-    width: 500px;
-    height: 300px;
+    width: 490px;
+    height: 280px;
 }
 
 
