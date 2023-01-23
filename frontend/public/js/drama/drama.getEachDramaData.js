@@ -18,15 +18,50 @@ export default function getEachDramaData(){
             const dramaData = data.data;
             const yearOfDrama = ` (${dramaData.dramaDateOfBoardcast.split("-")[0]})`;
 
+            // Cover photo
             $("#dramaCoverPhoto").attr("src", dramaData.dramaCoverPhoto);
-            $("#dramaTitle").text(dramaData.dramaTitle + yearOfDrama);
-            $("#dramaCategory").text(dramaData.dramaCategory);
-            (dramaData.dramaIntroduction == "None") ? $("#dramaIntroduction").text("暫無概要") : $("#dramaIntroduction").text(dramaData.dramaIntroduction);
-            $("#dramaTV").text(dramaData.dramaTV);
-            $("#dramaWeek").text(dramaData.dramaWeek);
-            $("#dramaTimeOfBoardcast").text(dramaData.dramaTimeOfBoardcast);
-            $("#dramaDateOfBoardcast").text(`首播日期: (${dramaData.dramaDateOfBoardcast})`);
 
+            // Title
+            $("#dramaTitle").text(dramaData.dramaTitle + yearOfDrama);
+
+            // Category
+            dramaData.dramaCategory.map((result, index) => {
+                $("#dramaCategory").append(result);
+                if(index !== dramaData.dramaCategory.length - 1){
+                    $("#dramaCategory").append("、");
+                };
+            });
+
+            // Introduction
+            if(dramaData.dramaIntroduction == "None"){
+                $("#dramaIntroduction").text("暫無概要");
+            }
+            else{
+                $("#dramaIntroduction").text(dramaData.dramaIntroduction);
+            };
+
+            // TV station
+            $("#dramaTV").text(dramaData.dramaTV);
+
+            // First episode date of broadcast
+            $("#dramaDateOfBoardcast").text(`首播日期: ${dramaData.dramaDateOfBoardcast}`);
+
+            // Week of broadcast
+            $("#dramaWeek").text(`${dramaData.dramaWeek}: `);
+
+            // Time of broadcast
+            $("#dramaTimeOfBoardcast").text(dramaData.dramaTimeOfBoardcast);
+
+            // Episode
+            for(let i = 0; i < dramaData.dramaDownload.reverse().length; i ++){
+                $("#dramaDownload").append(`
+                    <div class="drama-episode-title">
+                        <a href="${dramaData.dramaDownload[i].downloadLink}">第${i+1}話</a>
+                    </div>
+                `)
+            };
+
+            // Media information
             if(dramaData.dramaMedia == "None"){
                 $("#dramaMedia").append(`
                     <div>暫時沒有媒體資訊</div>
@@ -36,14 +71,6 @@ export default function getEachDramaData(){
                 $("#dramaMedia").append(`
                     <iframe class="media-video" src="${dramaData.dramaMedia}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 `);
-            };
-
-            for(let i = 0; i < dramaData.dramaDownload.reverse().length; i ++){
-                $("#dramaDownload").append(`
-                    <div class="drama-episode-title">
-                        <a href="${dramaData.dramaDownload[i].downloadLink}">第${i+1}話</a>
-                    </div>
-                `)
             };
         };
     })

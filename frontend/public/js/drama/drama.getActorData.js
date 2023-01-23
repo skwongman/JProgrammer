@@ -24,8 +24,8 @@ export default function getActorData(){
                         <div class="cast">
                             <img class="cast-photo" src="${actorPhoto}">
                             <div class="cast-actor">
-                                <div>${castName} /</div>
-                                <div>${actorName}</div>
+                                <div class="cast-actor-name">${actorName}</div>
+                                <div class="cast-cast-name">${castName}</div>
                             </div>
                         </div>
                     `);

@@ -33,7 +33,7 @@ router.get("/api/drama/:id", (req, res) => {
                 as: "dramaActor"
             }
         };
-        const limitNoOfCast = { $limit: 9 }
+        const limitNoOfCast = { $limit: 9 }; // No. of casts to be displayed
         const group = {
             $group: {
                 _id: "$_id",

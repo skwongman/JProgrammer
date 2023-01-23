@@ -52,8 +52,8 @@ export default function getDramaRatingData(){
             datasets: [{
                 label: "收視率",
                 data: cbRating, // [10.5, 7.9, 5.2, 8.1, 6.7]
-                backgroundColor: "rgba(255, 99, 132, 0.2)",
-                borderColor: "rgba(255, 99, 132, 1)",
+                backgroundColor: "rgba(135,206,235,0.6)",
+                borderColor: "dodgerblue",
                 borderWidth: 1
             }]
         };
@@ -69,10 +69,10 @@ export default function getDramaRatingData(){
                     mode: "horizontal",
                     scaleID: "y-axis-0",
                     value: cbAvgRating,
-                    borderColor: "dodgerblue",
-                    borderWidth: 1.5,
+                    borderColor: "rgba(255, 99, 132, 0.7)",
+                    borderWidth: 2,
                     label: {
-                        content: `平均收視率: ${cbAvgRating}%`,
+                        content: `平均: ${cbAvgRating}%`,
                         enabled: true,
                         position: "top"
                     }
@@ -89,6 +89,7 @@ export default function getDramaRatingData(){
                     ticks: {
                         beginAtZero: true,
                         fontSize: 16,
+                        stepSize: 2,
                         callback: function(value, index, values) {
                             if(value !== 0) {
                                 return value + "%";
@@ -111,12 +112,12 @@ export default function getDramaRatingData(){
                 datalabels: {
                     align: "end",
                     anchor: "end",
-                    display: true,
-                    formatter: function(value) {
-                        return value + "%";
-                    },
+                    display: false,
                     font: {
                         size: 16
+                    },
+                    formatter: function(value) {
+                        return value + "%";
                     }
                 }
             }
@@ -128,6 +129,19 @@ export default function getDramaRatingData(){
             data: data,
             options: options
         });
+
+
+        if(window.innerWidth < 600){
+            options.scales.yAxes[0].ticks.display = false;
+            options.scales.xAxes[0].ticks.fontSize = 15;
+            options.plugins.datalabels.font.size = 15;
+            chart.destroy();
+            chart = new Chart(ctx,{
+                type: "line",
+                data: data,
+                options: options
+            });
+        };
 
     };
 

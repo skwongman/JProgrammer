@@ -8,6 +8,7 @@
     background-image: url("https://statics.tver.jp/images/content/thumbnail/episode/xlarge/epvl45euhr.jpg?v=56");
     background-repeat: no-repeat;
     background-size: cover;
+    margin-bottom: 10px;
 }
 
 .transparent-layer {
@@ -31,7 +32,7 @@
 .drama-photo-container {
     z-index: 3;
     flex: auto;
-    width: 45%;
+    width: 50%;
     text-align: center;
 }
 
@@ -41,7 +42,7 @@
     object-fit: cover;
     object-position: center;
     border-radius: 10px;
-    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
 }
 
 .drama-details-container {
@@ -49,7 +50,7 @@
     /* font-weight: bold; */
     z-index: 3;
     flex: auto;
-    width: 55%;
+    width: 50%;
 }
 
 .drama-details-title {
@@ -59,9 +60,13 @@
 }
 
 .drama-details-category,
-.drama-details-brief,
-.drama-details-day-time {
+.drama-details-brief {
     margin: 0px 10px 10px 10px;
+    font-size: 17px;
+}
+
+.drama-details-day-time {
+    margin: 0px 10px 10px 40px;
     font-size: 17px;
 }
 
@@ -70,6 +75,11 @@
     font-size: 20px;
     font-weight: bold;
     margin: 10px 10px 0px 10px;
+}
+
+.drama-details-date-of-boardcast {
+    margin: 0px 10px 0px 40px;
+    font-size: 17px;
 }
 
 .drama-episode {
@@ -118,9 +128,10 @@
 }
 
 .cast-header {
-    margin: 10px;
-    font-size: 20px;
+    margin: 20px;
+    font-size: 25px;
     font-weight: bold;
+    text-align: center;
 }
 
 .cast-center {
@@ -143,12 +154,12 @@
     margin: 10px;
     border: 1px solid rgb(209, 206, 206);
     border-radius: 10px;
-    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
 }
 
 .cast-photo {
     width: 100%;
-    height: auto;
+    height: 140px;
     object-fit: cover;
     border-radius: 10px 10px 0px 0px;
 }
@@ -156,8 +167,16 @@
 .cast-actor {
     margin: 5px;
     padding: 5px;
-    font-weight: bold;
     text-align: center;
+}
+
+.cast-actor-name {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.cast-cast-name {
+    font-size: 16px;
 }
 
 
@@ -174,12 +193,14 @@
 }
 
 .rating {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .rating-chart {
-    width: 80%;
+    width: 70%;
     height: auto;
     margin: auto;
 }
@@ -197,16 +218,17 @@
 }
 
 .discuss {
-    margin: 10px;
-    font-size: 20px;
+    margin-bottom: 40px;
+    font-size: 25px;
     font-weight: bold;
+    text-align: center;
 }
 
 .discuss-content {
     border: 1px solid #e3e3e3;
     border-radius: 10px;
     margin: 10px;
-    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
 }
 
 .discuss-title {
@@ -275,9 +297,10 @@
 }
 
 .media {
-    margin: 10px;
-    font-size: 20px;
+    margin-bottom: 40px;
+    font-size: 25px;
     font-weight: bold;
+    text-align: center;
 }
 
 .media-video-container {
@@ -301,6 +324,7 @@
 
 .separator {
     width: 1200px;
+    margin: 50px 0px 50px 0px;
 }
 
 
@@ -312,7 +336,7 @@
     }
     
     .cast {
-        width: 15%;
+        width: 25%;
     }
 
     .discuss-width {
@@ -354,7 +378,7 @@
     }
 
     .cast {
-        width: 25%;
+        width: 35%;
     }
 
     .discuss-width {
