@@ -17,7 +17,7 @@ export default function getDramaRatingData(){
 
         if(data.data){
             if(data.data.dramaRating == "None"){
-                $("#dramaRating").append(`<div>暫無收視率資料</div>`);
+                $("#dramaRating").append(`<div style="text-align:center; font-size:20px;">暫無收視率資料</div>`);
                 $("#myChart").remove();
             }
             else{

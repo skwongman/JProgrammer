@@ -64,7 +64,7 @@ export default function getEachDramaData(){
             // Media information
             if(dramaData.dramaMedia == "None"){
                 $("#dramaMedia").append(`
-                    <div>暫時沒有媒體資訊</div>
+                    <div style="font-size:20px;">暫無媒體資訊</div>
                 `);
             }
             else{
@@ -72,10 +72,42 @@ export default function getEachDramaData(){
                     <iframe class="media-video" src="${dramaData.dramaMedia}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 `);
             };
+
+            // Get drama photo dominant color
+            getDramaPhotoDominantColor(dramaData.dramaCoverPhoto);
         };
     })
     .catch(error => {
-        console.log("Error(drama.getEachDramaData.js): " + error);
+        console.log("Error(drama.getEachDramaData.js - 1): " + error);
     });
+
+
+    // Callback function
+    function getDramaPhotoDominantColor(cbPhotoURL){
+        async function getData(url, method){
+            const response = await fetch(url, method);
+            const data = await response.json();
+            return data;
+        };
+
+        getData("/api/color", {
+            method: "POST",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                "photoURL": cbPhotoURL
+            })
+        })
+        .then(data => {
+            if(data.data){
+                document.querySelector("#transparentLayer").style.backgroundColor = `rgba(${data.data.dominantColor[0]}, ${data.data.dominantColor[1]}, ${data.data.dominantColor[2]}, 0.84)`
+                document.querySelector("#dramaBannerBackgroundPhoto").style.backgroundImage = `url("${cbPhotoURL}")`;
+                document.querySelector("#dramaDetailsFontColor").style.color = `rgba(${data.data.colorPallete[3][0]}, ${data.data.colorPallete[3][1]}, ${data.data.colorPallete[3][2]})`
+    
+            };
+        })
+        .catch(error => {
+            console.log("Error(drama.getEachDramaData.js - 2" + error);
+        });
+    };
 
 };
