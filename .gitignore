@@ -2,7 +2,6 @@
 node_modules
 uploads
 delete.js
-backend/commons/common.js
 backend/data
 utils/
 photo.JPG

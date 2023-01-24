@@ -1,16 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { getColorFromURL, getPaletteFromURL } = require("color-thief-node");
+const { getAverageColor } = require("fast-average-color-node");
 
 router.post("/api/color", (req, res) => {
 
-    (async () => {
-        const photoURL = await req.body.photoURL;
-        const dominantColor = await getColorFromURL(photoURL);
-        const colorPallete = await getPaletteFromURL(photoURL);
+    const photoURL = req.body.photoURL;
 
-        res.json({"data": {"dominantColor": dominantColor, "colorPallete": colorPallete}});
-    })();
+    getAverageColor(photoURL).then(color => {
+        res.json({"data": {"dominantColor": color.value, "isDark": color.isDark}});
+    });
 
 });
 

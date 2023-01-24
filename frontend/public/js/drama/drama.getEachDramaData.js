@@ -99,10 +99,11 @@ export default function getEachDramaData(){
         })
         .then(data => {
             if(data.data){
-                document.querySelector("#transparentLayer").style.backgroundColor = `rgba(${data.data.dominantColor[0]}, ${data.data.dominantColor[1]}, ${data.data.dominantColor[2]}, 0.84)`
-                document.querySelector("#dramaBannerBackgroundPhoto").style.backgroundImage = `url("${cbPhotoURL}")`;
-                document.querySelector("#dramaDetailsFontColor").style.color = `rgba(${data.data.colorPallete[3][0]}, ${data.data.colorPallete[3][1]}, ${data.data.colorPallete[3][2]})`
-    
+                const colorData = data.data;
+
+                document.querySelector("#transparentLayer").style.backgroundColor = `rgba(${colorData.dominantColor[0]}, ${colorData.dominantColor[1]}, ${colorData.dominantColor[2]}, 0.84)`;
+                $("#dramaBannerBackgroundPhoto").css("background-image", `url("${cbPhotoURL}")`);
+                (colorData.isDark) ? document.querySelector("#dramaDetailsFontColor").style.color = "#fff" : document.querySelector("#dramaDetailsFontColor").style.color = "#000";
             };
         })
         .catch(error => {
