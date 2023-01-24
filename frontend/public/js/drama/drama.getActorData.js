@@ -12,6 +12,13 @@ export default function getActorData(){
     .then(data => {
         if(data.data){
             const dramaCastData = data.data;
+
+            // If no cast data
+            if(dramaCastData.dramaActor == "None" || dramaCastData.dramaActor == "" || dramaCastData.dramaActor == []){
+                $("#castContainer").append(`<div style="font-size:20px;">暫無演員資料</div>`);
+            };
+
+            // If cast data is recorded
             let maxNumOfCastPerPage = dramaCastData.dramaActor.length;
     
             for(let i = 0; i < maxNumOfCastPerPage; i ++){

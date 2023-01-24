@@ -23,14 +23,10 @@ export default function getLatestSeasonDramaData(){
             if(data.data){
                 data.data.map(result => {
                     $("#latestDramaContainer").append(`
-                        <div class="col">
+                        <div class="latest-drama-photo">
                             <a href="/drama/${result.dramaID}">
-                                <div class="card h-100">
-                                    <img src="${result.dramaCoverPhoto}" class="card-img-top">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${result.dramaTitle}</h5>
-                                    </div>
-                                </div>
+                                <img class="latest-drama-photo-individual" src="${result.dramaCoverPhoto}">
+                                <div class="latest-drama-photo-individual-title">${result.dramaTitle}</div>
                             </a>
                         </div>
                     `);

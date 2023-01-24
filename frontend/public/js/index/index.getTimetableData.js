@@ -25,10 +25,7 @@ export default function getTimetableData(){
                     const timetableHTML = `
                         <a href="/drama/${result.dramaID}">
                             <div class="timetable-list-border">
-                                <img class="timetable-list-photo" src="${result.dramaCoverPhoto}" title="${result.dramaTimeOfBoardcast.slice(0,5)}">
-                                <div class="timetable-list-title">
-                                    <div id="timetableTest">${result.dramaTitle}</div>
-                                </div>
+                                <img class="timetable-list-photo" src="${result.dramaCoverPhoto}" title="${result.dramaTitle + " " + result.dramaTimeOfBoardcast.slice(0,5)}">
                             </div>
                         </a>
                     `;

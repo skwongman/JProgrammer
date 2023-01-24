@@ -37,7 +37,16 @@ export default function getEachDramaData(){
                 $("#dramaIntroduction").text("暫無概要");
             }
             else{
-                $("#dramaIntroduction").text(dramaData.dramaIntroduction);
+                const threshold = 65; // Max no. of wording for introduction
+                let string = dramaData.dramaIntroduction;
+                
+                if(string.length > threshold){
+                    string = string.substring(0, threshold) + "…";
+                    $("#dramaIntroduction").text(string);
+                }
+                else{
+                    $("#dramaIntroduction").text(string);
+                };
             };
 
             // TV station
