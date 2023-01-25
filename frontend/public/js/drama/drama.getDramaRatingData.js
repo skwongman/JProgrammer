@@ -16,12 +16,12 @@ export default function getDramaRatingData(){
         };
 
         if(data.data){
-            if(data.data.dramaRating == "None"){
+            if(data.data.drama.dramaRating == "None"){
                 $("#dramaRating").append(`<div style="text-align:center; font-size:20px;">暫無收視率資料</div>`);
                 $("#myChart").remove();
             }
             else{
-                const rating = data.data.dramaRating;
+                const rating = data.data.drama.dramaRating;
                 const maxRating = parseInt(Math.max(...rating));
                 const maxRatingisDivisible = (maxRating % 2 === 0) ? maxRating + 6 : maxRating + 5; // Maximum ceiling in y-axis
                 const sum = rating.reduce((acc, val) => acc + parseFloat(val), 0);

@@ -5,7 +5,6 @@ const dramaAPIRouter = require("./backend/routes/dramaAPI.route");
 const timetableAPIRouter = require("./backend/routes/timetableAPI.route");
 const popularAPIRouter = require("./backend/routes/popularAPI.route");
 const dramaQueryStringAPIRouter = require("./backend/routes/dramaQueryStringAPI.route");
-const getDramaPhotoDominantColor = require("./backend/routes/getDramaPhotoDominantColor");
 const bodyParser = require("body-parser");
 
 
@@ -50,9 +49,6 @@ app.get("/api/timetable", timetableAPIRouter);
 
 // Get drama API
 app.get("/api/drama/:id", dramaQueryStringAPIRouter);
-
-// Get drama photo dominant color API
-app.post("/api/color", getDramaPhotoDominantColor);
 
 
 // 404 Error page

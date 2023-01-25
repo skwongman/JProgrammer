@@ -1,5 +1,6 @@
 const express = require("express");
 const { client } = require("../commons/common");
+const { getAverageColor } = require("fast-average-color-node");
 const router = express.Router();
 
 // Middleware function to add the database connection to the request object
@@ -85,7 +86,14 @@ router.get("/api/drama/:id", (req, res) => {
                 res.status(400).json({"error": true, "message": "ID not found"});
             }
             else{
-                res.status(200).json({"data": result[0]});
+                const photoURL = result[0].dramaCoverPhoto;
+
+                getAverageColor(photoURL).then(color => {
+                    const dominantColor = color.rgba.replace(",1)", ",0.84)");
+                    const isDark = color.isDark;
+
+                    res.status(200).json({"data": {"drama": result[0], "dominantColor": dominantColor, "isDark": isDark}});
+                });
             };
         });
     });

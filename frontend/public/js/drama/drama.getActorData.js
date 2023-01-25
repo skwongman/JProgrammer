@@ -11,7 +11,7 @@ export default function getActorData(){
     getData(`/api/drama/${dramaID}`)
     .then(data => {
         if(data.data){
-            const dramaCastData = data.data;
+            const dramaCastData = data.data.drama;
 
             // If no cast data
             if(dramaCastData.dramaActor == "None" || dramaCastData.dramaActor == "" || dramaCastData.dramaActor == []){

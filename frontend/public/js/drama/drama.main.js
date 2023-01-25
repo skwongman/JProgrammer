@@ -4,9 +4,9 @@ import getActorData from "./drama.getActorData.js";
 
 try{
     await Promise.all([
-        getDramaRatingData(),
+        // getDramaRatingData(),
         getEachDramaData(),
-        getActorData()
+        // getActorData()
     ]);
 }
 catch(err){
