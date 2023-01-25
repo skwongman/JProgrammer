@@ -22,6 +22,8 @@ export default function getDramaRatingData(){
             }
             else{
                 const rating = data.data.dramaRating;
+                const maxRating = parseInt(Math.max(...rating));
+                const maxRatingisDivisible = (maxRating % 2 === 0) ? maxRating + 6 : maxRating + 5; // Maximum ceiling in y-axis
                 const sum = rating.reduce((acc, val) => acc + parseFloat(val), 0);
                 const avgRating = (sum / rating.length).toFixed(1);
                 const episode = [];
@@ -31,7 +33,7 @@ export default function getDramaRatingData(){
                 };
     
                 // Callback function
-                ratingData(rating, avgRating, episode);
+                ratingData(rating, maxRatingisDivisible, avgRating, episode);
             };
         };
     })
@@ -41,7 +43,7 @@ export default function getDramaRatingData(){
 
 
     // Drama rating chart setting
-    function ratingData(cbRating, cbAvgRating, cbEpisode){
+    function ratingData(cbRating, cbmaxRatingisDivisible, cbAvgRating, cbEpisode){
 
         // Get the context of the canvas element we want to select
         const ctx = document.getElementById("myChart").getContext("2d");
@@ -90,6 +92,7 @@ export default function getDramaRatingData(){
                         beginAtZero: true,
                         fontSize: 16,
                         stepSize: 2,
+                        max: cbmaxRatingisDivisible,
                         callback: function(value, index, values) {
                             if(value !== 0) {
                                 return value + "%";
