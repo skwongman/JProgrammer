@@ -25,7 +25,7 @@ export default function getLatestSeasonDramaData(){
         render: function(data){
             if(data.data){
                 data.data.map(result => {
-                    $("#latestDramaContainer").append(`
+                    $("#latestDramaPhotoContainer").append(`
                         <div class="latest-drama-photo">
                             <a href="/drama/${result.dramaID}">
                                 <img class="latest-drama-photo-individual" src="${result.dramaCoverPhoto}">
@@ -34,12 +34,17 @@ export default function getLatestSeasonDramaData(){
                         </div>
                     `);
                 });
+
+                // Show whole content (including latest, popular and timetable)
+                $("#indexContentContainer").css("visibility", "visible");
+
                 // Remove loading effect
                 topbar.hide();
             };
         },
         renderError: function(err){
             console.log("JsError(1): " + err);
+
             // Remove loading effect
             topbar.hide();
         }

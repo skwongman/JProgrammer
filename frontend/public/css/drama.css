@@ -372,10 +372,7 @@
     
     .drama-photo {
         width: 87%;
-    }
-
-    .drama-photo {
-        height: auto;
+        height: 200px;
     }
 
     .drama-details-container {

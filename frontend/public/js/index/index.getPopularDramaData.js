@@ -22,7 +22,7 @@ export default function getPopularDramaData(){
         render: function(data){
             if(data.data){
                 data.data.map(result => {
-                    $("#popularDramaContainer").append(`
+                    $("#popularDramaPhotoContainer").append(`
                         <div class="latest-drama-photo">
                             <a href="/drama/${result.dramaID}">
                                 <img class="latest-drama-photo-individual" src="${result.dramaCoverPhoto}">

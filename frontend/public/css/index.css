@@ -132,7 +132,13 @@
     margin: 10px;
     border: 1px solid rgb(223, 218, 218);
     border-radius: 10px;
+    cursor: pointer;
     box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
+}
+
+.latest-drama-photo:hover,
+.popular-drama-photo:hover {
+    filter: brightness(0.8) contrast(120%);
 }
 
 .latest-drama-photo-individual,
@@ -211,6 +217,10 @@
     height: 80px;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.timetable-list-photo:hover {
+    filter: brightness(0.8) contrast(120%);
 }
 
 

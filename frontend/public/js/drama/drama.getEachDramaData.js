@@ -15,6 +15,7 @@ export default function getEachDramaData(){
     .then(data => {
         if(data.error == true && data.message == "ID not found"){
             location.href = "/";
+
             // Remove loading effect
             topbar.hide();
         };
@@ -145,6 +146,9 @@ export default function getEachDramaData(){
                     <iframe class="media-video" src="${dramaData.dramaMedia}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 `);
             };
+
+            // Show content
+            $("#dramaContentContainer").css("visibility", "visible");
 
             // Remove loading effect
             topbar.hide();
