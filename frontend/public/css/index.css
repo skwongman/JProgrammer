@@ -133,12 +133,13 @@
     border: 1px solid rgb(223, 218, 218);
     border-radius: 10px;
     cursor: pointer;
+    z-index: 2;
     box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
 }
 
 .latest-drama-photo:hover,
 .popular-drama-photo:hover {
-    filter: brightness(0.8) contrast(120%);
+    filter: brightness(0.85) contrast(120%);
 }
 
 .latest-drama-photo-individual,
@@ -148,6 +149,26 @@
     object-fit: cover;
     object-position: center;
     border-radius: 10px 10px 0px 0px;
+}
+
+.latest-drama-photo:hover .latest-drama-video {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.latest-drama-video {
+    position: absolute;
+    bottom: 55%;
+    left: 25%;
+    width: 50%;
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.61);
+    opacity: 0;
 }
 
 .latest-drama-photo-individual-title,
@@ -262,12 +283,15 @@
 @media(max-width:600px) {
 
     .latest-drama-photo,
-    .popular-drama-photo {
+    .popular-drama-photo,
+    .timetable-list {
         width: 90%;
     }
 
-    .timetable-list {
-        width: 90%;
+    .latest-drama-header,
+    .popular-drama-header,
+    .timetable-header {
+        text-align: center;
     }
 
     .timetable-list-photo {

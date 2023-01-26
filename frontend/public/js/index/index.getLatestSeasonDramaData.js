@@ -29,6 +29,7 @@ export default function getLatestSeasonDramaData(){
                         <div class="latest-drama-photo">
                             <a href="/drama/${result.dramaID}">
                                 <img class="latest-drama-photo-individual" src="${result.dramaCoverPhoto}">
+                                ${(result.dramaDownload.length != 0) ? `<div class="latest-drama-video">線上觀看</div>` : ""}
                                 <div class="latest-drama-photo-individual-title">${result.dramaTitle}</div>
                             </a>
                         </div>

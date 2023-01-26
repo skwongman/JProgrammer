@@ -25,9 +25,18 @@ router.get("/api/drama", (req, res) => {
         };
 
         const collection = req.db.collection("drama");
-        const sortlisted = { projection: {_id: 0, dramaDoramaWebLink: 0, dramaAllPhoto: 0, dramaCreatedTime: 0} };
-        let keywordSearch = {};
+
+        const dramaDownload = {
+            $lookup: {
+                from: "download",
+                localField: "dramaTitle",
+                foreignField: "downloadTitleChi",
+                as: "dramaDownload"
+            }
+        };
+
         // Keyword search for drama_title and drama_category
+        let keywordSearch = {};
         if(keyword){
             keywordSearch = {
                 $or: [
@@ -37,8 +46,27 @@ router.get("/api/drama", (req, res) => {
                 ]
             };
         };
+        const handleKeywordSearch = { $match: keywordSearch };
+
+        const sortlisted = {
+            $project: {
+                _id:0,
+                nextPage: 1,
+                dramaID: 1,
+                dramaTitle: 1,
+                dramaCoverPhoto: 1,
+                "dramaDownload.downloadLink": 1
+            }
+        };
+
+        const aggregatePipeline = [dramaDownload, handleKeywordSearch, sortlisted];
         
-        collection.find(keywordSearch, sortlisted).skip(dataOrderPerPage).limit(dataPerPage).toArray((err, result) => {
+        // Fetching data
+        collection
+        .aggregate(aggregatePipeline)
+        .skip(dataOrderPerPage)
+        .limit(dataPerPage)
+        .toArray((err, result) => {
             if(err){
                 res.status(500).json({"error": true, "message": err.message});
                 console.log("Error(dramaAPI.route - 2): " + err);
@@ -46,6 +74,7 @@ router.get("/api/drama", (req, res) => {
             };
 
             const nextPage = (result.length + 1 == 7) ? page + 1 : null;
+
             res.status(200).json({"nextPage": nextPage, "data": result});
         }); 
     });

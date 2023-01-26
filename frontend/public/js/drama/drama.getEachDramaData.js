@@ -79,8 +79,9 @@ export default function getEachDramaData(){
                     <div class="drama-episode-title">
                         <a href="${dramaData.dramaDownload[i].downloadLink}">第${i+1}話</a>
                     </div>
-                `)
+                `);
             };
+            (colorData.isDark) ? $("a:link").css("color", "#fff") : $("#dramaDetailsFontColor").css("color", "#000");
 
             // Cast
             const dramaCastData = data.data.drama;

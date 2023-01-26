@@ -23,9 +23,7 @@ router.get("/api/drama/:id", (req, res) => {
         id = parseInt(id);
         const collection = req.db.collection("drama");
         const matchDramaID = { $match: { dramaID: id } };
-        const unwind = {
-            $unwind: "$dramaActor"
-        }
+        const unwind = { $unwind: "$dramaActor" };
         const aggreActor = {
             $lookup: {
                 from: "actorMix",
@@ -76,7 +74,10 @@ router.get("/api/drama/:id", (req, res) => {
         const aggregatePipeline = [matchDramaID, unwind, aggreActor, limitNoOfCast, group, dramaDownload, sortlisted];
 
         // Fetching data
-        collection.aggregate(aggregatePipeline).limit(1).toArray((err, result) => {
+        collection
+        .aggregate(aggregatePipeline)
+        .limit(1)
+        .toArray((err, result) => {
             if(err){
                 res.status(500).json({"error": true, "message": err.message});
                 console.log("Error(dramaQueryStringAPI.route - 2): " + err);

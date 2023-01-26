@@ -92,11 +92,13 @@
     font-size: 17px;
     margin: 10px;
     font-weight: bold;
+    color: #000;
 }
 
 .drama-episode-title {
     flex: auto;
     width: 20%;
+    color: #000;
 }
 
 .drama-edit {
@@ -272,7 +274,7 @@
 
 .discuss-reply-icon-like,
 .discuss-reply-icon-reply {
-    width: 1.5%;
+    width: 15px;
     height: auto;
     object-fit: contain;
     object-position: center;
