@@ -2,6 +2,9 @@ export default function getLatestSeasonDramaData(){
         
     const model = {
         init: function(){
+            // Add loading effect
+            topbar.show();
+
             async function getData(url){
                 const response = await fetch(url);
                 const data = await response.json();
@@ -31,10 +34,14 @@ export default function getLatestSeasonDramaData(){
                         </div>
                     `);
                 });
+                // Remove loading effect
+                topbar.hide();
             };
         },
         renderError: function(err){
             console.log("JsError(1): " + err);
+            // Remove loading effect
+            topbar.hide();
         }
     };
 

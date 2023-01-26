@@ -178,6 +178,7 @@
 
 .cast-cast-name {
     font-size: 15px;
+    color: #636c7d;
 }
 
 
@@ -370,24 +371,32 @@
     }
     
     .drama-photo {
+        width: 87%;
+    }
+
+    .drama-photo {
         height: auto;
     }
 
     .drama-details-container {
         width: 70%;
-        margin: 10px;
+        margin: 20px;
     }
 
     .cast {
-        width: 35%;
+        width: 38%;
+    }
+
+    .rating-chart {
+        width: 85%;
     }
 
     .discuss-width {
-        width: 80%;
+        width: 87%;
     }
 
     .media-video {
-        width: 80%;
+        width: 81%;
         height: 200px;
     }
 

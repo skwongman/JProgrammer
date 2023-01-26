@@ -1,5 +1,8 @@
 export default function getEachDramaData(){
 
+    // Add loading effect
+    topbar.show();
+
     const dramaID = location.href.split("/").pop();
 
     async function getData(url){
@@ -12,6 +15,8 @@ export default function getEachDramaData(){
     .then(data => {
         if(data.error == true && data.message == "ID not found"){
             location.href = "/";
+            // Remove loading effect
+            topbar.hide();
         };
 
         if(data.data){
@@ -140,6 +145,9 @@ export default function getEachDramaData(){
                     <iframe class="media-video" src="${dramaData.dramaMedia}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 `);
             };
+
+            // Remove loading effect
+            topbar.hide();
         };
     })
     .catch(error => {
@@ -229,7 +237,7 @@ export default function getEachDramaData(){
         };
 
         // Create the chart
-        const chart = new Chart(ctx, {
+        let chart = new Chart(ctx, {
             type: "line",
             data: data,
             options: options
