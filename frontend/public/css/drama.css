@@ -245,20 +245,20 @@
 }
 
 .discuss-title-user-profile {
-    flex: auto;
-    width: 5%;
+    flex: none;
+    width: 45px;
     margin-right: 10px;
 }
 
 .discuss-title-user-profile-picture {
     border-radius: 50%;
-    width: 100%;
-    height: auto;
+    width: 45px;
+    height: 45px;
 }
 
 .discuss-title-user-content {
     flex: auto;
-    width: 95%;
+    width: 85%;
 }
 
 .discuss-post {
