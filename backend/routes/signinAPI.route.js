@@ -47,7 +47,7 @@ router.put("/api/user/auth", (req, res) => {
     
                 // If email is not found.
                 if(result == null){
-                    res.status(400).json({"error": true, "message": "The email or password is not correct"});
+                    res.status(400).json({"error": true, "message": "The email is not found"});
                 }
                 // If email is found.
                 else{
@@ -58,9 +58,11 @@ router.put("/api/user/auth", (req, res) => {
                             console.log("Error(signinAPI.route - 3): " + err);
                         };
 
+                        // If the user input password is "not match" with the encrypted password in the database.
                         if(!match){
                             res.status(400).json({"error": true, "message": "The email or password is not correct"});
                         }
+                        // If the user input password is "match" with the encrypted password in the database.
                         else{
                             // Create JWT with member id.
                             const secretKey = process.env.JWT_SECRET_KEY;

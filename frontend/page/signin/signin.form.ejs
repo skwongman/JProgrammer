@@ -1,12 +1,45 @@
-<br/><br/><br/><br/><br/>
+<!-- Signin -->
+<div id="signinContainer">
+    <div class="signin-container">
+        <div class="signin-width">
+            <div class="signin-header">會員登入</div>
 
-Name: <input id="signupName" type="text"><br/>
-Email: <input id="signupEmail" type="text"><br/>
-Password: <input id="signupPassword" type="password"><br/>
-<button id="handleSignupBtn">Signup</button><br/><br/>
+            <div class="signin-email-title">電子信箱:</div>
+            <input id="signinEmail" class="signin-email-input" type="text">
 
-Email: <input id="signinEmail" type="text"><br/>
-Password: <input id="signinPassword" type="password"><br/>
-<button id="handleSigninBtn">Signin</button><br/><br/>
+            <div class="signin-password-title">密碼:</div>
+            <input id="signinPassword" class="signin-password-input" type="password">
+
+            <div id="handleSigninBtn" class="signin-btn">登入帳戶</div>
+
+            <div id="signinReminder" class="signin-reminder">還沒有帳戶？<span class="signin-reminder-text">點此註冊</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Signup -->
+<div id="signupContainer" style="display:none;">
+    <div class="signup-container">
+        <div class="signup-width">
+            <div class="signup-header">會員註冊</div>
+
+            <div class="signup-email-title">電子信箱:</div>
+            <input id="signupEmail" class="signup-email-input" type="text">
+
+            <div class="signup-name-title">名字:</div>
+            <input id="signupName" class="signup-name-input" type="text">
+
+            <div class="signup-password-title">密碼:</div>
+            <input id="signupPassword" class="signup-password-input" type="password">
+
+            <div id="handleSignupBtn" class="signup-btn">註冊新帳戶</div>
+
+            <div id="signupReminder" class="signup-reminder">已經有帳戶？<span class="signup-reminder-text">點此登入</span></div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <button id="handleSignoutBtn">Signout</button>

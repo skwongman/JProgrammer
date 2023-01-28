@@ -1,7 +1,6 @@
 export default function userSignup(){
 
-    document.querySelector("#handleSignupBtn").addEventListener("click", () => {
-
+    $("#handleSignupBtn").click(() => {
         async function userSignupData(url, method){
             const response = await fetch(url, method);
             const data = await response.json();
@@ -18,75 +17,30 @@ export default function userSignup(){
             })
         })
         .then(data => {
-            console.log(data);
+            if(data.error && data.message == "The user input do not match with the designated format"){
+                alert("請輸入正確註冊資料！");
+            };
+
+            if(data.error && data.message == "This email has been registered"){
+                alert("此電子信箱已經被註冊！");
+            };
+
+            if(data.ok){
+                alert("註冊成功！");
+                signupEmail.value = "";
+                signupName.value = "";
+                signupPassword.value = "";
+            };
         })
         .catch(error => {
-            console.log(error);
+            console.log("Error(signin.userSignup.js - 1): " + error);
         });
-
     });
 
-
-    document.querySelector("#handleSigninBtn").addEventListener("click", () => {
-
-        async function userSigninData(url, method){
-            const response = await fetch(url, method);
-            const data = await response.json();
-            return data;
-        };
-
-        userSigninData("/api/user/auth", {
-            method: "PUT",
-            headers: {"Content-type": "application/json"},
-            body: JSON.stringify({
-                "email": signinEmail.value,
-                "password": signinPassword.value
-            })
-        })
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-
+    $("#signupReminder").click(() => {
+        $("#signupContainer").css("display", "none");
+        $("#signinContainer").css("display", "block");
+        $(".footer").css("marginTop", "130px");
     });
-
-
-    document.querySelector("#handleSignoutBtn").addEventListener("click", () => {
-
-        async function userSignoutData(url, method){
-            const response = await fetch(url, method);
-            const data = await response.json();
-            return data;
-        };
-
-        userSignoutData("/api/user/auth", {
-            method: "DELETE"
-        })
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-
-    });
-
-
-    async function userSigninStatusData(url){
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
-    };
-
-    userSigninStatusData("/api/user/auth")
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => {
-        console.log(error);
-    });
-
 
 };
