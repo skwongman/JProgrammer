@@ -124,7 +124,7 @@ html {
     cursor: pointer;
 }
 
-.nav-bar-right-title-signin {
+.nav-bar-right-title-signin-before {
     flex: none;
     margin-left: 10px;
     cursor: pointer;
@@ -135,7 +135,11 @@ html {
     height: 50px;
     border-radius: 50%;
     border: 1px solid rgb(209, 206, 206);
-    object-fit: contain;
+    object-fit: cover;
+}
+
+.nav-bar-right-title-profile-picture:hover {
+    filter: brightness(0.8) contrast(120%);
 }
 
 

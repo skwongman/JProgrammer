@@ -21,6 +21,11 @@ router.get("/member", (req, res) => {
     res.render("member");
 })
 
+// add.html
+router.get("/add", (req, res) => {
+    res.render("add");
+})
+
 // Error page
 router.use((req, res) => {
     res.status(404).send("ERROR! 404 NOT FOUND!");

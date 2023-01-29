@@ -11,6 +11,15 @@ export default function userSigninStatus(){
         // Only show the signin page content when the user is not in the login status.
         if(data.error && data.message == "forbidden"){
             $("#signinContentContainer").css("visibility", "visible");
+
+            // After clicking the "add drama" button on the navigation bar, the user will be redireced to the signin page if they have not logged in.
+            $("#addDrama").click(() => {
+                location.href = "/signin";
+            });
+
+            $("#addDramaMobile").click(() => {
+                location.href = "/signin";
+            });
         };
 
         if(data.data){
@@ -28,6 +37,15 @@ export default function userSigninStatus(){
             if(location.href.split("/").pop() == "signin"){
                 location.href = "/";
             };
+
+            // After clicking the "add drama" button on the navigation bar, the user will be redireced to the add drama page if they have logged in.
+            $("#addDrama").click(() => {
+                location.href = "/add";
+            });
+
+            $("#addDramaMobile").click(() => {
+                location.href = "/add";
+            });
         };
 
     })
