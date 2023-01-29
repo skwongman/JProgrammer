@@ -45,9 +45,10 @@ router.get("/api/user/auth", (req, res) => {
                     const data = {
                         "memberID": result._id.toString(),
                         "memberName": result.memberName,
-                        "memberEmail": result.memberEmail
+                        "memberEmail": result.memberEmail,
+                        "memberProfilePicture": result.memberProfilePicture
                     };
-                    
+
                     res.status(200).json({"data": data});
                 });
             });            

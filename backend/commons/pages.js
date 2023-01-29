@@ -11,9 +11,14 @@ router.get("/drama/:id", (req, res) => {
     res.render("drama");
 });
 
-// signup and signin pages
+// signin.html
 router.get("/signin", (req, res) => {
     res.render("signin");
+})
+
+// member.html
+router.get("/member", (req, res) => {
+    res.render("member");
 })
 
 // Error page

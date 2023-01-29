@@ -55,7 +55,12 @@ router.post("/api/user", (req, res) => {
                     const saltRounds = 10;
     
                     bcrypt.hash(signupPassword, saltRounds, (err, hashedPassword) => {
-                        const insertQuery = { memberEmail: signupEmail, memberName: signupName, memberPassword: hashedPassword };
+                        const insertQuery = {
+                            memberEmail: signupEmail,
+                            memberName: signupName,
+                            memberPassword: hashedPassword,
+                            memberProfilePicture: "https://drive.google.com/uc?id=1BSt12NnKoqW4MuRgQI7vjTStpn8IW27d"
+                        };
     
                         collection.insertOne(insertQuery, () => {
                             res.status(200).json({"ok": true});

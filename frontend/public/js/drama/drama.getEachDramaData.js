@@ -157,6 +157,9 @@ export default function getEachDramaData(){
     })
     .catch(error => {
         console.log("Error(drama.getEachDramaData.js - 1): " + error);
+        
+        // Remove loading effect
+        topbar.hide();
     });
 
 

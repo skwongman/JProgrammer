@@ -1,9 +1,9 @@
-import getEachDramaData from "./drama.getEachDramaData.js";
+import userSignout from "./member.userSignout.js";
 import userSigninStatus from "../signin/signin.userSigninStatus.js";
 
 try{
     await Promise.all([
-        getEachDramaData(),
+        userSignout(),
         userSigninStatus()
     ]);
 }

@@ -37,7 +37,9 @@ export default function getLatestSeasonDramaData(){
                 });
 
                 // Show whole content (including latest, popular and timetable)
-                $("#indexContentContainer").css("visibility", "visible");
+                setTimeout(() => {
+                    $("#indexContentContainer").css("visibility", "visible");
+                }, 50);
 
                 // Remove loading effect
                 topbar.hide();
