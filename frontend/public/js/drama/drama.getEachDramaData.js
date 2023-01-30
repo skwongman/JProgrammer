@@ -74,14 +74,69 @@ export default function getEachDramaData(){
             $("#dramaTimeOfBoardcast").text(dramaData.dramaTimeOfBoardcast);
 
             // Episode
-            for(let i = 0; i < dramaData.dramaDownload.reverse().length; i ++){
+            for(let i = dramaData.dramaDownload.length - 1; i >=0; i --){
+                const episode = dramaData.dramaDownload.length - i;
+
                 $("#dramaDownload").append(`
                     <div class="drama-episode-title">
-                        <a href="${dramaData.dramaDownload[i].downloadLink}">第${i+1}話</a>
+                        <span class="video-btn" id="videoBtn${episode}" titleChi="${dramaData.dramaDownload[i].downloadTitleChi}" titleJp="${dramaData.dramaDownload[i].downloadTitleJp}" link="${dramaData.dramaDownload[i].downloadLink}">第${episode}話</span>
                     </div>
                 `);
             };
-            (colorData.isDark) ? $("a:link").css("color", "#fff") : $("#dramaDetailsFontColor").css("color", "#000");
+            (colorData.isDark) ? $(".video-btn").css("color", "#fff") : $(".video-btn").css("color", "#000");
+
+            // Drama Video
+            let currentTime = 0;
+            const preventContextMenu = function(event){
+                event.preventDefault();
+            };
+
+            document.querySelectorAll("span.video-btn").forEach((result) => {
+                result.addEventListener("click", (e) => {
+                    // Add the drama video link to the HLS.js
+                    if(Hls.isSupported()){
+                        const video = document.getElementById("video");
+                        const hls = new Hls();
+                        hls.loadSource(e.target.attributes.link.value);
+                        hls.attachMedia(video);
+                        hls.on(Hls.Events.MANIFEST_PARSED, function(){
+                            video.pause();
+                            // Add the drama video title to the video navigation bar.
+                            $("#videoTitle").text(e.target.attributes.titleChi.value + " / " + e.target.attributes.titleJp.value);
+
+                            // Display the drama video player.
+                            $("#videoContainer").css("display", "block");
+
+                            // Record the video playing time before hide.
+                            $("#video").prop("currentTime", currentTime);
+
+                            // Disable the scrolling function.
+                            document.body.style.overflow = "hidden";
+
+                            // Disable mouse right-click function.
+                            document.addEventListener("contextmenu", preventContextMenu, false);
+                        });
+                    };
+                });
+            });
+
+            // Video Close Button.
+            document.querySelector("#videoCloseBtn").addEventListener("click", () => {
+                // Record the current video playing time before close.
+                currentTime = $("#video").prop("currentTime");
+
+                // Pause the video before close.
+                $("#video").trigger("pause");
+
+                // Close the video player.
+                $("#videoContainer").css("display", "none");
+
+                // Enable the scrolling function.
+                document.body.style.overflow = "auto";
+
+                // Enable mouse right-click function.
+                document.removeEventListener("contextmenu", preventContextMenu, false);
+            });
 
             // Cast
             const dramaCastData = data.data.drama;

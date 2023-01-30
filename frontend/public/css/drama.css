@@ -319,6 +319,78 @@
     height: 280px;
 }
 
+/* Drama Video */
+.video-container {
+    display: none;
+}
+
+.video {
+    position: absolute;
+    top: 4%;
+    left: 18%;
+    width: 65%;
+    height: auto;
+    object-position: center;
+    z-index: 12;
+}
+
+.video-btn {
+    cursor: pointer;
+}
+
+.video-close-btn {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    margin: 20px;
+    color: green;
+    font-size: 50px;
+    font-weight: bold;
+    z-index: 12;
+    cursor: pointer;
+}
+
+.video-close-btn:hover {
+    opacity: 0.8;
+}
+
+.video-layer {
+    display: block;
+    z-index: 11;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: rgba(0, 0, 0, 0.884);
+}
+
+.video-navigation-bar-layer {
+    display: block;
+    z-index: 11;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 70px;
+    margin: 0px;
+    padding: 0px;
+    background: rgba(0, 0, 0, 0.884);
+}
+
+.video-title {
+    position: absolute;
+    color: #fff;
+    padding: 19px;
+    margin-left: 40px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 12;
+}
+
 
 /* Separator */
 .separator-container {
