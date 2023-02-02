@@ -102,7 +102,9 @@
 }
 
 .drama-edit {
-    margin: 10px auto;
+    position: absolute;
+    /* margin: 10px auto; */
+    top: 490px;
     background-color: #032541;
     border-radius: 5px;
     width: 80px;
@@ -112,6 +114,7 @@
     cursor: pointer;
     font-size: 17px;
     color: #fff;
+    z-index: 3;
 }
 
 .drama-edit:hover {
@@ -334,9 +337,11 @@
     z-index: 12;
 }
 
-.video-btn {
+.video-btn-jp,
+.video-btn-chi {
     cursor: pointer;
 }
+
 
 .video-close-btn {
     position: absolute;
@@ -390,6 +395,17 @@
     font-weight: bold;
     z-index: 12;
 }
+
+.nav.nav-tabs {
+    margin: 10px;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+
 
 
 /* Separator */
@@ -470,6 +486,10 @@
     .media-video {
         width: 81%;
         height: 200px;
+    }
+
+    .drama-edit {
+        top: 730px;
     }
 
 }

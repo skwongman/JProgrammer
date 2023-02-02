@@ -73,55 +73,117 @@ export default function getEachDramaData(){
             // Time of broadcast
             $("#dramaTimeOfBoardcast").text(dramaData.dramaTimeOfBoardcast);
 
-            // Episode
-            for(let i = dramaData.dramaDownload.length - 1; i >=0; i --){
-                const episode = dramaData.dramaDownload.length - i;
-
-                $("#dramaDownload").append(`
-                    <div class="drama-episode-title">
-                        <span class="video-btn" id="videoBtn${episode}" titleChi="${dramaData.dramaDownload[i].downloadTitleChi}" titleJp="${dramaData.dramaDownload[i].downloadTitleJp}" link="${dramaData.dramaDownload[i].downloadLink}">第${episode}話</span>
+            // Episode (Japanese Source)
+            if(dramaData.dramaDownloadJp.length == 0){
+                $("#dramaDownloadJp").append(`
+                    <div class="drama-episode-title" align="center">
+                        <span class="drama-no-source">暫無來源</span>
                     </div>
                 `);
+            }
+            else{
+                for(let i = dramaData.dramaDownloadJp.length - 1; i >= 0; i --){
+                    const episode = dramaData.dramaDownloadJp.length - i;
+    
+                    $("#dramaDownloadJp").append(`
+                        <div class="drama-episode-title">
+                            <span class="video-btn-jp" id="videoBtn${episode}" titleChi="${dramaData.dramaDownloadJp[i].downloadTitleChi}" titleJp="${dramaData.dramaDownloadJp[i].downloadTitleJp}" link="${dramaData.dramaDownloadJp[i].downloadLink}">第${episode}話</span>
+                        </div>
+                    `);
+                };
             };
-            (colorData.isDark) ? $(".video-btn").css("color", "#fff") : $(".video-btn").css("color", "#000");
 
+            // Episode (Chinese Source)
+            if(dramaData.dramaDownloadChi.length == 0){
+                $("#dramaDownloadChi").append(`
+                    <div class="drama-episode-title" align="center">
+                        <span class="drama-no-source">暫無來源</span>
+                    </div>
+                `);
+            }
+            else{
+                for(let i = dramaData.dramaDownloadChi.length - 1; i >= 0; i --){
+                    const episode = dramaData.dramaDownloadChi.length - i;
+    
+                    $("#dramaDownloadChi").append(`
+                        <div class="drama-episode-title">
+                            <span class="video-btn-chi" id="videoBtn${episode}" titleChi="${dramaData.dramaDownloadChi[i].downloadTitleChi}" titleJSF="${dramaData.dramaDownloadChi[i].downloadTitleJSF}" link="${dramaData.dramaDownloadChi[i].downloadLink}">第${episode}話</span>
+                        </div>
+                    `);
+                };
+            };
+
+            // Episode Tap Bar and Button Color
+            (colorData.isDark) ? $(".video-btn-jp").css("color", "#fff") : $(".video-btn-jp").css("color", "#000");
+            (colorData.isDark) ? $(".video-btn-chi").css("color", "#fff") : $(".video-btn-chi").css("color", "#000");
+            (colorData.isDark) ? $(".drama-no-source").css("color", "#fff") : $(".drama-no-source").css("color", "#000");
+            (colorData.isDark) ? $(".nav-link").css("color", "#fff") : $(".nav-link").css("color", "#000");
+            
             // Drama Video
             let currentTime = 0;
             const preventContextMenu = function(event){
                 event.preventDefault();
             };
 
-            document.querySelectorAll("span.video-btn").forEach((result) => {
-                result.addEventListener("click", (e) => {
-                    // Add the drama video link to the HLS.js
-                    if(Hls.isSupported()){
-                        const video = document.getElementById("video");
-                        const hls = new Hls();
-                        hls.loadSource(e.target.attributes.link.value);
-                        hls.attachMedia(video);
-                        hls.on(Hls.Events.MANIFEST_PARSED, function(){
-                            video.pause();
-                            // Add the drama video title to the video navigation bar.
-                            $("#videoTitle").text(e.target.attributes.titleChi.value + " / " + e.target.attributes.titleJp.value);
+            // Japanese Source
+            $("span.video-btn-jp").click((e) => {
+                // Add the drama video link to the HLS.js
+                if(Hls.isSupported()){
+                    const video = $("video").get(0);
+                    const hls = new Hls();
+                    hls.loadSource(e.target.attributes.link.value);
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                        video.pause();
+                        // Add the drama video title to the video navigation bar.
+                        $("#videoTitle").text(e.target.attributes.titleChi.value + " / " + e.target.attributes.titleJp.value);
 
-                            // Display the drama video player.
-                            $("#videoContainer").css("display", "block");
+                        // Display the drama video player.
+                        $("#videoContainer").css("display", "block");
 
-                            // Record the video playing time before hide.
-                            $("#video").prop("currentTime", currentTime);
+                        // Record the video playing time before hide.
+                        $("#video").prop("currentTime", currentTime);
 
-                            // Disable the scrolling function.
-                            document.body.style.overflow = "hidden";
+                        // Disable the scrolling function.
+                        $("body").css("overflow", "hidden");
 
-                            // Disable mouse right-click function.
-                            document.addEventListener("contextmenu", preventContextMenu, false);
-                        });
-                    };
-                });
+                        // Disable mouse right-click function.
+                        $(document).on("contextmenu", preventContextMenu);
+                    });
+                };
+            });
+
+            // Chinese Source
+            $("span.video-btn-chi").click((e) => {
+                // console.log("https://localhost:5000/proxy?url=" + e.target.attributes.link.value)
+                // Add the drama video link to the HLS.js
+                if(Hls.isSupported()){
+                    const video = $("video").get(0);
+                    const hls = new Hls();
+                    hls.loadSource("/proxy?url=" + e.target.attributes.link.value);
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                        video.pause();
+                        // Add the drama video title to the video navigation bar.
+                        $("#videoTitle").text(e.target.attributes.titleChi.value + " / " + e.target.attributes.titleJSF.value);
+
+                        // Display the drama video player.
+                        $("#videoContainer").css("display", "block");
+
+                        // Record the video playing time before hide.
+                        $("#video").prop("currentTime", currentTime);
+
+                        // Disable the scrolling function.
+                        $("body").css("overflow", "hidden");
+
+                        // Disable mouse right-click function.
+                        $(document).on("contextmenu", preventContextMenu);
+                    });
+                };
             });
 
             // Video Close Button.
-            document.querySelector("#videoCloseBtn").addEventListener("click", () => {
+            $("#videoCloseBtn").click(() => {
                 // Record the current video playing time before close.
                 currentTime = $("#video").prop("currentTime");
 
@@ -132,10 +194,10 @@ export default function getEachDramaData(){
                 $("#videoContainer").css("display", "none");
 
                 // Enable the scrolling function.
-                document.body.style.overflow = "auto";
+                $("body").css("overflow", "auto");
 
                 // Enable mouse right-click function.
-                document.removeEventListener("contextmenu", preventContextMenu, false);
+                $(document).off("contextmenu", preventContextMenu);
             });
 
             // Cast

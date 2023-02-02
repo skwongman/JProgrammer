@@ -28,7 +28,7 @@ router.get("/api/drama", (req, res) => {
 
         const dramaDownload = {
             $lookup: {
-                from: "download",
+                from: "downloadJp",
                 localField: "dramaTitle",
                 foreignField: "downloadTitleChi",
                 as: "dramaDownload"

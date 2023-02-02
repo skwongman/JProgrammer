@@ -64,6 +64,15 @@ app.delete("/api/user/auth", signoutAPIRouter);
 app.get("/api/user/auth", signinStatusAPIRouter);
 
 
+
+app.get('/proxy', (req, res) => {
+    const url = req.query.url;
+    const request = require('request');
+    request(url).pipe(res);
+});
+
+
+
 // 404 Error page
 app.use(pageRouter);
 

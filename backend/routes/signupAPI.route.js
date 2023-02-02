@@ -59,7 +59,7 @@ router.post("/api/user", (req, res) => {
                             memberEmail: signupEmail,
                             memberName: signupName,
                             memberPassword: hashedPassword,
-                            memberProfilePicture: "https://drive.google.com/uc?id=1BSt12NnKoqW4MuRgQI7vjTStpn8IW27d"
+                            memberProfilePicture: "https://drive.google.com/uc?id=175WjebX4k_yrH_KUWr8FG1tWmLPScFJ6"
                         };
     
                         collection.insertOne(insertQuery, () => {

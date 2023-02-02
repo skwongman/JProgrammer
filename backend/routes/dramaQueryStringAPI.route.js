@@ -51,12 +51,20 @@ router.get("/api/drama/:id", (req, res) => {
                 dramaMedia: { $first: "$dramaMedia" }
             }
         };
-        const dramaDownload = {
+        const dramaDownloadJp = {
             $lookup: {
-                from: "download",
+                from: "downloadJp",
                 localField: "dramaTitle",
                 foreignField: "downloadTitleChi",
-                as: "dramaDownload"
+                as: "dramaDownloadJp"
+            }
+        };
+        const dramaDownloadChi = {
+            $lookup: {
+                from: "downloadChi",
+                localField: "dramaTitle",
+                foreignField: "downloadTitleChi",
+                as: "dramaDownloadChi"
             }
         };
         const sortlisted = {
@@ -67,11 +75,13 @@ router.get("/api/drama/:id", (req, res) => {
                 "dramaActor.actorID": 0,
                 "dramaActor.actorNameJp": 0,
                 "dramaActor.actorCreatedTime": 0,
-                "dramaDownload._id": 0,
-                "dramaDownload.downloadID": 0
+                "dramaDownloadJp._id": 0,
+                "dramaDownloadJp.downloadID": 0,
+                "dramaDownloadChi._id": 0,
+                "dramaDownloadChi.downloadID": 0
             }
         };
-        const aggregatePipeline = [matchDramaID, unwind, aggreActor, limitNoOfCast, group, dramaDownload, sortlisted];
+        const aggregatePipeline = [matchDramaID, unwind, aggreActor, limitNoOfCast, group, dramaDownloadJp, dramaDownloadChi, sortlisted];
 
         // Fetching data
         collection

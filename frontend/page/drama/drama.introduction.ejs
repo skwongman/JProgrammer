@@ -1,22 +1,47 @@
 <div id="dramaBannerBackgroundPhoto" class="drama-banner-center">
     <div id="transparentLayer" class="transparent-layer"></div>
     <div class="drama-banner-width">
+
         <div class="drama-photo-container">
             <img id="dramaCoverPhoto" class="drama-photo">
         </div>
+
         <div id="dramaDetailsFontColor" class="drama-details-container">
+
             <div id="dramaTitle" class="drama-details-title"></div>
+
             <div id="dramaCategory" class="drama-details-category"></div>
+
             <div class="drama-details-brief-title">概要</div>
+
             <div id="dramaIntroduction" class="drama-details-brief"></div>
+
             <div id="dramaTV" class="drama-details-tv"></div>
+
             <li id="dramaDateOfBoardcast" class="drama-details-date-of-boardcast"></li>
+
             <li class="drama-details-day-time">
                 <span id="dramaWeek"></span>
                 <span id="dramaTimeOfBoardcast"></span>
             </li>
-            <div id="dramaDownload" class="drama-episode"></div>
-            <div class="drama-edit">編輯</div>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">日文字幕 / 沒有字幕</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">中文字幕</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                    <div id="dramaDownloadJp" class="drama-episode"></div>
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    <div id="dramaDownloadChi" class="drama-episode"></div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="drama-edit">編輯</div>
 </div>
