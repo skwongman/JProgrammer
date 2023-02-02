@@ -160,7 +160,7 @@ export default function getEachDramaData(){
                 if(Hls.isSupported()){
                     const video = $("video").get(0);
                     const hls = new Hls();
-                    hls.loadSource("/proxy?url=" + e.target.attributes.link.value);
+                    hls.loadSource("/api/proxy?url=" + e.target.attributes.link.value);
                     hls.attachMedia(video);
                     hls.on(Hls.Events.MANIFEST_PARSED, () => {
                         video.pause();

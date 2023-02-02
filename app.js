@@ -9,6 +9,7 @@ const signupAPIRouter = require("./backend/routes/signupAPI.route");
 const signinAPIRouter = require("./backend/routes/signinAPI.route");
 const signoutAPIRouter = require("./backend/routes/signoutAPI.route");
 const signinStatusAPIRouter = require("./backend/routes/signinStatusAPI.route");
+const proxyAPIRouter = require("./backend/routes/proxyAPI.route");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -23,7 +24,7 @@ const httpsServer = https.createServer(credentials, app);
 
 
 // Dotenv
-require('dotenv').config();
+require("dotenv").config();
 
 
 // File Setting
@@ -63,14 +64,8 @@ app.delete("/api/user/auth", signoutAPIRouter);
 // User signin Status API
 app.get("/api/user/auth", signinStatusAPIRouter);
 
-
-
-app.get('/proxy', (req, res) => {
-    const url = req.query.url;
-    const request = require('request');
-    request(url).pipe(res);
-});
-
+// Proxy API
+app.get("/api/proxy", proxyAPIRouter);
 
 
 // 404 Error page

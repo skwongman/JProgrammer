@@ -492,4 +492,14 @@
         top: 730px;
     }
 
+    .video {
+        top: 2.5%;
+        left: 5%;
+        width: 90%;
+    }
+
+    .video-title {
+        display: none;
+    }
+
 }
