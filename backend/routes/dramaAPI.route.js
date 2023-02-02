@@ -10,7 +10,7 @@ router.use(function(req, res, next){
 
 router.get("/api/drama", (req, res) => {
 
-    const dataPerPage = 6;
+    const dataPerPage = 8;
     const keyword = req.query.keyword || null;
     let page = req.query.page || 0;
     page = parseInt(page);
@@ -55,6 +55,7 @@ router.get("/api/drama", (req, res) => {
                 dramaID: 1,
                 dramaTitle: 1,
                 dramaCoverPhoto: 1,
+                dramaCreatedTime: 1,
                 "dramaDownload.downloadLink": 1
             }
         };
@@ -73,7 +74,7 @@ router.get("/api/drama", (req, res) => {
                 return;
             };
 
-            const nextPage = (result.length + 1 == 7) ? page + 1 : null;
+            const nextPage = (result.length + 1 == 9) ? page + 1 : null;
 
             res.status(200).json({"nextPage": nextPage, "data": result});
         }); 

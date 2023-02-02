@@ -26,6 +26,11 @@ router.get("/add", (req, res) => {
     res.render("add");
 })
 
+// latest.html
+router.get("/latest", (req, res) => {
+    res.render("latest");
+})
+
 // Error page
 router.use((req, res) => {
     res.status(404).send("ERROR! 404 NOT FOUND!");
