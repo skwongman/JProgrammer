@@ -10,6 +10,7 @@ const signinAPIRouter = require("./backend/routes/signinAPI.route");
 const signoutAPIRouter = require("./backend/routes/signoutAPI.route");
 const signinStatusAPIRouter = require("./backend/routes/signinStatusAPI.route");
 const proxyAPIRouter = require("./backend/routes/proxyAPI.route");
+const watchDramaAccessAPIRouter = require("./backend/routes/watchDramaAccessAPI.route");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -66,6 +67,8 @@ app.get("/api/user/auth", signinStatusAPIRouter);
 
 // Proxy API
 app.get("/api/proxy", proxyAPIRouter);
+// Watch drama access API
+app.get("/api/video/auth", watchDramaAccessAPIRouter);
 
 
 // 404 Error page

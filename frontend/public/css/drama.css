@@ -328,8 +328,8 @@
 }
 
 .video {
-    position: absolute;
-    top: 4%;
+    position: fixed;
+    top: 10%;
     left: 18%;
     width: 65%;
     height: auto;
@@ -344,7 +344,7 @@
 
 
 .video-close-btn {
-    position: absolute;
+    position: fixed;
     width: 25px;
     height: 25px;
     margin: 20px;
@@ -386,7 +386,7 @@
 }
 
 .video-title {
-    position: absolute;
+    position: fixed;
     color: #fff;
     padding: 19px;
     margin-left: 40px;
@@ -489,11 +489,11 @@
     }
 
     .drama-edit {
-        top: 730px;
+        top: 750px;
     }
 
     .video {
-        top: 2.5%;
+        top: 8%;
         left: 5%;
         width: 90%;
     }

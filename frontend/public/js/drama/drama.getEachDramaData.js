@@ -125,61 +125,120 @@ export default function getEachDramaData(){
                 event.preventDefault();
             };
 
-            // Japanese Source
+            // Handle Button Click (Japanese Source)
             $("span.video-btn-jp").click((e) => {
-                // Add the drama video link to the HLS.js
-                if(Hls.isSupported()){
-                    const video = $("video").get(0);
-                    const hls = new Hls();
-                    hls.loadSource(e.target.attributes.link.value);
-                    hls.attachMedia(video);
-                    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                        video.pause();
-                        // Add the drama video title to the video navigation bar.
-                        $("#videoTitle").text(e.target.attributes.titleChi.value + " / " + e.target.attributes.titleJp.value);
 
-                        // Display the drama video player.
-                        $("#videoContainer").css("display", "block");
+                // Add loading effect
+                topbar.show();
 
-                        // Record the video playing time before hide.
-                        $("#video").prop("currentTime", currentTime);
-
-                        // Disable the scrolling function.
-                        $("body").css("overflow", "hidden");
-
-                        // Disable mouse right-click function.
-                        $(document).on("contextmenu", preventContextMenu);
-                    });
+                async function watchVideoAuth(url){
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    return data;
                 };
+
+                watchVideoAuth("/api/video/auth")
+                .then(data => {
+                    // Watch drama function is only available for testing account.
+                    if(data.error && data.message == "forbidden"){
+                        alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
+                    };
+
+                    if(data.ok){
+                        // Add the drama video link to the HLS.js
+                        if(Hls.isSupported()){
+                            const video = $("video").get(0);
+                            const hls = new Hls();
+                            hls.loadSource(e.target.attributes.link.value);
+                            hls.attachMedia(video);
+                            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                                video.pause();
+                                // Add the drama video title to the video navigation bar.
+                                $("#videoTitle").text(e.target.attributes.titleChi.value + " / " + e.target.attributes.titleJp.value);
+
+                                // Display the drama video player.
+                                $("#videoContainer").css("display", "block");
+
+                                // Record the video playing time before hide.
+                                $("#video").prop("currentTime", currentTime);
+
+                                // Disable the scrolling function.
+                                $("body").css("overflow", "hidden");
+
+                                // Disable mouse right-click function.
+                                $(document).on("contextmenu", preventContextMenu);
+
+                                // Remove loading effect
+                                topbar.hide();
+                            });
+                        };
+                    };
+                })
+                .catch(error => {
+                    console.log("Error(drama.getEachDramaData.js - 1): " + error);
+
+                    // Remove loading effect
+                    topbar.hide();
+                });
+
             });
 
-            // Chinese Source
+            // Handle Button Click (Chinese Source)
             $("span.video-btn-chi").click((e) => {
-                // console.log("https://localhost:5000/proxy?url=" + e.target.attributes.link.value)
-                // Add the drama video link to the HLS.js
-                if(Hls.isSupported()){
-                    const video = $("video").get(0);
-                    const hls = new Hls();
-                    hls.loadSource("/api/proxy?url=" + e.target.attributes.link.value);
-                    hls.attachMedia(video);
-                    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                        video.pause();
-                        // Add the drama video title to the video navigation bar.
-                        $("#videoTitle").text(e.target.attributes.titleChi.value + " / " + e.target.attributes.titleJSF.value);
 
-                        // Display the drama video player.
-                        $("#videoContainer").css("display", "block");
+                // Add loading effect
+                topbar.show();
 
-                        // Record the video playing time before hide.
-                        $("#video").prop("currentTime", currentTime);
-
-                        // Disable the scrolling function.
-                        $("body").css("overflow", "hidden");
-
-                        // Disable mouse right-click function.
-                        $(document).on("contextmenu", preventContextMenu);
-                    });
+                async function watchVideoAuth(url){
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    return data;
                 };
+
+                watchVideoAuth("/api/video/auth")
+                .then(data => {
+                    // Watch drama function is only available for testing account.
+                    if(data.error && data.message == "forbidden"){
+                        alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
+                    };
+
+                    if(data.ok){
+                        // Add the drama video link to the HLS.js
+                        if(Hls.isSupported()){
+                            const video = $("video").get(0);
+                            const hls = new Hls();
+                            hls.loadSource("/api/proxy?url=" + e.target.attributes.link.value);
+                            hls.attachMedia(video);
+                            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                                video.pause();
+                                // Add the drama video title to the video navigation bar.
+                                $("#videoTitle").text(e.target.attributes.titleChi.value + " / " + e.target.attributes.titleJSF.value);
+        
+                                // Display the drama video player.
+                                $("#videoContainer").css("display", "block");
+        
+                                // Record the video playing time before hide.
+                                $("#video").prop("currentTime", currentTime);
+        
+                                // Disable the scrolling function.
+                                $("body").css("overflow", "hidden");
+        
+                                // Disable mouse right-click function.
+                                $(document).on("contextmenu", preventContextMenu);
+
+                                // Remove loading effect
+                                topbar.hide();
+                            });
+                        };
+                    };
+                })
+                .catch(error => {
+                    console.log("Error(drama.getEachDramaData.js - 2): " + error);
+
+                    // Remove loading effect
+                    topbar.hide();
+                });
+
             });
 
             // Video Close Button.
@@ -273,7 +332,7 @@ export default function getEachDramaData(){
         };
     })
     .catch(error => {
-        console.log("Error(drama.getEachDramaData.js - 1): " + error);
+        console.log("Error(drama.getEachDramaData.js - 3): " + error);
         
         // Remove loading effect
         topbar.hide();

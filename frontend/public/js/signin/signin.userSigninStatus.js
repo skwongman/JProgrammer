@@ -45,7 +45,7 @@ export default function userSigninStatus(){
 
             $("#addDramaMobile").click(() => {
                 location.href = "/add";
-            });
+            });           
         };
 
     })
