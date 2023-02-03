@@ -1,15 +1,16 @@
 export default function latestList(){
 
-    // Add loading effect
+    // Add loading effect.
     topbar.show();
 
+    // Fetching API.
     async function getData(url){
         const response = await fetch(url);
         const data = await response.json();
         return data;
     };
 
-    getData("/api/drama")
+    getData("/api/latest")
     .then(data => {
         if(data.data){
             data.data.map(result => {
@@ -41,19 +42,15 @@ export default function latestList(){
         topbar.hide();
     });
 
-
-
-
-
-
-    for(let i = 1 ; i <= 10; i ++){
+    // Load the pagination bar.
+    for(let i = 1 ; i <= 9; i ++){
         $("#lastestListPagination").append(`
-            <li id="p${i}" class="page-item">
+            <li id="pagination${i}" class="page-item">
                 <a class="page-link">${i}</a>
             </li>
         `)
 
-        // if(i == 10){
+        // if(i == 9){
         //     $("#lastestListPagination").append(`
         //         <li id="nextPage" class="page-item">
         //             <a class="page-link">下一頁</a>
@@ -61,44 +58,48 @@ export default function latestList(){
         //     `)
         // };
     };
-    
-    document.querySelector(`#p1`).className = 'page-item active'
+    document.querySelector(`#pagination1`).className = "page-item active";
 
 
 
     // Pagination
     $("#lastestListPagination").click((e) => {
         const currentPage = e.target;
-
-        if (currentPage.classList.contains("active")) return;
-    
         const pageNum = parseInt(e.target.text);
+        const apiPageNum = pageNum - 1;
+        const currentPageNum = pageNum;
+
+        if(currentPage.classList.contains("active")) return;
+    
         // if(isNaN(pageNum) || e.target.text == "下一頁"){
         //     return
         // };
     
-        // if(pageNum == '10'){
+        // if(pageNum == "10"){
         //     document.querySelector("#nextPage").classList.add("disabled")
         // }
         // else{
         //     document.querySelector("#nextPage").classList.remove("disabled")
         // }
 
-        // if(pageNum == '1'){
+        // if(pageNum == "1"){
         //     document.querySelector("#prevPage").classList.add("disabled")
         // }
         // else{
         //     document.querySelector("#prevPage").classList.remove("disabled")
         // }
 
-        const apiPageNum = pageNum - 1;
-        const currentPageNum = pageNum;
 
         // Add loading effect
         topbar.show();
 
-        fetch(`/api/drama?page=${apiPageNum}`)
-        .then(response => response.json())
+        async function getLatestDramaData(url){
+            const response = await fetch(url);
+            const data = await response.json();
+            return data;
+        };
+
+        getLatestDramaData(`/api/latest?page=${apiPageNum}`)
         .then(data => {
             if(data.data){
                 $("#latestListContainer").text("");
@@ -115,7 +116,7 @@ export default function latestList(){
                                 </div>
                             </a>
                         </div>
-                    `)
+                    `);
                 });
     
                 // Show whole content
@@ -126,7 +127,8 @@ export default function latestList(){
             };
         })
     
-        const currentPageElement = document.querySelector(`#p${currentPageNum}`);
+        // Pagination bar effect.
+        const currentPageElement = document.querySelector(`#pagination${currentPageNum}`);
         const previousInnerHTML = currentPageElement.innerHTML;
         const results = document.querySelectorAll(`li.page-item`)
         results.forEach(result => {
@@ -140,19 +142,5 @@ export default function latestList(){
             currentPageElement.innerHTML = previousInnerHTML;
         }, 0);
     });
-    
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
 
 };

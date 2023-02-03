@@ -11,7 +11,7 @@ export default function getLatestSeasonDramaData(){
                 return data;
             };
         
-            getData("/api/drama?page=0")
+            getData("/api/drama")
             .then(data => {
                 view.render(data);
             })

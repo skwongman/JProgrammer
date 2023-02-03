@@ -8,9 +8,9 @@ router.use(function(req, res, next){
     next();
 });
 
-router.get("/api/drama", (req, res) => {
+router.get("/api/latest", (req, res) => {
 
-    const dataPerPage = 6;
+    const dataPerPage = 8;
     const keyword = req.query.keyword || null;
     let page = req.query.page || 0;
     page = parseInt(page);
@@ -20,7 +20,7 @@ router.get("/api/drama", (req, res) => {
     client.connect(err => {
         if(err){
             res.status(500).json({"error": true, "message": err.message});
-            console.log("Error(dramaAPI.route - 1): " + err);
+            console.log("Error(latestAPI.route - 1): " + err);
             return;
         };
 
@@ -55,6 +55,7 @@ router.get("/api/drama", (req, res) => {
                 dramaID: 1,
                 dramaTitle: 1,
                 dramaCoverPhoto: 1,
+                dramaWeek: 1,
                 dramaCreatedTime: 1,
                 "dramaDownload.downloadLink": 1
             }
@@ -70,14 +71,14 @@ router.get("/api/drama", (req, res) => {
         .toArray((err, result) => {
             if(err){
                 res.status(500).json({"error": true, "message": err.message});
-                console.log("Error(dramaAPI.route - 2): " + err);
+                console.log("Error(latestAPI.route - 2): " + err);
                 return;
             };
 
-            const nextPage = (result.length + 1 == 7) ? page + 1 : null;
+            const nextPage = (result.length + 1 == 9) ? page + 1 : null;
 
-            res.status(200).json({"nextPage": nextPage, "data": result});
-        }); 
+            res.status(200).json({"currentPage": page, "nextPage": nextPage, "data": result});
+        });
     });
 
 });

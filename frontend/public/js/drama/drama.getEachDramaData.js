@@ -142,6 +142,9 @@ export default function getEachDramaData(){
                     // Watch drama function is only available for testing account.
                     if(data.error && data.message == "forbidden"){
                         alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
+                        
+                        // Remove loading effect
+                        topbar.hide();
                     };
 
                     if(data.ok){
@@ -200,6 +203,9 @@ export default function getEachDramaData(){
                     // Watch drama function is only available for testing account.
                     if(data.error && data.message == "forbidden"){
                         alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
+
+                        // Remove loading effect
+                        topbar.hide();
                     };
 
                     if(data.ok){
