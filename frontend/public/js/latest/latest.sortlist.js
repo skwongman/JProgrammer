@@ -6,7 +6,9 @@ export default function latestSortlist(){
     $("#latestSortlistWeekAll").click(() => {
         // CSS and content clearance before button color change effect.
         $("#latestListContainer").text("");
+        $("#popularPagination").text("");
         $("#lastestSortlistPagination").text("");
+        $("#lastestListPagination").text("");
         document.querySelectorAll(".latest-sortlist-week-title").forEach(result => {
             result.style.color = "#000";
             result.style.border = "none";
@@ -50,9 +52,9 @@ export default function latestSortlist(){
             getData(`/api/latest?keyword=${weekSearch}`)
             .then(data => {
                 if(data.data){
-                    const currentPage = parseInt(data.currentPage + 1);
+                    const totalPage = parseInt(data.totalPage + 1);
 
-                    callbackCurrentPage(currentPage);
+                    callbackTotalPage(totalPage);
 
                     $("#latestListContainer").text("");
     
@@ -82,12 +84,14 @@ export default function latestSortlist(){
                 topbar.hide();
             });
 
+            // Clearance before loading the pagination bar.
+            $("#lastestListPagination").text("");
+            $("#lastestSortlistPagination").text("");
+            $("#popularPagination").text("");
+
             // Load the pagination bar.
-            function callbackCurrentPage(callbackPageNum){
-                for(let i = 1 ; i <= callbackPageNum; i ++){
-                    $("#lastestListPagination").text("");
-                    $("#lastestSortlistPagination").text("");
-            
+            function callbackTotalPage(callbackTotalPage){
+                for(let i = 1 ; i <= callbackTotalPage; i ++){
                     $("#lastestSortlistPagination").append(`
                         <li id="sortlist${i}" class="page-item">
                             <a class="page-link">${i}</a>
@@ -99,4 +103,5 @@ export default function latestSortlist(){
             };
         });
     });
+    
 };

@@ -12,6 +12,7 @@ const signinStatusAPIRouter = require("./backend/routes/signinStatusAPI.route");
 const proxyAPIRouter = require("./backend/routes/proxyAPI.route");
 const watchDramaAccessAPIRouter = require("./backend/routes/watchDramaAccessAPI.route");
 const latestAPIRouter = require("./backend/routes/latestAPI.route");
+const popularListAPIRouter = require("./backend/routes/popularListAPI.route");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -71,8 +72,12 @@ app.get("/api/proxy", proxyAPIRouter);
 // Watch drama access API
 app.get("/api/video/auth", watchDramaAccessAPIRouter);
 
-// Latest Drama API
+// Latest Drama List API
 app.get("/api/latest", latestAPIRouter);
+// Popular Drama List API
+// Latest Drama API
+app.get("/api/popular/list", popularListAPIRouter);
+
 
 // 404 Error page
 app.use(pageRouter);

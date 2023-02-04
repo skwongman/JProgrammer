@@ -1,99 +1,86 @@
-export default function latestList(){
+export default function popularList(){
 
-    // Add loading effect.
-    topbar.show();
+    // Most popular list button.
+    $("#mostPopularList").click(() => {
 
-    // Fetching API.
-    async function getData(url){
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
-    };
+        document.querySelectorAll(".latest-sortlist-week-title").forEach(result => {
+            result.style.color = "#000";
+            result.style.border = "none";
+        });
 
-    getData("/api/latest")
-    .then(data => {
-        if(data.data){
-            data.data.map(result => {
+        // Button color change effect.
+        $("#latestSortlistWeekAll").css("color", "rgb(2, 177, 247)");
+        $("#latestSortlistWeekAll").css("border", "1px solid rgb(2, 177, 247)");
+
+        // Add loading effect.
+        topbar.show();
+
+        async function getData(url){
+            const response = await fetch(url);
+            const data = response.json();
+            return data;
+        };
+
+        getData("/api/popular/list")
+        .then(data => {
+            const totalPage = parseInt(data.totalPage + 1);
+
+            callbackTotalPage(totalPage);
+
+            $("#latestListContainer").text("");
+    
+            for(let i = 0; i < data.data.length; i ++){
                 $("#latestListContainer").append(`
                     <div class="latest-list-drama">
-                        <a href="/drama/${result.dramaID}">
-                            <img class="latest-list-drama-photo" src="${result.dramaCoverPhoto}">
+                        <a href="/drama/${data.data[i].dramaID}">
+                            <img class="latest-list-drama-photo" src="${data.data[i].dramaCoverPhoto}">
                             <div class="latest-list-drama-title">
-                                <div>${result.dramaTitle.split("～")[0]}</div>
+                                <div>${data.data[i].dramaTitle.split("～")[0]}</div>
                                 <div class="latest-list-drama-title-separator"></div>
-                                <div class="latest-list-drama-date">更新日期: ${result.dramaCreatedTime.slice(0, 10)}</div>
+                                <div class="latest-list-drama-date">更新日期: ${data.data[i].dramaCreatedTime.slice(0, 10)}</div>
                             </div>
                         </a>
                     </div>
-                `)
-            });
-
-            // Show whole content
-            $("#latestDramaListContentContainer").css("visibility", "visible");
+                `);
+            };
 
             // Remove loading effect
             topbar.hide();
-        };
-    })
-    .catch(error => {
-        console.log("Error(latest.list.js): " + error);
+        })
+        .catch(error => {
+            console.log("Error(latest.popularList.js): " + error);
 
-        // Remove loading effect
-        topbar.hide();
+            // Remove loading effect
+            topbar.hide();
+        });
+
+        // Clearance before loading the pagination bar.
+        $("#lastestListPagination").text("");
+        $("#lastestSortlistPagination").text("");
+        $("#popularPagination").text("");
+
+        // Load the pagination bar.
+        function callbackTotalPage(callbackTotalPage){
+            for(let i = 1 ; i <= callbackTotalPage; i ++){
+                $("#popularPagination").append(`
+                    <li id="popularPagination${i}" class="page-item">
+                        <a class="page-link">${i}</a>
+                    </li>
+                `)
+            };
+            document.querySelector(`#popularPagination1`).className = "page-item active";
+        };
+
     });
 
-    // Clearance before loading the pagination bar.
-    $("#popularPagination").text("");
-    $("#lastestSortlistPagination").text("");
-    $("#lastestListPagination").text("");
-
-    // Load the pagination bar.
-    for(let i = 1 ; i <= 9; i ++){
-        $("#lastestListPagination").append(`
-            <li id="pagination${i}" class="page-item">
-                <a class="page-link">${i}</a>
-            </li>
-        `)
-
-        // if(i == 9){
-        //     $("#lastestListPagination").append(`
-        //         <li id="nextPage" class="page-item">
-        //             <a class="page-link">下一頁</a>
-        //         </li>
-        //     `)
-        // };
-    };
-    document.querySelector(`#pagination1`).className = "page-item active";
-
-
-
     // Pagination
-    $("#lastestListPagination").click((e) => {
+    $("#popularPagination").click((e) => {
         const currentPage = e.target;
         const pageNum = parseInt(e.target.text);
         const apiPageNum = pageNum - 1;
         const currentPageNum = pageNum;
 
         if(currentPage.classList.contains("active")) return;
-    
-        // if(isNaN(pageNum) || e.target.text == "下一頁"){
-        //     return
-        // };
-    
-        // if(pageNum == "10"){
-        //     document.querySelector("#nextPage").classList.add("disabled")
-        // }
-        // else{
-        //     document.querySelector("#nextPage").classList.remove("disabled")
-        // }
-
-        // if(pageNum == "1"){
-        //     document.querySelector("#prevPage").classList.add("disabled")
-        // }
-        // else{
-        //     document.querySelector("#prevPage").classList.remove("disabled")
-        // }
-
 
         // Add loading effect
         topbar.show();
@@ -107,7 +94,7 @@ export default function latestList(){
             return data;
         };
 
-        getLatestDramaData(`/api/latest?page=${apiPageNum}`)
+        getLatestDramaData(`/api/popular/list?page=${apiPageNum}`)
         .then(data => {
             if(data.data){
                 $("#latestListContainer").text("");
@@ -136,7 +123,7 @@ export default function latestList(){
         })
     
         // Pagination bar effect.
-        const currentPageElement = document.querySelector(`#pagination${currentPageNum}`);
+        const currentPageElement = document.querySelector(`#popularPagination${currentPageNum}`);
         const previousInnerHTML = currentPageElement.innerHTML;
         const results = document.querySelectorAll(`li.page-item`)
         results.forEach(result => {
@@ -150,5 +137,6 @@ export default function latestList(){
             currentPageElement.innerHTML = previousInnerHTML;
         }, 0);
     });
+
 
 };

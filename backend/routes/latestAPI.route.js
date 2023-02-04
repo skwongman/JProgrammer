@@ -13,7 +13,7 @@ router.get("/api/latest", (req, res) => {
     const dataPerPage = 8;
     const keyword = req.query.keyword || null;
     let page = req.query.page || 0;
-    page = parseInt(page);
+    page = parseInt(page) || 0;
     const dataOrderPerPage = page * dataPerPage; // e.g. Page 0: 1-10, Page 1: 11-20, etc.
 
     // Connect to database and fetch drama API data
@@ -71,13 +71,14 @@ router.get("/api/latest", (req, res) => {
         .toArray((err, result) => {
             if(err){
                 res.status(500).json({"error": true, "message": err.message});
-                console.log("Error(latestAPI.route - 2): " + err);
+                console.log("Error(latestAPI.route - 1): " + err);
                 return;
             };
 
             const nextPage = (result.length + 1 == 9) ? page + 1 : null;
+            const totalPage = parseInt(result.length / dataPerPage);
 
-            res.status(200).json({"currentPage": page, "nextPage": nextPage, "data": result});
+            res.status(200).json({"totalPage": totalPage, "currentPage": page, "nextPage": nextPage, "data": result});
         });
     });
 
