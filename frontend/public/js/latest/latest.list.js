@@ -13,6 +13,12 @@ export default function latestList(){
     getData("/api/latest")
     .then(data => {
         if(data.data){
+            const totalPages = parseInt(data.totalPages);
+
+            callbackTotalPages(totalPages);
+
+            $("#latestListContainer").text("");
+
             data.data.map(result => {
                 $("#latestListContainer").append(`
                     <div class="latest-list-drama">
@@ -46,14 +52,15 @@ export default function latestList(){
     $("#popularPagination").text("");
     $("#lastestSortlistPagination").text("");
     $("#lastestListPagination").text("");
+    $("#categoryPagination").text("");
 
     // Load the pagination bar.
-    for(let i = 1 ; i <= 9; i ++){
-        $("#lastestListPagination").append(`
-            <li id="pagination${i}" class="page-item">
-                <a class="page-link">${i}</a>
-            </li>
-        `)
+    // for(let i = 1 ; i <= 9; i ++){
+    //     $("#lastestListPagination").append(`
+    //         <li id="pagination${i}" class="page-item">
+    //             <a class="page-link">${i}</a>
+    //         </li>
+    //     `)
 
         // if(i == 9){
         //     $("#lastestListPagination").append(`
@@ -62,8 +69,25 @@ export default function latestList(){
         //         </li>
         //     `)
         // };
+    // };
+    // document.querySelector(`#pagination1`).className = "page-item active";
+
+
+
+
+    // Load the pagination bar.
+    function callbackTotalPages(callbackTotalPages){
+        for(let i = 1 ; i <= callbackTotalPages; i ++){
+            $("#lastestListPagination").append(`
+                <li id="pagination${i}" class="page-item">
+                    <a class="page-link">${i}</a>
+                </li>
+            `)
+        };
+
+        $(`#pagination1`).attr("class", "page-item active");
     };
-    document.querySelector(`#pagination1`).className = "page-item active";
+
 
 
 
@@ -146,9 +170,11 @@ export default function latestList(){
         currentPageElement.classList.add("active");
         currentPageElement.innerHTML = `<span class="page-link">${currentPageNum}</span>`;
     
-        setTimeout(() => {
-            currentPageElement.innerHTML = previousInnerHTML;
-        }, 0);
+
+        currentPageElement.innerHTML = previousInnerHTML;
+        // setTimeout(() => {
+        //     currentPageElement.innerHTML = previousInnerHTML;
+        // }, 0);
     });
 
 };

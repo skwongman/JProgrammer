@@ -15,11 +15,10 @@ router.get("/api/drama", (req, res) => {
     let page = req.query.page || 0;
     page = parseInt(page);
     const dataOrderPerPage = page * dataPerPage; // e.g. Page 0: 1-10, Page 1: 11-20, etc.
-
     // Connect to database and fetch drama API data
     client.connect(err => {
-        if(err){
-            res.status(500).json({"error": true, "message": err.message});
+        if (err) {
+            res.status(500).json({ "error": true, "message": err.message });
             console.log("Error(dramaAPI.route - 1): " + err);
             return;
         };
@@ -34,15 +33,14 @@ router.get("/api/drama", (req, res) => {
                 as: "dramaDownload"
             }
         };
-
         // Keyword search for drama_title and drama_category
         let keywordSearch = {};
-        if(keyword){
+        if (keyword) {
             keywordSearch = {
                 $or: [
-                    { dramaTitle: {$regex: keyword} },
-                    { dramaCategory: {$regex: keyword} },
-                    { dramaWeek: {$regex: keyword} }
+                    { dramaTitle: { $regex: keyword } },
+                    { dramaCategory: { $regex: keyword } },
+                    { dramaWeek: { $regex: keyword } }
                 ]
             };
         };
@@ -60,26 +58,43 @@ router.get("/api/drama", (req, res) => {
             }
         };
 
-        const aggregatePipeline = [dramaDownload, handleKeywordSearch, sortlisted];
-        
+        // Final stage to determine nextPage value
+        const nextPage = {
+            $facet: {
+                data: [
+                    { $sort: { dramaID: 1 } },
+                    { $skip: dataOrderPerPage },
+                    { $limit: dataPerPage }
+                ],
+                metadata: [
+                    { $count: "count" }
+                ]
+            }
+        };
+
+        const aggregatePipeline = [dramaDownload, handleKeywordSearch, sortlisted, nextPage];
+
         // Fetching data
         collection
         .aggregate(aggregatePipeline)
-        .skip(dataOrderPerPage)
-        .limit(dataPerPage)
         .toArray((err, result) => {
-            if(err){
-                res.status(500).json({"error": true, "message": err.message});
+            if (err) {
+                res.status(500).json({ "error": true, "message": err.message });
                 console.log("Error(dramaAPI.route - 2): " + err);
                 return;
             };
 
-            const nextPage = (result.length + 1 == 7) ? page + 1 : null;
+            // Determine nextPage value.
+            const data = result[0].data;
+            const count = result[0].metadata[0].count;
+            const nextPage = (count > dataOrderPerPage + dataPerPage) ? page + 1 : null;
+            // Determine the total pages.
+            const totalPages = Math.ceil(count / dataPerPage);
 
-            res.status(200).json({"nextPage": nextPage, "data": result});
-        }); 
+            res.status(200).json({"totalPages": totalPages, "nextPage": nextPage, "data": data });
+        });
     });
-
 });
+
 
 module.exports = router;

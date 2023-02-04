@@ -3,14 +3,29 @@ export default function popularList(){
     // Most popular list button.
     $("#mostPopularList").click(() => {
 
-        document.querySelectorAll(".latest-sortlist-week-title").forEach(result => {
+        document.querySelectorAll(".latest-sortlist-title").forEach(result => {
             result.style.color = "#000";
             result.style.border = "none";
         });
 
-        // Button color change effect.
-        $("#latestSortlistWeekAll").css("color", "rgb(2, 177, 247)");
-        $("#latestSortlistWeekAll").css("border", "1px solid rgb(2, 177, 247)");
+        // Week list button color change effect.
+        $("#latestSortlistAll").css("color", "rgb(2, 177, 247)");
+        $("#latestSortlistAll").css("border", "1px solid rgb(2, 177, 247)");
+
+        // Category list button color change effect.
+        $("#categoryListAll").css("color", "rgb(2, 177, 247)");
+        $("#categoryListAll").css("border", "1px solid rgb(2, 177, 247)");
+
+        // CSS and content clearance before button color change effect.
+        // $("#latestListContainer").text("");
+        $("#popularPagination").text("");
+        $("#lastestSortlistPagination").text("");
+        $("#lastestListPagination").text("");
+        $("#categoryPagination").text("");
+        document.querySelectorAll(".category-list-title").forEach(result => {
+            result.style.color = "#000";
+            result.style.border = "none";
+        });
 
         // Add loading effect.
         topbar.show();
@@ -23,9 +38,9 @@ export default function popularList(){
 
         getData("/api/popular/list")
         .then(data => {
-            const totalPage = parseInt(data.totalPage + 1);
+            const totalPages = parseInt(data.totalPages);
 
-            callbackTotalPage(totalPage);
+            callbackTotalPages(totalPages);
 
             $("#latestListContainer").text("");
     
@@ -55,13 +70,14 @@ export default function popularList(){
         });
 
         // Clearance before loading the pagination bar.
-        $("#lastestListPagination").text("");
-        $("#lastestSortlistPagination").text("");
         $("#popularPagination").text("");
+        $("#lastestSortlistPagination").text("");
+        $("#lastestListPagination").text("");
+        $("#categoryPagination").text("");
 
         // Load the pagination bar.
-        function callbackTotalPage(callbackTotalPage){
-            for(let i = 1 ; i <= callbackTotalPage; i ++){
+        function callbackTotalPages(callbackTotalPages){
+            for(let i = 1 ; i <= callbackTotalPages; i ++){
                 $("#popularPagination").append(`
                     <li id="popularPagination${i}" class="page-item">
                         <a class="page-link">${i}</a>

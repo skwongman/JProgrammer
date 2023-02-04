@@ -4,6 +4,7 @@ const pageRouter = require("./backend/commons/pages");
 const dramaAPIRouter = require("./backend/routes/dramaAPI.route");
 const timetableAPIRouter = require("./backend/routes/timetableAPI.route");
 const popularAPIRouter = require("./backend/routes/popularAPI.route");
+const searchDramaAPIRouter = require("./backend/routes/searchDramaAPI.route");
 const dramaQueryStringAPIRouter = require("./backend/routes/dramaQueryStringAPI.route");
 const signupAPIRouter = require("./backend/routes/signupAPI.route");
 const signinAPIRouter = require("./backend/routes/signinAPI.route");
@@ -55,7 +56,10 @@ app.get("/api/drama", dramaAPIRouter);
 app.get("/api/popular", popularAPIRouter);
 // Get timetable API
 app.get("/api/timetable", timetableAPIRouter);
-// Get drama API
+// Search drama API
+app.put("/api/search", searchDramaAPIRouter);
+
+// Get each drama API
 app.get("/api/drama/:id", dramaQueryStringAPIRouter);
 
 // User signup API
@@ -75,7 +79,6 @@ app.get("/api/video/auth", watchDramaAccessAPIRouter);
 // Latest Drama List API
 app.get("/api/latest", latestAPIRouter);
 // Popular Drama List API
-// Latest Drama API
 app.get("/api/popular/list", popularListAPIRouter);
 
 

@@ -25,9 +25,9 @@ router.get("/api/popular/list", (req, res) => {
 
         const collection = req.db.collection("drama");
 
-        const popularDescendingOrder = {
-            $sort: { dramaViewCount: -1 }
-        };
+        // const popularDescendingOrder = {
+        //     $sort: { dramaViewCount: -1 }
+        // };
 
         const sortlisted = {
             $project: {
@@ -41,13 +41,25 @@ router.get("/api/popular/list", (req, res) => {
             }
         };
 
-        const aggregatePipeline = [popularDescendingOrder, sortlisted];
+        // Final stage to determine nextPage value
+        const nextPage = {
+            $facet: {
+                data: [
+                    { $sort: { dramaViewCount: -1 } },
+                    { $skip: dataOrderPerPage },
+                    { $limit: dataPerPage }
+                ],
+                metadata: [
+                    { $count: "count" }
+                ]
+            }
+        };
+
+        const aggregatePipeline = [sortlisted, nextPage];
         
         // Fetching data
         collection
         .aggregate(aggregatePipeline)
-        .skip(dataOrderPerPage)
-        .limit(dataPerPage)
         .toArray((err, result) => {
             if(err){
                 res.status(500).json({"error": true, "message": err.message});
@@ -55,18 +67,14 @@ router.get("/api/popular/list", (req, res) => {
                 return;
             };
 
-            collection.countDocuments({}, (err, count) => {
-                if(err){
-                    res.status(500).json({"error": true, "message": err.message});
-                    console.log("Error(popularListAPI.route - 2): " + err);
-                    return;
-                };
+            // Determine nextPage value.
+            const data = result[0].data;
+            const count = result[0].metadata[0].count;
+            const nextPage = (count > dataOrderPerPage + dataPerPage) ? page + 1 : null;
+            // Determine the total pages.
+            const totalPages = Math.ceil(count / dataPerPage);
 
-                const nextPage = (result.length + 1 == 9) ? page + 1 : null;
-                const totalPage = parseInt(count / dataPerPage);
-    
-                res.status(200).json({"totalPage": totalPage, "currentPage": page, "nextPage": nextPage, "data": result});
-            });
+            res.status(200).json({"totalPages": totalPages, "nextPage": nextPage, "data": data });
         }); 
     });
 
