@@ -14,6 +14,7 @@ const proxyAPIRouter = require("./backend/routes/proxyAPI.route");
 const watchDramaAccessAPIRouter = require("./backend/routes/watchDramaAccessAPI.route");
 const latestAPIRouter = require("./backend/routes/latestAPI.route");
 const popularListAPIRouter = require("./backend/routes/popularListAPI.route");
+const addDramaAPIRouter = require("./backend/routes/addDramaAPI.route");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -81,6 +82,9 @@ app.get("/api/latest", latestAPIRouter);
 // Popular Drama List API
 app.get("/api/popular/list", popularListAPIRouter);
 
+// Add Drama Information
+// Popular Drama List API
+app.post("/api/add", addDramaAPIRouter);
 
 // 404 Error page
 app.use(pageRouter);

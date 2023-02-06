@@ -1,3 +1,156 @@
-<br/><br/><br/><br/>
+<div class="d-flex justify-content-center">
+    <div class="add-drama-width">
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                <div class="row g-3 col-lg-3 add-drama-left-bar-margin">
+                    <div class="add-drama-left-bar">
+                        <div class="add-drama-left-bar-title">
+                            <div>提供劇集資料注意事項</div>
+                        </div>
+                        <ol>
+                            <li class="add-drama-left-bar-point">請確保劇集資料輸入無誤。</li>
+                            <li class="add-drama-left-bar-point">任一劇集資料格式輸入錯誤將無法提交資料。</li>
+                            <li class="add-drama-left-bar-point">如因任何輸入問題而無法提交劇集資料，歡迎隨時發送電郵致本網站作相關跟進。</li>
+                            <li class="add-drama-left-bar-point">本網站在任何時候保留不新增 / 更改 / 刪除該劇集資料的權利。</li>
+                        </ol>
+                    </div>
+                </div>
 
-<div>add drama</div>
+                <form class="row g-3 col-lg-9">
+                    
+                    <div class="col-lg-6 mb-2">
+                        <label for="addDramaTitle" class="form-label">劇集名稱</label>
+                        <input id="addDramaTitle" class="form-control" type="text" placeholder="例子: 女神的教室" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label for="addDramaCategory" class="form-label">劇集類別</label>
+                        <select id="addDramaCategory" class="form-select" aria-describedby="validationServer04Feedback" onfocus="this.size=5;" onblur="this.size=1;" onchange="this.size=1; this.blur();" required>
+                            <option selected disabled value="">請選擇</option>
+                            <option>真人改編</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <div id="validationServer04Feedback" class="invalid-feedback">
+                            Please select a valid state.
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-2">
+                        <label for="addDramaIntroduction" class="form-label">劇集概要</label>
+                        <textarea id="addDramaIntroduction" class="form-control" placeholder="建議輸入六十字以內。" required></textarea>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-2">
+                        <label for="addDramaTV" class="form-label">劇集播放電視台</label>
+                        <select id="addDramaTV" class="form-select" aria-describedby="validationServer04Feedback" required>
+                            <option selected disabled value="">請選擇</option>
+                            <option>東京電視台</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <div id="validationServer04Feedback" class="invalid-feedback">
+                            Please select a valid state.
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label for="addDramaDateOfBroadcast" class="form-label">劇集首播日期</label>
+                        <input id="addDramaDateOfBroadcast" type="date" class="form-control input-date" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-2">
+                        <label for="addDramaWeek" class="form-label">劇集每週播放</label>
+                        <select id="addDramaWeek" class="form-select" aria-describedby="validationServer04Feedback" required>
+                            <option selected disabled value="">請選擇</option>
+                            <option>每週一</option>
+                            <option>每週二</option>
+                            <option>每週三</option>
+                            <option>每週四</option>
+                            <option>每週五</option>
+                            <option>每週六</option>
+                            <option>每週日</option>
+                        </select>
+                        <div id="validationServer04Feedback" class="invalid-feedback">
+                            Please select a valid state.
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label for="addDramaTimeOfBoardcast" class="form-label">劇集時間表</label>
+                        <input id="addDramaTimeOfBoardcast" type="text" class="form-control" placeholder="例子: 21:00" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-2">
+                        <label for="addDramaActor" class="form-label">劇集主要演員</label>
+                        <textarea id="addDramaActor" type="text" class="form-control" placeholder="例子: 北川景子 / 柊木雫, 山田裕貴 / 藍井仁  (注意: 每套劇集最多只接受新增九名演員資料。)" required></textarea>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label for="addDramaRating" class="form-label">劇集收視率 (如適用)</label>
+                        <div class="input-group">
+                            <input id="addDramaRating" type="text" class="form-control" placeholder="例子: 10.5, 10, 9.1, 12">
+                            <div class="input-group-text">%</div>
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <label for="addDramaMedia" class="form-label">劇集媒體資訊網址</label>
+                        <input id="addDramaMedia" type="text" class="form-control" placeholder="例子: https://youtu.be/P90avWuEH_U" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+
+                    <div class="col-12 d-flex justify-content-center">
+                        <button id="handleAddDramaBtn" class="btn" type="submit">提供劇集資料</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

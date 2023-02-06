@@ -62,7 +62,12 @@ router.post("/api/user", (req, res) => {
                             memberProfilePicture: "https://drive.google.com/uc?id=175WjebX4k_yrH_KUWr8FG1tWmLPScFJ6"
                         };
     
-                        collection.insertOne(insertQuery, () => {
+                        collection.insertOne(insertQuery, (err) => {
+                            if(err){
+                                res.status(500).json({"error": true, "message": err.message});
+                                console.log("Error(signupAPI.route - 3): " + err);
+                            };
+
                             res.status(200).json({"ok": true});
                         });
                     });

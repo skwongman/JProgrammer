@@ -23,7 +23,7 @@ router.get("/api/popular/list", (req, res) => {
             return;
         };
 
-        const collection = req.db.collection("drama");
+        const collection = req.db.collection("drama2");
 
         // const popularDescendingOrder = {
         //     $sort: { dramaViewCount: -1 }
