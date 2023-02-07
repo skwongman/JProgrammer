@@ -113,9 +113,36 @@ export default function getEachDramaData(){
                 };
             };
 
+            // Episode (User Upload Source)
+            try{
+                if(dramaData.dramaVideo.length == 0 || dramaData.dramaVideo == "None"){
+                    $("#dramaDownloadUpload").append(`
+                        <div class="drama-episode-title" align="center">
+                            <span class="drama-no-source">暫無來源</span>
+                        </div>
+                    `);
+                }
+                else{
+                    for(let i = 0; i < dramaData.dramaVideo.length; i ++){
+                        const episode = i + 1;
+        
+                        $("#dramaDownloadUpload").append(`
+                            <div class="drama-episode-title">
+                                <span class="video-btn-user" id="videoBtn${episode}" titleChi="${dramaData.dramaTitle}" titleEpisode="第${episode}話" link="${dramaData.dramaVideo[i]}">第${episode}話</span>
+                            </div>
+                        `);
+                    };
+                    $("#dramaDownloadUploadTab").css("display", "block");
+                };
+            }
+            catch(error){null}
+
+            
+
             // Episode Tap Bar and Button Color
             (colorData.isDark) ? $(".video-btn-jp").css("color", "#fff") : $(".video-btn-jp").css("color", "#000");
             (colorData.isDark) ? $(".video-btn-chi").css("color", "#fff") : $(".video-btn-chi").css("color", "#000");
+            (colorData.isDark) ? $(".video-btn-user").css("color", "#fff") : $(".video-btn-user").css("color", "#000");
             (colorData.isDark) ? $(".drama-no-source").css("color", "#fff") : $(".drama-no-source").css("color", "#000");
             (colorData.isDark) ? $(".nav-link").css("color", "#fff") : $(".nav-link").css("color", "#000");
             
@@ -218,7 +245,7 @@ export default function getEachDramaData(){
                             hls.on(Hls.Events.MANIFEST_PARSED, () => {
                                 video.pause();
                                 // Add the drama video title to the video navigation bar.
-                                $("#videoTitle").text(e.target.attributes.titleChi.value + " / " + e.target.attributes.titleJSF.value);
+                                $("#videoTitle").text(e.target.attributes.titleJSF.value);
         
                                 // Display the drama video player.
                                 $("#videoContainer").css("display", "block");
@@ -244,6 +271,36 @@ export default function getEachDramaData(){
                     // Remove loading effect
                     topbar.hide();
                 });
+
+            });
+
+            // Handle Button Click (User Upload Source)
+            $("span.video-btn-user").click((e) => {
+
+                // Add loading effect
+                topbar.show();
+
+                // Add the video link to the html DOM.
+                // "http://140.238.54.62:3000/server?link="
+                $("#video").attr("src", "/api/video?link=" + e.target.attributes.link.value)
+
+                // Add the drama video title to the video navigation bar.
+                $("#videoTitle").text(e.target.attributes.titleChi.value + " - " + e.target.attributes.titleEpisode.value);
+
+                // Display the drama video player.
+                $("#videoContainer").css("display", "block");
+
+                // Record the video playing time before hide.
+                $("#video").prop("currentTime", currentTime);
+
+                // Disable the scrolling function.
+                $("body").css("overflow", "hidden");
+
+                // Disable mouse right-click function.
+                $(document).on("contextmenu", preventContextMenu);
+
+                // Remove loading effect
+                topbar.hide();
 
             });
 

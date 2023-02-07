@@ -338,10 +338,10 @@
 }
 
 .video-btn-jp,
-.video-btn-chi {
+.video-btn-chi,
+.video-btn-user {
     cursor: pointer;
 }
-
 
 .video-close-btn {
     position: fixed;

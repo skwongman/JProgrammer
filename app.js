@@ -15,8 +15,10 @@ const watchDramaAccessAPIRouter = require("./backend/routes/watchDramaAccessAPI.
 const latestAPIRouter = require("./backend/routes/latestAPI.route");
 const popularListAPIRouter = require("./backend/routes/popularListAPI.route");
 const addDramaAPIRouter = require("./backend/routes/addDramaAPI.route");
+const videoServerAPIRouter = require("./backend/routes/videoServerAPI.route");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 
 // Create HTTPS Server
@@ -43,6 +45,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cookieParser());
+app.use("/js", express.static(path.join(__dirname, "node_modules/torrent-stream/client")));
 
 
 // Index page
@@ -85,6 +88,8 @@ app.get("/api/popular/list", popularListAPIRouter);
 // Add Drama Information
 // Popular Drama List API
 app.post("/api/add", addDramaAPIRouter);
+// Video Server
+app.get("/api/video", videoServerAPIRouter);
 
 // 404 Error page
 app.use(pageRouter);

@@ -20,6 +20,11 @@ export default function userSigninStatus(){
             $("#addDramaMobile").click(() => {
                 location.href = "/signin";
             });
+
+            // User cannot access to the add drama page without login and will be redirected to the index page.
+            if(location.href.split("/").pop() == "add"){
+                location.href = "/";
+            };
         };
 
         if(data.data){

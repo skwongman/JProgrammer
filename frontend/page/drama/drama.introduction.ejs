@@ -32,7 +32,11 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">中日字幕</button>
                 </li>
+                <li id="dramaDownloadUploadTab" class="nav-item" role="presentation" style="display:none;">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane2" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">其他</button>
+                </li>
             </ul>
+
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                     <div id="dramaDownloadJp" class="drama-episode"></div>
@@ -40,7 +44,11 @@
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                     <div id="dramaDownloadChi" class="drama-episode"></div>
                 </div>
+                <div class="tab-pane fade" id="profile-tab-pane2" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    <div id="dramaDownloadUpload" class="drama-episode"></div>
+                </div>
             </div>
+
         </div>
     </div>
     <div class="drama-edit">編輯</div>

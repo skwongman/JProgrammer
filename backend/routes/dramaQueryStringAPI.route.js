@@ -48,7 +48,8 @@ router.get("/api/drama/:id", (req, res) => {
                 dramaTV: { $first: "$dramaTV" },
                 dramaWeek: { $first: "$dramaWeek" },
                 dramaTimeOfBoardcast: { $first: "$dramaTimeOfBoardcast" },
-                dramaMedia: { $first: "$dramaMedia" }
+                dramaMedia: { $first: "$dramaMedia" },
+                dramaVideo: { $first: "$dramaVideo" }
             }
         };
         const dramaDownloadJp = {
