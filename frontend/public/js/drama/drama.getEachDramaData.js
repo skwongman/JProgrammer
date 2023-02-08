@@ -135,9 +135,7 @@ export default function getEachDramaData(){
                     $("#dramaDownloadUploadTab").css("display", "block");
                 };
             }
-            catch(error){null}
-
-            
+            catch(error){null};
 
             // Episode Tap Bar and Button Color
             (colorData.isDark) ? $(".video-btn-jp").css("color", "#fff") : $(".video-btn-jp").css("color", "#000");
@@ -166,10 +164,18 @@ export default function getEachDramaData(){
 
                 watchVideoAuth("/api/video/auth")
                 .then(data => {
-                    // Watch drama function is only available for testing account.
+                    // Watch drama function is only available for user account logged in.
                     if(data.error && data.message == "forbidden"){
+                        location.href = "/signin";
+
+                        // Remove loading effect
+                        topbar.hide();
+                    };
+
+                    // Watch drama function is only available for testing account.
+                    if(data.error && data.message == "restricted to test account at this stage only"){
                         alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
-                        
+
                         // Remove loading effect
                         topbar.hide();
                     };
@@ -227,8 +233,16 @@ export default function getEachDramaData(){
 
                 watchVideoAuth("/api/video/auth")
                 .then(data => {
-                    // Watch drama function is only available for testing account.
+                    // Watch drama function is only available for user account logged in.
                     if(data.error && data.message == "forbidden"){
+                        location.href = "/signin";
+
+                        // Remove loading effect
+                        topbar.hide();
+                    };
+
+                    // Watch drama function is only available for testing account.
+                    if(data.error && data.message == "restricted to test account at this stage only"){
                         alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
 
                         // Remove loading effect
@@ -280,27 +294,62 @@ export default function getEachDramaData(){
                 // Add loading effect
                 topbar.show();
 
-                // Add the video link to the html DOM.
-                // "http://140.238.54.62:3000/server?link="
-                $("#video").attr("src", "/api/video?link=" + e.target.attributes.link.value)
+                async function watchVideoAuth(url){
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    return data;
+                };
 
-                // Add the drama video title to the video navigation bar.
-                $("#videoTitle").text(e.target.attributes.titleChi.value + " - " + e.target.attributes.titleEpisode.value);
+                watchVideoAuth("/api/video/auth")
+                .then(data => {
+                    // Watch drama function is only available for user account logged in.
+                    if(data.error && data.message == "forbidden"){
+                        location.href = "/signin";
 
-                // Display the drama video player.
-                $("#videoContainer").css("display", "block");
+                        // Remove loading effect
+                        topbar.hide();
+                    };
 
-                // Record the video playing time before hide.
-                $("#video").prop("currentTime", currentTime);
+                    // Watch drama function is only available for testing account.
+                    if(data.error && data.message == "restricted to test account at this stage only"){
+                        alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
 
-                // Disable the scrolling function.
-                $("body").css("overflow", "hidden");
+                        // Remove loading effect
+                        topbar.hide();
+                    };
 
-                // Disable mouse right-click function.
-                $(document).on("contextmenu", preventContextMenu);
+                    if(data.ok){
+                        // Add loading effect
+                        topbar.show();
 
-                // Remove loading effect
-                topbar.hide();
+                        // Add the video link to the html DOM.
+                        $("#video").attr("src", "/api/video?link=" + e.target.attributes.link.value) // "http://140.238.54.62:3000/server?link="
+
+                        // Add the drama video title to the video navigation bar.
+                        $("#videoTitle").text(e.target.attributes.titleChi.value + " - " + e.target.attributes.titleEpisode.value);
+
+                        // Display the drama video player.
+                        $("#videoContainer").css("display", "block");
+
+                        // Record the video playing time before hide.
+                        $("#video").prop("currentTime", currentTime);
+
+                        // Disable the scrolling function.
+                        $("body").css("overflow", "hidden");
+
+                        // Disable mouse right-click function.
+                        $(document).on("contextmenu", preventContextMenu);
+
+                        // Remove loading effect
+                        topbar.hide();
+                    };
+                })
+                .catch(error => {
+                    console.log("Error(drama.getEachDramaData.js - 2): " + error);
+
+                    // Remove loading effect
+                    topbar.hide();
+                });
 
             });
 

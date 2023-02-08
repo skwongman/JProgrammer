@@ -121,7 +121,7 @@ router.post("/api/add", upload.single("addDramaCoverphoto"), (req, res) => {
                                 console.log("Error(signupAPI.route - 1): " + err);
                             };
                     
-                            // Check whether the user input email has been registerd in the database.
+                            // Check whether the user input drama title has been registerd in the database.
                             const collection = req.db.collection("drama");
                             const checkaddDramaTitle = { dramaTitle: addDramaTitle };
                     
@@ -155,12 +155,14 @@ router.post("/api/add", upload.single("addDramaCoverphoto"), (req, res) => {
                                         // Limit the photo type to jpg, jpeg and png only.
                                         const typeOfPhotoAllowed = ["image/jpeg", "image/jpg", "image/png"];
                                         const matchTypeOfPhoto = typeOfPhotoAllowed.includes(addDramaPhoto.mimetype);
+
                                         if(!matchTypeOfPhoto){
                                             res.status(400).json({"error": true, "message": "The picture type should only be jpg, jpeg or png."});
                                         };
 
                                         // Limit the photo size up to 1MB only.
                                         const meetPhotoUploadSize = addDramaPhoto.size <= 1 * 1024 * 1024 // 1MB
+
                                         if(!meetPhotoUploadSize){
                                             res.status(400).json({"error": true, "message": "The picture size should only be up to 1MB."});
                                         };
@@ -191,12 +193,17 @@ router.post("/api/add", upload.single("addDramaCoverphoto"), (req, res) => {
                                                 console.log("Error(signupAPI.route - 1): " + err);
                                             };
                                     
+                                            const CdnURL = "https://d11c6b10livv50.cloudfront.net/";
                                             const addDramaCoverPhotoName = data.Location.split("/").pop();
-                                            const addDramaCoverPhotoURL = "https://d11c6b10livv50.cloudfront.net/" + addDramaCoverPhotoName;
+                                            const addDramaCoverPhotoURL = CdnURL + addDramaCoverPhotoName;
                 
                                             // Data clearance before adding record.
+
+                                            // Get latest drama id from the last drama id plus one.
                                             const latestDramaID = dramaIdResult[0].dramaID + 1;
+                                            // Convert to array format.
                                             const clearAddDramaCategory = [addDramaCategory];
+                                            // Split the user input and convert to the array format.
                                             const clearAddDramaActorCast = addDramaActor.split(", ");
                                             const clearAddDramaActor = [];
                                             const clearAddDramaCast = [];
@@ -204,6 +211,7 @@ router.post("/api/add", upload.single("addDramaCoverphoto"), (req, res) => {
                                                 clearAddDramaActor.push(i.split(" / ")[0]);
                                                 clearAddDramaCast.push(i.split(" / ")[1] + " / " + i.split(" / ")[0]);
                                             };
+                                            // Record the data insert time.
                                             const date = new Date();
                                             const offset = 8;
                                             const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
@@ -211,24 +219,27 @@ router.post("/api/add", upload.single("addDramaCoverphoto"), (req, res) => {
                                             const hkTime = new Date(nd.getTime() + (3600000 * offset));
                                             const hkTimeString = hkTime.toISOString().replace(/T/, " ").replace(/Z$/, "+08:00");
                                             const dramaCreatedTime = hkTimeString;
+                                            // Handle no input drama rating from user.
                                             if(addDramaRating == "None"){
                                                 addDramaRating = "None";
                                             };
+                                            // Split the user input and convert to the array format.
                                             const clearAddDramaRating = addDramaRating.split(", ");
                                             const clearAddDramaRatingList = [];
                                             for(let i of clearAddDramaRating){
                                                 clearAddDramaRatingList.push(i);
                                             };
+                                            // Split the user input and convert to the array format.
                                             const clearAddDramaVideo = addDramaVideo.split(", ");
                                             const clearAddDramaVideoList = [];
                                             for(let i of clearAddDramaVideo){
                                                 clearAddDramaVideoList.push(i);
                                             };
 
-                                            // Get memberID from JWT.
+                                            // Get memberID from JWT for record purpose.
                                             const addDramaMemberID = checkMemberIDResult._id.toString();
 
-                                            // Assign name for each record.
+                                            // Assign name for each item.
                                             const insertQuery = {
                                                 dramaID: latestDramaID,
                                                 dramaTitle: addDramaTitle,
@@ -256,11 +267,11 @@ router.post("/api/add", upload.single("addDramaCoverphoto"), (req, res) => {
                                                     res.status(500).json({"error": true, "message": err.message});
                                                     console.log("Error(addDramaAPI.route - 3): " + err);
                                                 };
-                
+
+                                                // Find the newly added drama ID.
                                                 const insertDramaID = insertResult.insertedId.toString();
                                                 const checkDramaID = { _id: new ObjectId(insertDramaID) };
                 
-                                                // Find the newly added drama ID.
                                                 collection.findOne(checkDramaID, (err, checkaddDramaIdResult) => {
                                                     // Internal server error message.
                                                     if(err){
@@ -269,9 +280,7 @@ router.post("/api/add", upload.single("addDramaCoverphoto"), (req, res) => {
                                                     };
                                         
                                                     // Return the newly added drama ID to the frontend.
-                                                    const data = {
-                                                        "addDramaID": checkaddDramaIdResult.dramaID
-                                                    };
+                                                    const data = {"addDramaID": checkaddDramaIdResult.dramaID};
                                                     
                                                     res.status(200).json({"data": data});
                                                 });

@@ -36,6 +36,7 @@ export default function addDrama(){
             $("#addDramaCoverPhotoPreviewContainer").attr("src", "");
         }
         else{
+            // Add the temp photo link to the html DOM for instance photo preview.
             const tempPhotoLink = URL.createObjectURL(photoToBeUploaded);
             
             $("#addDramaCoverPhotoPreviewContainer").css("display", "block");
@@ -72,9 +73,7 @@ export default function addDrama(){
             const addDramaRating = $("#addDramaRating").val();
             const addDramaMedia = $("#addDramaMedia").val();
             const addDramaVideo = $("#addDramaVideo").val();
-
             const addDramaCoverphoto = $("#addDramaCoverPhoto").get(0).files[0];
-
             const addDramaData = new FormData();
 
             addDramaData.append("addDramaTitle", addDramaTitle);
@@ -89,7 +88,6 @@ export default function addDrama(){
             addDramaData.append("addDramaRating", addDramaRating);
             addDramaData.append("addDramaMedia", addDramaMedia);
             addDramaData.append("addDramaVideo", addDramaVideo);
-
             addDramaData.append("addDramaCoverphoto", addDramaCoverphoto);
 
             // Fetching data to the backend side.
@@ -215,8 +213,6 @@ export default function addDrama(){
                 topbar.hide();
             });
         };
-
-
     });
 
 };

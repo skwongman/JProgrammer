@@ -42,7 +42,7 @@ router.get("/api/video/auth", (req, res) => {
                     }
                     // Compare with the member id whether it is the testing account member id.
                     else if(result._id.toString() != "63da56f1ce2055b9fb0d9721"){
-                        res.status(403).json({"error": true, "message": "forbidden"});
+                        res.status(403).json({"error": true, "message": "restricted to test account at this stage only"});
                     }
                     else{
                         res.status(200).json({"ok": true});
