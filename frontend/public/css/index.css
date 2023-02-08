@@ -191,7 +191,7 @@
 .timetable-width {
     width: 1200px;
     margin: 20px;
-    height: 1000px;
+    height: auto;
 }
 
 .timetable-header {
