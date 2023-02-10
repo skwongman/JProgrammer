@@ -4,7 +4,7 @@
     z-index: 1;
     align-items: center;
     justify-content: center;
-    height: 550px;
+    height: 600px;
     /* background-image: url("https://statics.tver.jp/images/content/thumbnail/episode/xlarge/epvl45euhr.jpg?v=56"); */
     background-repeat: no-repeat;
     background-size: cover;
@@ -17,7 +17,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 550px;
+    height: 600px;
     /* background-color: rgba(220, 150, 148, 0.84); */
 }
 
@@ -60,27 +60,35 @@
     margin: 0px 10px 0px 10px;
 }
 
-.drama-details-category,
-.drama-details-brief {
+#dramaCategory,
+#dramaIntroduction {
     margin: 0px 10px 10px 10px;
     font-size: 17px;
 }
 
-.drama-details-day-time {
-    margin: 0px 10px 10px 40px;
-    font-size: 17px;
-}
-
 .drama-details-brief-title,
-.drama-details-tv {
+#dramaTV {
     font-size: 20px;
     font-weight: bold;
     margin: 10px 10px 0px 10px;
 }
 
+.drama-details-date-of-boardcast-container,
+.drama-details-day-time-container {
+    margin-left: 40px;
+}
+
+.drama-details-day-time,
 .drama-details-date-of-boardcast {
-    margin: 0px 10px 0px 40px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 10px;
     font-size: 17px;
+}
+
+.drama-details-date-of-boardcast-title {
+    margin-right: 10px;
 }
 
 .drama-episode {
@@ -104,7 +112,7 @@
 .drama-edit {
     position: absolute;
     /* margin: 10px auto; */
-    top: 490px;
+    top: 530px;
     background-color: #032541;
     border-radius: 5px;
     width: 80px;
@@ -420,6 +428,132 @@
     margin: 50px 0px 50px 0px;
 }
 
+/* Edit Drama Information */
+.edit-drama-content {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.individual-edit-btn {
+    width: 20px;
+    height: auto;
+}
+
+#edit1{
+    position: absolute;
+    transform: translate(114px, -33px);
+    cursor: pointer;
+}
+
+#edit2{
+    position: absolute;
+    transform: translate(66px, -26px);
+    cursor: pointer;
+}
+
+#edit3{
+    position: absolute;
+    transform: translate(124px, -26px);
+    cursor: pointer;
+}
+
+#edit4{
+    position: absolute;
+    transform: translateX(190px);
+    cursor: pointer;
+}
+
+#edit5 {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#edit6 {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#confirmYes{
+    position: absolute;
+    width: 25px;
+    height: auto;
+    cursor: pointer;
+}
+
+#confirmNo{
+    position: absolute;
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+}
+
+[data-confirm-yes-1] {
+    transform: translate(600px, -39px);
+}
+
+[data-confirm-no-1] {
+    transform: translate(631px, -40px);
+}
+
+[data-confirm-yes-2] {
+    transform: translate(600px, -66px);
+}
+
+[data-confirm-no-2] {
+    transform: translate(631px, -68px);
+}
+
+[data-confirm-yes-3] {
+    transform: translate(600px, -32px);
+}
+
+[data-confirm-no-3] {
+    transform: translate(631px, -35px);
+}
+
+[data-confirm-yes-4] {
+    transform: translateX(282px);
+}
+
+[data-confirm-no-4] {
+    transform: translateX(314px);
+}
+
+[data-confirm-yes-5] {
+    transform: translateX(66px);
+}
+
+[data-confirm-no-5] {
+    transform: translateX(97px);
+}
+
+[data-confirm-yes-6] {
+    transform: translateX(265px);
+}
+
+[data-confirm-no-6] {
+    transform: translateX(300px);
+}
+
+.edit-drama-cover-photo-submit-btn {
+    z-index: 2;
+}
+
+.edit-drama-cover-photo-submit-btn-confirm,
+.edit-drama-cover-photo-submit-btn-not-confirm {
+    width: 30px;
+    height: auto;
+    margin: 5px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
 
 /* Other Devices */
 @media(max-width:1200px) {
@@ -438,6 +572,50 @@
 
     .separator {
         width: 80%;
+    }
+
+    .drama-edit {
+        top: 550px;
+    }
+
+    [data-confirm-yes-1] {
+        transform: translate(130px, -39px);
+    }
+    
+    [data-confirm-no-1] {
+        transform: translate(161px, -40px);
+    }
+
+    [data-confirm-yes-2] {
+        transform: translate(60px, -100px);
+    }
+    
+    [data-confirm-no-2] {
+        transform: translate(90px, -103px);
+    }
+
+    [data-confirm-yes-3] {
+        transform: translate(124px, -32px);
+    }
+    
+    [data-confirm-no-3] {
+        transform: translate(154px, -35px);
+    }
+
+    [data-confirm-yes-4] {
+        transform: translateX(191px);
+    }
+    
+    [data-confirm-no-4] {
+        transform: translateX(222px);
+    }
+
+    [data-confirm-yes-6] {
+        transform: translateX(123px);
+    }
+    
+    [data-confirm-no-6] {
+        transform: translateX(155px);
     }
 
 }
@@ -462,7 +640,7 @@
     }
     
     .drama-photo {
-        width: 87%;
+        width: 100%;
         height: 200px;
     }
 

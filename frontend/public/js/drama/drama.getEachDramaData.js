@@ -3,6 +3,9 @@ export default function getEachDramaData(){
     // Add loading effect
     topbar.show();
 
+    // Global variable for the drama content to be edited.
+    let contentToBeEdit = null;
+
     const dramaID = location.href.split("/").pop();
 
     async function getData(url){
@@ -65,13 +68,13 @@ export default function getEachDramaData(){
             $("#dramaTV").text(dramaData.dramaTV);
 
             // First episode date of broadcast
-            $("#dramaDateOfBoardcast").text(`首播日期: ${dramaData.dramaDateOfBoardcast}`);
+            $("#dramaDateOfBoardcast").text(`${dramaData.dramaDateOfBoardcast}`);
 
             // Week of broadcast
-            $("#dramaWeek").text(`${dramaData.dramaWeek}: `);
+            $("#dramaWeek").text(`${dramaData.dramaWeek}`);
 
             // Time of broadcast
-            $("#dramaTimeOfBoardcast").text(dramaData.dramaTimeOfBoardcast);
+            $("#dramaTimeOfBoardcast").text(dramaData.dramaTimeOfBoardcast.split("~")[0]);
 
             // Episode (Japanese Source)
             if(dramaData.dramaDownloadJp.length == 0){
@@ -449,6 +452,199 @@ export default function getEachDramaData(){
         // Remove loading effect
         topbar.hide();
     });
+
+
+    // Drama edit button
+    // Display all the drama edit buttons and hide edit button itself.
+    $("#dramaEditBtn").click(() => {
+        $("img.individual-edit-btn").css("display", "block");
+        $("#dramaEditBtn").css("display", "none");
+        $("#editDramaCoverPhotoLabel").attr("for", "editDramaCoverPhotoBtn");
+        $("#dramaCoverPhoto").css("cursor", "pointer");
+        $("#dramaCoverPhoto").hover(
+            function(){
+                $(this).css("filter", "brightness(0.8) contrast(120%)");
+            },
+            function(){
+                $(this).css("filter", "");
+            }
+        );
+
+    });
+
+    // Handle individual drama edit button click.
+    $("img.individual-edit-btn").click((e) => {
+        // Store the value to be updated.
+        contentToBeEdit = $(`div.drama-details-content-${e.target.attributes.id.value}`).text().trim();
+
+        $(`editDramaContent-${e.target.attributes.id.value}`).text();
+
+        // Display the yes/no button.
+        $(`img.confirm-btn-${e.target.attributes.id.value}`).css("display", "block");
+
+        // Hide the edit button.
+        $("img.individual-edit-btn").css("display", "none");
+
+        // Clear the content to be updated before HTML DOM.
+        $(`div.drama-details-content-${e.target.attributes.id.value}`).text("");
+
+        // Change the content to be updated to "edit mode" (e.g. input / textarea tag - depends on the length of content) before HTML DOM.
+        if(contentToBeEdit.length > 10){
+            $(`div.drama-details-content-${e.target.attributes.id.value}`).append(`
+                <textarea id="editDramaContent-${e.target.attributes.id.value}" class="edit-drama-content">${contentToBeEdit}</textarea>
+            `);
+
+            // contentToBeEdit = $(`textarea#editDramaContent-${e.target.attributes.id.value}`).text()
+        }
+        else{
+            $(`div.drama-details-content-${e.target.attributes.id.value}`).append(`
+                <input id="editDramaContent-${e.target.attributes.id.value}" class="edit-drama-content" value=${contentToBeEdit}></input>
+            `);
+
+            // contentToBeEdit = $(`input#editDramaContent-${e.target.attributes.id.value}`).val()
+        };
+    });
+
+    // Handle "no" button click.
+    $("img#confirmNo").click((e) => {
+        // Hide the yes/no button.
+        $(`img.confirm-btn-${e.target.attributes.name.value}`).css("display", "none");
+
+        // Clear the content to be updated before HTML DOM.
+        $(`div.drama-details-content-${e.target.attributes.name.value}`).text("");
+
+        // Restore the content to the original one.
+        $(`div.drama-details-content-${e.target.attributes.name.value}`).text(`${contentToBeEdit}`);
+
+        // Show the drama edit button.
+        $("#dramaEditBtn").css("display", "block");
+
+        $("#editDramaCoverPhotoLabel").attr("for", "");
+
+        $("#dramaCoverPhoto").css("cursor", "");
+    
+        $("#dramaCoverPhoto").off("mouseenter mouseleave");
+    });
+
+    // Handle "yes" button click.
+    const editDramaID = location.href.split("/").pop();
+
+    $("img#confirmYes").click((e) => {
+        let editDramaContent = null;
+
+        if(contentToBeEdit.length > 10){
+            editDramaContent = $(`textarea#editDramaContent-${e.target.attributes.name.value}`).val();
+        }
+        else{
+            editDramaContent = $(`input#editDramaContent-${e.target.attributes.name.value}`).val();
+        };
+
+        const updateIndicator = e.target.attributes.name.value;
+
+        async function addEditdata(url, method){
+            const response = await fetch(url, method);
+            const data = await response.json();
+            return data;
+        };
+
+        addEditdata(`/api/edit/${editDramaID}`, {
+            method: "PUT",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                editDramaContent: editDramaContent,
+                updateIndicator: updateIndicator
+            })
+        })
+        .then(data => {
+            if(data.data){
+                $(`div.drama-details-content-${e.target.attributes.name.value}`).text("");
+
+                const threshold = 65;
+                let updatedDramaContent = data.data;
+                
+                if(updatedDramaContent.length > threshold){
+                    updatedDramaContent = updatedDramaContent.substring(0, threshold) + "…";
+                    $(`div.drama-details-content-${e.target.attributes.name.value}`).text(updatedDramaContent);
+                    $(`img.confirm-btn-${e.target.attributes.name.value}`).css("display", "none");
+                    $("#dramaEditBtn").css("display", "block");
+                    $("#editDramaCoverPhotoLabel").attr("for", "");
+
+                    $("#dramaCoverPhoto").css("cursor", "");
+                
+                    $("#dramaCoverPhoto").off("mouseenter mouseleave");
+                }
+                else{
+                    $(`div.drama-details-content-${e.target.attributes.name.value}`).text(updatedDramaContent);
+                    $(`img.confirm-btn-${e.target.attributes.name.value}`).css("display", "none");
+                    $("#dramaEditBtn").css("display", "block");
+                    $("#editDramaCoverPhotoLabel").attr("for", "");
+
+                    $("#dramaCoverPhoto").css("cursor", "");
+                
+                    $("#dramaCoverPhoto").off("mouseenter mouseleave");
+                };
+            };
+        })
+        .catch(error => {
+            console.log("Error(drama.getEachDramaData.js - ): " + error);
+        });
+    })
+
+
+    // if(tempValue.length > 10){
+    //     $(`div.drama-details-brief-${e.target.attributes.id.value}`).append(`
+    //         <textarea id="editDramaIntroduction" class="edit-drama-introduction">${tempValue}</textarea>
+    //     `);
+    // }
+    // else{
+    //     $(`div.drama-details-brief-${e.target.attributes.id.value}`).append(`
+    //         <input id="editDramaIntroduction2" class="edit-drama-introduction" value="${tempValue}"></input>
+    //     `);
+    // };
+
+
+    // $("#dramaEditBtn").click(() => {
+
+    //     $("#dramaIntroduction").text("");
+    //     $("#dramaIntroduction").append(`
+    //         <textarea id="editDramaIntroduction" class="edit-drama-introduction">${string}</textarea>
+    //     `);
+
+    // });
+
+
+    // const editDramaID = location.href.split("/").pop();
+
+    // $("#confirmBtn").click(() => {
+    //     // console.log($("#editDramaIntroduction").val())
+    //     const editDramaIntroduction = $("#editDramaIntroduction").val();
+
+    //     fetch(`/api/edit/${editDramaID}`, {
+    //         method: "PUT",
+    //         headers: {"Content-type": "application/json"},
+    //         body: JSON.stringify({
+    //             editDramaIntroduction: editDramaIntroduction
+    //         })
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         $("#dramaIntroduction").text("");
+
+    //         const threshold = 65; // Max no. of wording for introduction
+    //         let updatedDramaIntroduction = data.data;
+            
+    //         if(updatedDramaIntroduction.length > threshold){
+    //             updatedDramaIntroduction = updatedDramaIntroduction.substring(0, threshold) + "…";
+    //             $("#dramaIntroduction").text(updatedDramaIntroduction);
+    //         }
+    //         else{
+    //             $("#dramaIntroduction").text(updatedDramaIntroduction);
+    //         };
+
+    //         string = updatedDramaIntroduction;
+    //     })
+
+    // })
 
 
     // Drama rating chart setting
