@@ -114,6 +114,16 @@ router.put("/api/edit/:id", upload.single("editDramaCoverPhoto"), (req, res) => 
         else if(updateIndicator == "edit6"){
             insertValue = { $set: { dramaTimeOfBoardcast: editDramaContent } };
         }
+        else if(updateIndicator == "edit7"){
+
+            const clearEditDramaContent = editDramaContent.split(", ");
+            const dramaVideo = [];
+            for(let i of clearEditDramaContent){
+                dramaVideo.push(i);
+            };
+
+            insertValue = { $set: { dramaVideo: dramaVideo } };
+        }
 
         client.connect(err => {
             if(err){
@@ -150,6 +160,9 @@ router.put("/api/edit/:id", upload.single("editDramaCoverPhoto"), (req, res) => 
                     }
                     else if(updateIndicator == "edit6"){
                         res.status(200).json({"data": editResult.dramaTimeOfBoardcast});
+                    }
+                    else if(updateIndicator == "edit7"){
+                        res.status(200).json({"data": editResult.dramaVideo});
                     }
                     
                 });

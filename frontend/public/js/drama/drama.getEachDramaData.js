@@ -5,6 +5,9 @@ export default function getEachDramaData(){
 
     // Global variable for the drama content to be edited.
     let contentToBeEdit = null;
+    let episodeToBeEdit = "";
+    let originalEpisodeContent = "";
+    let dramaVideoTitle = null;
 
     const dramaID = location.href.split("/").pop();
 
@@ -128,12 +131,27 @@ export default function getEachDramaData(){
                 else{
                     for(let i = 0; i < dramaData.dramaVideo.length; i ++){
                         const episode = i + 1;
+
+                        dramaVideoTitle = dramaData.dramaTitle;
+
+                        if(i !== dramaData.dramaVideo.length - 1){
+                            episodeToBeEdit = episodeToBeEdit + dramaData.dramaVideo[i] + ", ";
+                        }
+                        else{
+                            episodeToBeEdit = episodeToBeEdit + dramaData.dramaVideo[i];
+                        };
+
+                        // episodeToBeEdit = episodeToBeEdit + dramaData.dramaVideo[i] + ", ";
         
+                        // episodeToBeEdit.push(dramaData.dramaVideo[i]);
+
                         $("#dramaDownloadUpload").append(`
                             <div class="drama-episode-title">
                                 <span class="video-btn-user" id="videoBtn${episode}" titleChi="${dramaData.dramaTitle}" titleEpisode="第${episode}話" link="${dramaData.dramaVideo[i]}">第${episode}話</span>
                             </div>
                         `);
+
+                        originalEpisodeContent += `<div class="drama-episode-title"><span class="video-btn-user" id="videoBtn${episode}" titleChi="${dramaData.dramaTitle}" titleEpisode="第${episode}話" link="${dramaData.dramaVideo[i]}">第${episode}話</span></div>`
                     };
                     $("#dramaDownloadUploadTab").css("display", "block");
                 };
@@ -402,7 +420,8 @@ export default function getEachDramaData(){
                     `);
                 }
                 catch(error){
-                    console.log("Error(drama.getActorData.js - 1): " + error);
+                    // console.log("Error(drama.getActorData.js - 1): " + error);
+                    null
                 };
             };
 
@@ -454,9 +473,11 @@ export default function getEachDramaData(){
     });
 
 
-    // Drama edit button
+    // Handle drama edit button click.
+
     // Display all the drama edit buttons and hide edit button itself.
     $("#dramaEditBtn").click(() => {
+
         $("img.individual-edit-btn").css("display", "block");
         $("#dramaEditBtn").css("display", "none");
         $("#editDramaCoverPhotoLabel").attr("for", "editDramaCoverPhotoBtn");
@@ -470,77 +491,206 @@ export default function getEachDramaData(){
             }
         );
 
+        if($("#dramaDownloadUploadTab").css("display") == "block"){
+            $("#edit7").css("display", "block");
+            $("#profile-tab-2").click();
+        }
+        else{
+            $("#edit7").css("display", "none");
+        };
+
     });
 
     // Handle individual drama edit button click.
     $("img.individual-edit-btn").click((e) => {
-        // Store the value to be updated.
-        contentToBeEdit = $(`div.drama-details-content-${e.target.attributes.id.value}`).text().trim();
 
-        $(`editDramaContent-${e.target.attributes.id.value}`).text();
+        const individualBtnID = e.target.attributes.id.value;
+
+        // Store the value to be updated.
+        contentToBeEdit = $(`div.drama-details-content-${individualBtnID}`).text().trim();
+
+        // $(`editDramaContent-${e.target.attributes.id.value}`).text("");
 
         // Display the yes/no button.
-        $(`img.confirm-btn-${e.target.attributes.id.value}`).css("display", "block");
+        $(`img.confirm-btn-${individualBtnID}`).css("display", "block");
 
         // Hide the edit button.
         $("img.individual-edit-btn").css("display", "none");
 
         // Clear the content to be updated before HTML DOM.
-        $(`div.drama-details-content-${e.target.attributes.id.value}`).text("");
+        $(`div.drama-details-content-${individualBtnID}`).text("");
 
-        // Change the content to be updated to "edit mode" (e.g. input / textarea tag - depends on the length of content) before HTML DOM.
-        if(contentToBeEdit.length > 10){
-            $(`div.drama-details-content-${e.target.attributes.id.value}`).append(`
-                <textarea id="editDramaContent-${e.target.attributes.id.value}" class="edit-drama-content">${contentToBeEdit}</textarea>
-            `);
+        // Check whether the click button is edit video link button.
+        if(individualBtnID != "edit7"){
+            // Change the content to be updated to "edit mode" (e.g. input / textarea tag - depends on the length of content) before HTML DOM.
+            if(contentToBeEdit.length > 10){
+                $(`div.drama-details-content-${individualBtnID}`).append(`
+                    <textarea id="editDramaContent-${individualBtnID}" class="edit-drama-content">${contentToBeEdit}</textarea>
+                `);
 
-            // contentToBeEdit = $(`textarea#editDramaContent-${e.target.attributes.id.value}`).text()
+                // contentToBeEdit = $(`textarea#editDramaContent-${e.target.attributes.id.value}`).text()
+            }
+            else{
+                $(`div.drama-details-content-${individualBtnID}`).append(`
+                    <input id="editDramaContent-${individualBtnID}" class="edit-drama-content" value=${contentToBeEdit}></input>
+                `);
+
+                // contentToBeEdit = $(`input#editDramaContent-${e.target.attributes.id.value}`).val()
+            };
         }
         else{
-            $(`div.drama-details-content-${e.target.attributes.id.value}`).append(`
-                <input id="editDramaContent-${e.target.attributes.id.value}" class="edit-drama-content" value=${contentToBeEdit}></input>
-            `);
+            // console.log(episodeToBeEdit)
+            // let list = "";
+            // for(let i of episodeToBeEdit){
+            //     list = list + i + ", "
+            // };
+            // const finalList = (list)
 
-            // contentToBeEdit = $(`input#editDramaContent-${e.target.attributes.id.value}`).val()
+            $(`div.drama-details-content-${individualBtnID}`).append(`
+                <textarea id="editDramaContent-${individualBtnID}" class="edit-drama-content">${episodeToBeEdit}</textarea>
+            `);
         };
+
     });
 
     // Handle "no" button click.
     $("img#confirmNo").click((e) => {
+
+        const confirmNoBtnID = e.target.attributes.name.value;
+
         // Hide the yes/no button.
-        $(`img.confirm-btn-${e.target.attributes.name.value}`).css("display", "none");
+        $(`img.confirm-btn-${confirmNoBtnID}`).css("display", "none");
 
         // Clear the content to be updated before HTML DOM.
-        $(`div.drama-details-content-${e.target.attributes.name.value}`).text("");
-
-        // Restore the content to the original one.
-        $(`div.drama-details-content-${e.target.attributes.name.value}`).text(`${contentToBeEdit}`);
+        $(`div.drama-details-content-${confirmNoBtnID}`).text("");
 
         // Show the drama edit button.
         $("#dramaEditBtn").css("display", "block");
 
+        // Clear the photo upload function.
         $("#editDramaCoverPhotoLabel").attr("for", "");
 
+        // Clear the cursor.
         $("#dramaCoverPhoto").css("cursor", "");
     
+        // Clear the CSS hover effect.
         $("#dramaCoverPhoto").off("mouseenter mouseleave");
+
+        // Check whether the click button is edit video link button, and restore the content to the original one.
+        if(confirmNoBtnID != "edit7"){
+            $(`div.drama-details-content-${confirmNoBtnID}`).text(`${contentToBeEdit}`);
+        }
+        else{
+            // $("#dramaDownloadUpload").text("");
+
+            // Add HTML DOM to the original content.
+            $("#dramaDownloadUpload").append(`${originalEpisodeContent}`);
+
+            // handle each episode button click.
+            function handleBtnClickAfterDOM(){
+
+                // $("#dramaDownloadUpload").text("");
+
+                // $("#dramaDownloadUpload").append(`${originalEpisodeContent}`);
+    
+                // Drama Video
+                let currentTime = 0;
+                const preventContextMenu = function(event){
+                    event.preventDefault();
+                };
+    
+                // Handle Button Click (User Upload Source)
+                $("span.video-btn-user").click((e) => {
+    
+                    // Add loading effect
+                    topbar.show();
+    
+                    async function watchVideoAuth(url){
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        return data;
+                    };
+    
+                    watchVideoAuth("/api/video/auth")
+                    .then(data => {
+                        // Watch drama function is only available for user account logged in.
+                        if(data.error && data.message == "forbidden"){
+                            location.href = "/signin";
+    
+                            // Remove loading effect
+                            topbar.hide();
+                        };
+    
+                        // Watch drama function is only available for testing account.
+                        if(data.error && data.message == "restricted to test account at this stage only"){
+                            alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
+    
+                            // Remove loading effect
+                            topbar.hide();
+                        };
+    
+                        if(data.ok){
+                            // Add loading effect
+                            topbar.show();
+    
+                            // Add the video link to the html DOM.
+                            $("#video").attr("src", "/api/video?link=" + e.target.attributes.link.value) // "http://140.238.54.62:3000/server?link="
+    
+                            // Add the drama video title to the video navigation bar.
+                            $("#videoTitle").text(e.target.attributes.titleChi.value + " - " + e.target.attributes.titleEpisode.value);
+    
+                            // Display the drama video player.
+                            $("#videoContainer").css("display", "block");
+    
+                            // Record the video playing time before hide.
+                            $("#video").prop("currentTime", currentTime);
+    
+                            // Disable the scrolling function.
+                            $("body").css("overflow", "hidden");
+    
+                            // Disable mouse right-click function.
+                            $(document).on("contextmenu", preventContextMenu);
+    
+                            // Remove loading effect
+                            topbar.hide();
+                        };
+                    })
+                    .catch(error => {
+                        console.log("Error(drama.getEachDramaData.js - 2): " + error);
+    
+                        // Remove loading effect
+                        topbar.hide();
+                    });
+    
+                });
+                
+            };
+            handleBtnClickAfterDOM();
+        };
+
     });
 
     // Handle "yes" button click.
-    const editDramaID = location.href.split("/").pop();
-
     $("img#confirmYes").click((e) => {
-        let editDramaContent = null;
+        // console.log($("#editDramaContent-edit7").val())
 
-        if(contentToBeEdit.length > 10){
-            editDramaContent = $(`textarea#editDramaContent-${e.target.attributes.name.value}`).val();
+        let editDramaContent = null;
+        const confirmYesBtnID = e.target.attributes.name.value;
+        const updateIndicator = confirmYesBtnID;
+        const editDramaID = location.href.split("/").pop();
+
+        if(confirmYesBtnID != "edit7"){
+            if(contentToBeEdit.length > 10){
+                editDramaContent = $(`textarea#editDramaContent-${confirmYesBtnID}`).val();
+            }
+            else{
+                editDramaContent = $(`input#editDramaContent-${confirmYesBtnID}`).val();
+            };
         }
         else{
-            editDramaContent = $(`input#editDramaContent-${e.target.attributes.name.value}`).val();
+            editDramaContent = $(`textarea#editDramaContent-edit7`).val();
         };
-
-        const updateIndicator = e.target.attributes.name.value;
-
+        
         async function addEditdata(url, method){
             const response = await fetch(url, method);
             const data = await response.json();
@@ -557,31 +707,141 @@ export default function getEachDramaData(){
         })
         .then(data => {
             if(data.data){
-                $(`div.drama-details-content-${e.target.attributes.name.value}`).text("");
-
-                const threshold = 65;
                 let updatedDramaContent = data.data;
-                
-                if(updatedDramaContent.length > threshold){
-                    updatedDramaContent = updatedDramaContent.substring(0, threshold) + "…";
-                    $(`div.drama-details-content-${e.target.attributes.name.value}`).text(updatedDramaContent);
-                    $(`img.confirm-btn-${e.target.attributes.name.value}`).css("display", "none");
-                    $("#dramaEditBtn").css("display", "block");
-                    $("#editDramaCoverPhotoLabel").attr("for", "");
 
-                    $("#dramaCoverPhoto").css("cursor", "");
-                
-                    $("#dramaCoverPhoto").off("mouseenter mouseleave");
+                $(`div.drama-details-content-${confirmYesBtnID}`).text("");
+                $(`img.confirm-btn-${e.target.attributes.name.value}`).css("display", "none");
+                $("#dramaEditBtn").css("display", "block");
+                $("#editDramaCoverPhotoLabel").attr("for", "");
+                $("#dramaCoverPhoto").css("cursor", "");
+                $("#dramaCoverPhoto").off("mouseenter mouseleave");
+
+                if(confirmYesBtnID != "edit7"){
+                    const threshold = 65;
+                    
+                    if(updatedDramaContent.length > threshold){
+                        updatedDramaContent = updatedDramaContent.substring(0, threshold) + "…";
+                        $(`div.drama-details-content-${confirmYesBtnID}`).text(updatedDramaContent);
+                        $(`img.confirm-btn-${confirmYesBtnID}`).css("display", "none");
+                        $("#dramaEditBtn").css("display", "block");
+                        $("#editDramaCoverPhotoLabel").attr("for", "");
+                        $("#dramaCoverPhoto").css("cursor", "");
+                        $("#dramaCoverPhoto").off("mouseenter mouseleave");
+                    }
+                    else{
+                        $(`div.drama-details-content-${confirmYesBtnID}`).text(updatedDramaContent);
+                        $(`img.confirm-btn-${confirmYesBtnID}`).css("display", "none");
+                        $("#dramaEditBtn").css("display", "block");
+                        $("#editDramaCoverPhotoLabel").attr("for", "");
+                        $("#dramaCoverPhoto").css("cursor", "");
+                        $("#dramaCoverPhoto").off("mouseenter mouseleave");
+                    };
                 }
                 else{
-                    $(`div.drama-details-content-${e.target.attributes.name.value}`).text(updatedDramaContent);
-                    $(`img.confirm-btn-${e.target.attributes.name.value}`).css("display", "none");
-                    $("#dramaEditBtn").css("display", "block");
-                    $("#editDramaCoverPhotoLabel").attr("for", "");
+                    // ## Clear the content before adding the new video content.
+                    originalEpisodeContent = "";
 
-                    $("#dramaCoverPhoto").css("cursor", "");
-                
-                    $("#dramaCoverPhoto").off("mouseenter mouseleave");
+                    for(let i = 0; i < updatedDramaContent.length; i ++){
+                        const episode = i + 1;
+
+                        $("#dramaDownloadUpload").append(`
+                            <div class="drama-episode-title">
+                                <span class="video-btn-user" id="videoBtn${episode}" titleChi="${dramaVideoTitle}" titleEpisode="第${episode}話" link="${updatedDramaContent[i]}">第${episode}話</span>
+                            </div>
+                        `);
+                        
+                        originalEpisodeContent += `<div class="drama-episode-title"><span class="video-btn-user" id="videoBtn${episode}" titleChi="${dramaVideoTitle}" titleEpisode="第${episode}話" link="${updatedDramaContent[i]}">第${episode}話</span></div>`;
+                    };
+
+                    // After update the video list, restore the textarea content to the latest content one.
+                    let updatedTextarea = "";
+
+                    for(let i = 0; i < updatedDramaContent.length; i ++){
+                        if(i !== updatedDramaContent.length - 1){
+                            updatedTextarea = updatedTextarea + updatedDramaContent[i] + ", ";
+                        }
+                        else{
+                            updatedTextarea = updatedTextarea + updatedDramaContent[i];
+                        };
+                    };
+
+                    episodeToBeEdit = updatedTextarea;
+
+                    function handleBtnClickAfterDOM(){
+
+                        // Drama Video
+                        let currentTime = 0;
+                        const preventContextMenu = function(event){
+                            event.preventDefault();
+                        };
+            
+                        // Handle Button Click (User Upload Source)
+                        $("span.video-btn-user").click((e) => {
+            
+                            // Add loading effect
+                            topbar.show();
+            
+                            async function watchVideoAuth(url){
+                                const response = await fetch(url);
+                                const data = await response.json();
+                                return data;
+                            };
+            
+                            watchVideoAuth("/api/video/auth")
+                            .then(data => {
+                                // Watch drama function is only available for user account logged in.
+                                if(data.error && data.message == "forbidden"){
+                                    location.href = "/signin";
+            
+                                    // Remove loading effect
+                                    topbar.hide();
+                                };
+            
+                                // Watch drama function is only available for testing account.
+                                if(data.error && data.message == "restricted to test account at this stage only"){
+                                    alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
+            
+                                    // Remove loading effect
+                                    topbar.hide();
+                                };
+            
+                                if(data.ok){
+                                    // Add loading effect
+                                    topbar.show();
+            
+                                    // Add the video link to the html DOM.
+                                    $("#video").attr("src", "/api/video?link=" + e.target.attributes.link.value) // "http://140.238.54.62:3000/server?link="
+            
+                                    // Add the drama video title to the video navigation bar.
+                                    $("#videoTitle").text(e.target.attributes.titleChi.value + " - " + e.target.attributes.titleEpisode.value);
+            
+                                    // Display the drama video player.
+                                    $("#videoContainer").css("display", "block");
+            
+                                    // Record the video playing time before hide.
+                                    $("#video").prop("currentTime", currentTime);
+            
+                                    // Disable the scrolling function.
+                                    $("body").css("overflow", "hidden");
+            
+                                    // Disable mouse right-click function.
+                                    $(document).on("contextmenu", preventContextMenu);
+            
+                                    // Remove loading effect
+                                    topbar.hide();
+                                };
+                            })
+                            .catch(error => {
+                                console.log("Error(drama.getEachDramaData.js - 2): " + error);
+            
+                                // Remove loading effect
+                                topbar.hide();
+                            });
+            
+                        });
+                        
+                    };
+                    handleBtnClickAfterDOM();
                 };
             };
         })

@@ -91,7 +91,8 @@
     margin-right: 10px;
 }
 
-.drama-episode {
+.drama-episode,
+[data-drama-episode] {
     display: flex;
     z-index: 3;
     flex-wrap: wrap;
@@ -437,7 +438,7 @@
 
 .individual-edit-btn {
     width: 20px;
-    height: auto;
+    height: 20px;
 }
 
 #edit1{
@@ -471,6 +472,11 @@
 
 #edit6 {
     margin-left: 10px;
+    cursor: pointer;
+}
+
+#edit7 {
+    transform: translate(11px, 11px);
     cursor: pointer;
 }
 
@@ -534,6 +540,14 @@
 
 [data-confirm-no-6] {
     transform: translateX(300px);
+}
+
+[data-confirm-yes-7] {
+    transform: translate(350px, 8px);
+}
+
+[data-confirm-no-7] {
+    transform: translate(386px, 6px);
 }
 
 .edit-drama-cover-photo-submit-btn {
@@ -616,6 +630,14 @@
     
     [data-confirm-no-6] {
         transform: translateX(155px);
+    }
+
+    [data-confirm-yes-7] {
+        transform: translate(4px, 118px);
+    }
+    
+    [data-confirm-no-7] {
+        transform: translate(36px, 116px);
     }
 
 }
