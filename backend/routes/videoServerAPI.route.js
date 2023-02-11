@@ -20,17 +20,22 @@ router.get("/api/video", (req, res) => {
     // Set the response type to "video/mp4"
     res.type("mp4");
 
-    // Wait for the engine to ready before streaming the video
-    engine.on("ready", () => {
-        // Pipe the video data to the response
-        const stream = engine.files[0].createReadStream();
-        stream.pipe(res);
+    try{
+        // Wait for the engine to ready before streaming the video
+        engine.on("ready", () => {
+            // Pipe the video data to the response
+            const stream = engine.files[0].createReadStream();
+            stream.pipe(res);
 
-        // Close the response stream when the video has finished streaming
-        stream.on("end", () => {
-            res.end();
+            // Close the response stream when the video has finished streaming
+            stream.on("end", () => {
+                res.end();
+            });
         });
-    });
+    }
+    catch(error){
+        console.log("Error(videoServerAPI.route): " + error);
+    };
 
 });
 

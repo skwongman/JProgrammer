@@ -41,7 +41,7 @@ router.get("/api/video/auth", (req, res) => {
                         console.log("Error(watchDramaAccessAPI.route - 2): " + err);
                     }
                     // Compare with the member id whether it is the testing account member id.
-                    else if(result._id.toString() != "63da56f1ce2055b9fb0d9721"){
+                    else if(result._id.toString() != "63e76017fdc1e54772c8c140"){
                         res.status(403).json({"error": true, "message": "restricted to test account at this stage only"});
                     }
                     else{

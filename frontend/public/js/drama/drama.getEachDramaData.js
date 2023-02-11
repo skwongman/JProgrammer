@@ -346,7 +346,7 @@ export default function getEachDramaData(){
                         topbar.show();
 
                         // Add the video link to the html DOM.
-                        $("#video").attr("src", "/api/video?link=" + e.target.attributes.link.value) // "http://140.238.54.62:3000/server?link="
+                        $("#video").attr("src", "/api/video?link=" + e.target.attributes.link.value) // "http://140.238.54.62:3000/server?link="  "/api/video?link="
 
                         // Add the drama video title to the video navigation bar.
                         $("#videoTitle").text(e.target.attributes.titleChi.value + " - " + e.target.attributes.titleEpisode.value);
