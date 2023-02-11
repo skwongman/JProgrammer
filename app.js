@@ -16,6 +16,7 @@ const latestAPIRouter = require("./backend/routes/latestAPI.route");
 const popularListAPIRouter = require("./backend/routes/popularListAPI.route");
 const addDramaAPIRouter = require("./backend/routes/addDramaAPI.route");
 const videoServerAPIRouter = require("./backend/routes/videoServerAPI.route");
+const editDramaAccessAPIRouter = require("./backend/routes/editDramaAccessAPI.route");
 const editDramaAPIRouter = require("./backend/routes/editDramaAPI.route");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -93,6 +94,8 @@ app.post("/api/add", addDramaAPIRouter);
 app.get("/api/video", videoServerAPIRouter);
 
 // Edit Drama Information
+app.get("/api/edit/auth", editDramaAccessAPIRouter);
+
 app.put("/api/edit/:id", editDramaAPIRouter);
 
 // 404 Error page
