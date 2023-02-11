@@ -124,6 +124,23 @@ router.put("/api/edit/:id", upload.single("editDramaCoverPhoto"), (req, res) => 
 
             insertValue = { $set: { dramaVideo: dramaVideo } };
         }
+        else if(updateIndicator == "edit8"){
+
+            const clearAddDramaActorCast = editDramaContent.split(", ");
+            const clearAddDramaActor = [];
+            const clearAddDramaCast = [];
+            for(let i of clearAddDramaActorCast){
+                clearAddDramaActor.push(i.split(" / ")[0]);
+                clearAddDramaCast.push(i.split(" / ")[1] + " / " + i.split(" / ")[0]);
+            };
+
+            insertValue = {
+                $set: {
+                    dramaActor: clearAddDramaActor,
+                    dramaCast: clearAddDramaCast
+                }
+            };
+        }
 
         client.connect(err => {
             if(err){
@@ -164,10 +181,73 @@ router.put("/api/edit/:id", upload.single("editDramaCoverPhoto"), (req, res) => 
                     else if(updateIndicator == "edit7"){
                         res.status(200).json({"data": editResult.dramaVideo});
                     }
-                    
+                    // else if(updateIndicator == "edit8"){
+                    //     res.status(200).json({"dataActor": editResult.dramaActor, "dataCast": editResult.dramaCast, "dataPhoto": editResult.dramaCoverPhoto});
+                    // }
                 });
+
+                if(updateIndicator == "edit8"){
+
+                    const matchDramaID = { $match: { dramaID: editDramaID } };
+                    const unwind = { $unwind: "$dramaActor" };
+                    const aggreActor = {
+                        $lookup: {
+                            from: "actorMix",
+                            localField: "dramaActor",
+                            foreignField: "actorNameChi",
+                            as: "dramaActor"
+                        }
+                    };
+                    const limitNoOfCast = { $limit: 9 };
+                    const group = {
+                        $group: {
+                            _id: "$_id",
+                            dramaID: { $first: "$dramaID" },
+                            dramaActor: { $push: "$dramaActor" },
+                            dramaCast: { $first: "$dramaCast" }
+                        }
+                    };
+                    const sortlisted = {
+                        $project: {
+                            _id: 0,
+                            "dramaActor._id": 0,
+                            "dramaActor._id": 0,
+                            "dramaActor.actorID": 0,
+                            "dramaActor.actorNameJp": 0,
+                            "dramaActor.actorCreatedTime": 0
+                        }
+                    };
+    
+                    const aggregatePipeline = [matchDramaID, unwind, aggreActor, limitNoOfCast, group, sortlisted];
+    
+                    // Fetching data
+                    collection
+                    .aggregate(aggregatePipeline)
+                    .limit(1)
+                    .toArray((err, result) => {
+                        if(err){
+                            res.status(500).json({"error": true, "message": err.message});
+                            console.log("Error(dramaQueryStringAPI.route - 2): " + err);
+                        };
+    
+                        // console.log(result[0].dramaActor)
+                        // console.log(result[0].dramaCast)
+    
+                        res.status(200).json({"data": {"dramaActor": result[0].dramaActor, "dramaCast": result[0].dramaCast}});
+                        
+                    });
+
+                }
+
+
             
             });
+
+
+
+
+
+
             
         });
     };

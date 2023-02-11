@@ -156,7 +156,7 @@
     /* margin: 10px; */
 }
 
-.cast-container {
+#castContainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -480,6 +480,12 @@
     cursor: pointer;
 }
 
+#edit8 {
+    position: absolute;
+    transform: translate(75px, -1px);
+    cursor: pointer;
+}
+
 #confirmYes{
     position: absolute;
     width: 25px;
@@ -550,6 +556,14 @@
     transform: translate(386px, 6px);
 }
 
+[data-confirm-yes-8] {
+    transform: translate(-20px, 27px);
+}
+
+[data-confirm-no-8] {
+    transform: translate(21px,26px);
+}
+
 .edit-drama-cover-photo-submit-btn {
     z-index: 2;
 }
@@ -572,7 +586,7 @@
 /* Other Devices */
 @media(max-width:1200px) {
 
-    .cast-container {
+    #castContainer {
         flex-wrap: wrap;
     }
     

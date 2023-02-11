@@ -7,6 +7,8 @@ export default function getEachDramaData(){
     let contentToBeEdit = null;
     let episodeToBeEdit = "";
     let originalEpisodeContent = "";
+    let actorToBeEdit = "";
+    let originalActorContent = "";
     let dramaVideoTitle = null;
 
     const dramaID = location.href.split("/").pop();
@@ -398,6 +400,9 @@ export default function getEachDramaData(){
             // If no cast data
             if(dramaCastData.dramaActor == "None" || dramaCastData.dramaActor == "" || dramaCastData.dramaActor == []){
                 $("#castContainer").append(`<div style="font-size:20px;">暫無演員資料</div>`);
+
+                originalActorContent = `<div style="font-size:20px;">暫無演員資料</div>`;
+                actorToBeEdit = "暫無演員資料";
             };
 
             // If cast data is recorded
@@ -418,11 +423,36 @@ export default function getEachDramaData(){
                             </div>
                         </div>
                     `);
+
+                    if(i !== maxNumOfCastPerPage - 1){
+                        actorToBeEdit = actorToBeEdit + actorName.trim() + " / " + castName.trim() + ", ";
+                    }
+                    else{
+                        actorToBeEdit = actorToBeEdit + actorName.trim() + " / " + castName.trim();
+                    };
+
+                    originalActorContent +=
+                        `<div class="cast">
+                            <img class="cast-photo" src="${actorPhoto}">
+                            <div class="cast-actor">
+                                <div class="cast-actor-name">${actorName}</div>
+                                <div class="cast-cast-name">${castName}</div>
+                            </div>
+                        </div>`
                 }
                 catch(error){
                     // console.log("Error(drama.getActorData.js - 1): " + error);
                     null
                 };
+
+
+                // if(i !== dramaData.dramaVideo.length - 1){
+                //     episodeToBeEdit = episodeToBeEdit + dramaData.dramaVideo[i] + ", ";
+                // }
+                // else{
+                //     episodeToBeEdit = episodeToBeEdit + dramaData.dramaVideo[i];
+                // };
+
             };
 
             // Drama rating
@@ -478,26 +508,43 @@ export default function getEachDramaData(){
     // Display all the drama edit buttons and hide edit button itself.
     $("#dramaEditBtn").click(() => {
 
-        $("img.individual-edit-btn").css("display", "block");
-        $("#dramaEditBtn").css("display", "none");
-        $("#editDramaCoverPhotoLabel").attr("for", "editDramaCoverPhotoBtn");
-        $("#dramaCoverPhoto").css("cursor", "pointer");
-        $("#dramaCoverPhoto").hover(
-            function(){
-                $(this).css("filter", "brightness(0.8) contrast(120%)");
-            },
-            function(){
-                $(this).css("filter", "");
-            }
-        );
+        if($("img.individual-edit-btn").css("display") == "block"){
+                $("img.individual-edit-btn").css("display", "none");
 
-        if($("#dramaDownloadUploadTab").css("display") == "block"){
-            $("#edit7").css("display", "block");
-            $("#profile-tab-2").click();
-        }
+                // Clear the photo upload function.
+                $("#editDramaCoverPhotoLabel").attr("for", "");
+
+                // Clear the cursor.
+                $("#dramaCoverPhoto").css("cursor", "");
+            
+                // Clear the CSS hover effect.
+                $("#dramaCoverPhoto").off("mouseenter mouseleave");
+
+                $("#home-tab").click();
+            }
         else{
-            $("#edit7").css("display", "none");
+            $("img.individual-edit-btn").css("display", "block");
+            $("#editDramaCoverPhotoLabel").attr("for", "editDramaCoverPhotoBtn");
+            $("#dramaCoverPhoto").css("cursor", "pointer");
+            $("#dramaCoverPhoto").hover(
+                function(){
+                    $(this).css("filter", "brightness(0.8) contrast(120%)");
+                },
+                function(){
+                    $(this).css("filter", "");
+                }
+            );
+    
+            if($("#dramaDownloadUploadTab").css("display") == "block"){
+                $("#edit7").css("display", "block");
+                $("#profile-tab-2").click();
+            }
+            else{
+                $("#edit7").css("display", "none");
+            };
         };
+
+
 
     });
 
@@ -511,6 +558,9 @@ export default function getEachDramaData(){
 
         // $(`editDramaContent-${e.target.attributes.id.value}`).text("");
 
+        // Hide the drama edit button.
+        $("#dramaEditBtn").css("display", "none");
+
         // Display the yes/no button.
         $(`img.confirm-btn-${individualBtnID}`).css("display", "block");
 
@@ -521,7 +571,7 @@ export default function getEachDramaData(){
         $(`div.drama-details-content-${individualBtnID}`).text("");
 
         // Check whether the click button is edit video link button.
-        if(individualBtnID != "edit7"){
+        if(individualBtnID != "edit7" && individualBtnID != "edit8"){
             // Change the content to be updated to "edit mode" (e.g. input / textarea tag - depends on the length of content) before HTML DOM.
             if(contentToBeEdit.length > 10){
                 $(`div.drama-details-content-${individualBtnID}`).append(`
@@ -537,8 +587,9 @@ export default function getEachDramaData(){
 
                 // contentToBeEdit = $(`input#editDramaContent-${e.target.attributes.id.value}`).val()
             };
-        }
-        else{
+        };
+
+        if(individualBtnID == "edit7"){
             // console.log(episodeToBeEdit)
             // let list = "";
             // for(let i of episodeToBeEdit){
@@ -548,6 +599,12 @@ export default function getEachDramaData(){
 
             $(`div.drama-details-content-${individualBtnID}`).append(`
                 <textarea id="editDramaContent-${individualBtnID}" class="edit-drama-content">${episodeToBeEdit}</textarea>
+            `);
+        };
+
+        if(individualBtnID == "edit8"){
+            $(`div.drama-details-content-${individualBtnID}`).append(`
+                <textarea id="editDramaContent-${individualBtnID}" class="edit-drama-content">${actorToBeEdit}</textarea>
             `);
         };
 
@@ -577,10 +634,11 @@ export default function getEachDramaData(){
         $("#dramaCoverPhoto").off("mouseenter mouseleave");
 
         // Check whether the click button is edit video link button, and restore the content to the original one.
-        if(confirmNoBtnID != "edit7"){
+        if(confirmNoBtnID != "edit7" && confirmNoBtnID != "edit8"){
             $(`div.drama-details-content-${confirmNoBtnID}`).text(`${contentToBeEdit}`);
-        }
-        else{
+        };
+
+        if(confirmNoBtnID == "edit7"){
             // $("#dramaDownloadUpload").text("");
 
             // Add HTML DOM to the original content.
@@ -668,10 +726,18 @@ export default function getEachDramaData(){
             handleBtnClickAfterDOM();
         };
 
+        if(confirmNoBtnID == "edit8"){
+            // Add HTML DOM to the original content.
+            $("#castContainer").append(`${originalActorContent}`);
+        };
+
     });
 
     // Handle "yes" button click.
     $("img#confirmYes").click((e) => {
+        // Add loading effect
+        topbar.show();
+
         // console.log($("#editDramaContent-edit7").val())
 
         let editDramaContent = null;
@@ -679,16 +745,21 @@ export default function getEachDramaData(){
         const updateIndicator = confirmYesBtnID;
         const editDramaID = location.href.split("/").pop();
 
-        if(confirmYesBtnID != "edit7"){
+        if(confirmYesBtnID != "edit7" || confirmYesBtnID != "edit8"){
             if(contentToBeEdit.length > 10){
                 editDramaContent = $(`textarea#editDramaContent-${confirmYesBtnID}`).val();
             }
             else{
                 editDramaContent = $(`input#editDramaContent-${confirmYesBtnID}`).val();
             };
-        }
-        else{
+        };
+        
+        if(confirmYesBtnID == "edit7"){
             editDramaContent = $(`textarea#editDramaContent-edit7`).val();
+        };
+
+        if(confirmYesBtnID == "edit8"){
+            editDramaContent = $(`textarea#editDramaContent-edit8`).val();
         };
         
         async function addEditdata(url, method){
@@ -716,7 +787,7 @@ export default function getEachDramaData(){
                 $("#dramaCoverPhoto").css("cursor", "");
                 $("#dramaCoverPhoto").off("mouseenter mouseleave");
 
-                if(confirmYesBtnID != "edit7"){
+                if(confirmYesBtnID != "edit7" && confirmYesBtnID != "edit8"){
                     const threshold = 65;
                     
                     if(updatedDramaContent.length > threshold){
@@ -736,8 +807,12 @@ export default function getEachDramaData(){
                         $("#dramaCoverPhoto").css("cursor", "");
                         $("#dramaCoverPhoto").off("mouseenter mouseleave");
                     };
-                }
-                else{
+
+                    // Remove loading effect
+                    topbar.hide();
+                };
+
+                if(confirmYesBtnID == "edit7"){
                     // ## Clear the content before adding the new video content.
                     originalEpisodeContent = "";
 
@@ -842,11 +917,78 @@ export default function getEachDramaData(){
                         
                     };
                     handleBtnClickAfterDOM();
+
+                    // Remove loading effect
+                    topbar.hide();
+                };
+
+                if(confirmYesBtnID == "edit8"){
+                    // console.log(data.data.dramaActor)
+                    // console.log(data.data.dramaCast)
+                    // console.log(data.dramaCast)
+
+                    // ## Clear the content before adding the new cast content.
+                    originalActorContent = "";
+
+                    // If cast data is recorded
+                    let maxNumOfCastPerPage = data.data.dramaCast.length;
+            
+                    for(let i = 0; i < maxNumOfCastPerPage; i ++){
+                        
+                        const actorPhoto = data.data.dramaActor[i][0].actorPhoto;
+                        const castName = data.data.dramaCast[i].split("/")[0];
+                        const actorName = data.data.dramaCast[i].split("/").pop();
+
+                        $("#castContainer").append(`
+                            <div class="cast">
+                                <img class="cast-photo" src="${actorPhoto}">
+                                <div class="cast-actor">
+                                    <div class="cast-actor-name">${actorName}</div>
+                                    <div class="cast-cast-name">${castName}</div>
+                                </div>
+                            </div>
+                        `);
+
+                        originalActorContent +=
+                        `<div class="cast">
+                            <img class="cast-photo" src="${actorPhoto}">
+                                <div class="cast-actor"><div class="cast-actor-name">${actorName}</div>
+                                <div class="cast-cast-name">${castName}</div>
+                            </div>
+                        </div>`
+
+                    };
+
+                    // After update the video list, restore the textarea content to the latest content one.
+                    let updatedTextarea = "";
+
+                    for(let i = 0; i < maxNumOfCastPerPage; i ++){
+
+                        const castName = data.data.dramaCast[i].split("/")[0];
+                        const actorName = data.data.dramaCast[i].split("/").pop();
+
+                        if(i !== maxNumOfCastPerPage - 1){
+                            updatedTextarea = updatedTextarea + actorName.trim() + " / " + castName.trim() + ", ";
+                        }
+                        else{
+                            updatedTextarea = updatedTextarea + actorName.trim() + " / " + castName.trim();
+                        };
+
+                    };
+
+                    actorToBeEdit = updatedTextarea;
+
+                    // Remove loading effect
+                    topbar.hide();
+
                 };
             };
         })
         .catch(error => {
             console.log("Error(drama.getEachDramaData.js - ): " + error);
+
+            // Remove loading effect
+            topbar.hide();
         });
     })
 
