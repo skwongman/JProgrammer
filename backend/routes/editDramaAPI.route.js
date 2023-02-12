@@ -141,6 +141,18 @@ router.put("/api/edit/:id", upload.single("editDramaCoverPhoto"), (req, res) => 
                 }
             };
         }
+        else if(updateIndicator == "edit9"){
+
+            const clearEditDramaContent = editDramaContent.split(", ");
+            const dramaRating = [];
+            for(let i of clearEditDramaContent){
+                dramaRating.push(i);
+            };
+
+            insertValue = { $set: { dramaRating: dramaRating } };
+        }
+
+
 
         client.connect(err => {
             if(err){
@@ -181,9 +193,9 @@ router.put("/api/edit/:id", upload.single("editDramaCoverPhoto"), (req, res) => 
                     else if(updateIndicator == "edit7"){
                         res.status(200).json({"data": editResult.dramaVideo});
                     }
-                    // else if(updateIndicator == "edit8"){
-                    //     res.status(200).json({"dataActor": editResult.dramaActor, "dataCast": editResult.dramaCast, "dataPhoto": editResult.dramaCoverPhoto});
-                    // }
+                    else if(updateIndicator == "edit9"){
+                        res.status(200).json({"data": editResult.dramaRating});
+                    }
                 });
 
                 if(updateIndicator == "edit8"){

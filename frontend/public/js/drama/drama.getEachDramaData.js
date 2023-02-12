@@ -8,7 +8,13 @@ export default function getEachDramaData(){
     let episodeToBeEdit = "";
     let originalEpisodeContent = "";
     let actorToBeEdit = "";
+    let ratingToBeEdit = "";
     let originalActorContent = "";
+    let originalRatingContent = "";
+    let originalRating = "";
+    let originalRatingMax = "";
+    let originalRatingAvg = "";
+    let originalRatingEpisode = "";
     let dramaVideoTitle = null;
 
     const dramaID = location.href.split("/").pop();
@@ -456,9 +462,12 @@ export default function getEachDramaData(){
             };
 
             // Drama rating
-            if(data.data.drama.dramaRating == "None"){
+            if(data.data.drama.dramaRating == "None" || data.data.drama.dramaRating == "" || data.data.drama.dramaRating == []){
                 $("#dramaRating").append(`<div style="text-align:center; font-size:20px;">暫無收視率資料</div>`);
                 $("#myChart").remove();
+
+                originalRatingContent = `<div style="text-align:center; font-size:20px;">暫無收視率資料</div>`
+                ratingToBeEdit = "暫無收視率資料";
             }
             else{
                 const rating = data.data.drama.dramaRating;
@@ -474,6 +483,22 @@ export default function getEachDramaData(){
     
                 // Callback function
                 ratingData(rating, maxRatingisDivisible, avgRating, episode);
+
+                originalRating = rating;
+                originalRatingMax = maxRatingisDivisible;
+                originalRatingAvg = avgRating;
+                originalRatingEpisode = episode;
+
+                for(let i = 0; i < rating.length; i ++){
+                    if(i !== rating.length - 1){
+                        ratingToBeEdit = ratingToBeEdit + rating[i] + ", ";
+                    }
+                    else{
+                        ratingToBeEdit = ratingToBeEdit + rating[i];
+                    };
+                };
+
+                originalRatingContent = `<canvas id="myChart"></canvas>`;
             };
 
             // Media information
@@ -604,7 +629,7 @@ export default function getEachDramaData(){
         $(`div.drama-details-content-${individualBtnID}`).text("");
 
         // Check whether the click button is edit video link button.
-        if(individualBtnID != "edit7" && individualBtnID != "edit8"){
+        if(individualBtnID != "edit7" && individualBtnID != "edit8" && individualBtnID != "edit9"){
             // Change the content to be updated to "edit mode" (e.g. input / textarea tag - depends on the length of content) before HTML DOM.
             if(contentToBeEdit.length > 10){
                 $(`div.drama-details-content-${individualBtnID}`).append(`
@@ -623,13 +648,6 @@ export default function getEachDramaData(){
         };
 
         if(individualBtnID == "edit7"){
-            // console.log(episodeToBeEdit)
-            // let list = "";
-            // for(let i of episodeToBeEdit){
-            //     list = list + i + ", "
-            // };
-            // const finalList = (list)
-
             $(`div.drama-details-content-${individualBtnID}`).append(`
                 <textarea id="editDramaContent-${individualBtnID}" class="edit-drama-content">${episodeToBeEdit}</textarea>
             `);
@@ -638,6 +656,12 @@ export default function getEachDramaData(){
         if(individualBtnID == "edit8"){
             $(`div.drama-details-content-${individualBtnID}`).append(`
                 <textarea id="editDramaContent-${individualBtnID}" class="edit-drama-content">${actorToBeEdit}</textarea>
+            `);
+        };
+
+        if(individualBtnID == "edit9"){
+            $(`div.drama-details-content-${individualBtnID}`).append(`
+                <textarea id="editDramaContent-${individualBtnID}" class="edit-drama-content">${ratingToBeEdit}</textarea>
             `);
         };
 
@@ -667,7 +691,7 @@ export default function getEachDramaData(){
         $("#dramaCoverPhoto").off("mouseenter mouseleave");
 
         // Check whether the click button is edit video link button, and restore the content to the original one.
-        if(confirmNoBtnID != "edit7" && confirmNoBtnID != "edit8"){
+        if(confirmNoBtnID != "edit7" && confirmNoBtnID != "edit8" && confirmNoBtnID != "edit9"){
             $(`div.drama-details-content-${confirmNoBtnID}`).text(`${contentToBeEdit}`);
         };
 
@@ -764,6 +788,13 @@ export default function getEachDramaData(){
             $("#castContainer").append(`${originalActorContent}`);
         };
 
+        if(confirmNoBtnID == "edit9"){
+            // Add HTML DOM to the original content.
+            $("#dramaRating").append(`${originalRatingContent}`);
+
+            ratingData(originalRating, originalRatingMax, originalRatingAvg, originalRatingEpisode);
+        };
+
     });
 
     // Handle "yes" button click.
@@ -778,7 +809,7 @@ export default function getEachDramaData(){
         const updateIndicator = confirmYesBtnID;
         const editDramaID = location.href.split("/").pop();
 
-        if(confirmYesBtnID != "edit7" || confirmYesBtnID != "edit8"){
+        if(confirmYesBtnID != "edit7" || confirmYesBtnID != "edit8" || confirmYesBtnID != "edit9"){
             if(contentToBeEdit.length > 10){
                 editDramaContent = $(`textarea#editDramaContent-${confirmYesBtnID}`).val();
             }
@@ -794,7 +825,11 @@ export default function getEachDramaData(){
         if(confirmYesBtnID == "edit8"){
             editDramaContent = $(`textarea#editDramaContent-edit8`).val();
         };
-        
+
+        if(confirmYesBtnID == "edit9"){
+            editDramaContent = $(`textarea#editDramaContent-edit9`).val();
+        };
+
         async function addEditdata(url, method){
             const response = await fetch(url, method);
             const data = await response.json();
@@ -820,7 +855,7 @@ export default function getEachDramaData(){
                 $("#dramaCoverPhoto").css("cursor", "");
                 $("#dramaCoverPhoto").off("mouseenter mouseleave");
 
-                if(confirmYesBtnID != "edit7" && confirmYesBtnID != "edit8"){
+                if(confirmYesBtnID != "edit7" && confirmYesBtnID != "edit8" && confirmYesBtnID != "edit9"){
                     const threshold = 65;
                     
                     if(updatedDramaContent.length > threshold){
@@ -956,63 +991,155 @@ export default function getEachDramaData(){
                 };
 
                 if(confirmYesBtnID == "edit8"){
+                    // console.log(updatedDramaContent.dramaActor[0] == [])
+                    // console.log(updatedDramaContent.dramaActor[0] == "")
+
                     // console.log(data.data.dramaActor)
                     // console.log(data.data.dramaCast)
                     // console.log(data.dramaCast)
 
-                    // ## Clear the content before adding the new cast content.
-                    originalActorContent = "";
+                    if(updatedDramaContent.dramaActor[0] == ""){
+                        $("#castContainer").append(`<div style="font-size:20px;">暫無演員資料</div>`);
 
-                    // If cast data is recorded
-                    let maxNumOfCastPerPage = data.data.dramaCast.length;
-            
-                    for(let i = 0; i < maxNumOfCastPerPage; i ++){
-                        
-                        const actorPhoto = data.data.dramaActor[i][0].actorPhoto;
-                        const castName = data.data.dramaCast[i].split("/")[0];
-                        const actorName = data.data.dramaCast[i].split("/").pop();
+                        originalActorContent = `<div style="font-size:20px;">暫無演員資料</div>`;
 
-                        $("#castContainer").append(`
-                            <div class="cast">
+                        // After update the cast list, restore the textarea content to the latest content one.
+                        let updatedTextarea = "";
+
+                        actorToBeEdit = updatedTextarea;
+
+                        // Remove loading effect
+                        topbar.hide();
+                    }
+                    else{
+                        // ## Clear the content before adding the new cast content.
+                        originalActorContent = "";
+
+                        // If cast data is recorded
+                        let maxNumOfCastPerPage = data.data.dramaCast.length;
+                
+                        for(let i = 0; i < maxNumOfCastPerPage; i ++){
+                            
+                            const actorPhoto = data.data.dramaActor[i][0].actorPhoto;
+                            const castName = data.data.dramaCast[i].split("/")[0];
+                            const actorName = data.data.dramaCast[i].split("/").pop();
+
+                            $("#castContainer").append(`
+                                <div class="cast">
+                                    <img class="cast-photo" src="${actorPhoto}">
+                                    <div class="cast-actor">
+                                        <div class="cast-actor-name">${actorName}</div>
+                                        <div class="cast-cast-name">${castName}</div>
+                                    </div>
+                                </div>
+                            `);
+
+                            originalActorContent +=
+                            `<div class="cast">
                                 <img class="cast-photo" src="${actorPhoto}">
-                                <div class="cast-actor">
-                                    <div class="cast-actor-name">${actorName}</div>
+                                    <div class="cast-actor"><div class="cast-actor-name">${actorName}</div>
                                     <div class="cast-cast-name">${castName}</div>
                                 </div>
-                            </div>
-                        `);
+                            </div>`
 
-                        originalActorContent +=
-                        `<div class="cast">
-                            <img class="cast-photo" src="${actorPhoto}">
-                                <div class="cast-actor"><div class="cast-actor-name">${actorName}</div>
-                                <div class="cast-cast-name">${castName}</div>
-                            </div>
-                        </div>`
-
-                    };
-
-                    // After update the video list, restore the textarea content to the latest content one.
-                    let updatedTextarea = "";
-
-                    for(let i = 0; i < maxNumOfCastPerPage; i ++){
-
-                        const castName = data.data.dramaCast[i].split("/")[0];
-                        const actorName = data.data.dramaCast[i].split("/").pop();
-
-                        if(i !== maxNumOfCastPerPage - 1){
-                            updatedTextarea = updatedTextarea + actorName.trim() + " / " + castName.trim() + ", ";
-                        }
-                        else{
-                            updatedTextarea = updatedTextarea + actorName.trim() + " / " + castName.trim();
                         };
 
+                        // After update the cast list, restore the textarea content to the latest content one.
+                        let updatedTextarea = "";
+
+                        for(let i = 0; i < maxNumOfCastPerPage; i ++){
+
+                            const castName = data.data.dramaCast[i].split("/")[0];
+                            const actorName = data.data.dramaCast[i].split("/").pop();
+
+                            if(i !== maxNumOfCastPerPage - 1){
+                                updatedTextarea = updatedTextarea + actorName.trim() + " / " + castName.trim() + ", ";
+                            }
+                            else{
+                                updatedTextarea = updatedTextarea + actorName.trim() + " / " + castName.trim();
+                            };
+
+                        };
+
+                        actorToBeEdit = updatedTextarea;
+
+                        // Remove loading effect
+                        topbar.hide();
                     };
 
-                    actorToBeEdit = updatedTextarea;
+                };
 
-                    // Remove loading effect
-                    topbar.hide();
+                if(confirmYesBtnID == "edit9"){
+
+                    // if(updatedDramaContent == "" || updatedDramaContent == [] || updatedDramaContent == null){
+                    //     // ## Clear the content before adding the new rating content.
+                    //     originalRatingContent = "";
+
+                    //     $("#dramaRating").append(`<div style="text-align:center; font-size:20px;">暫無收視率資料</div>`);
+                        
+                    //     originalRatingContent = `<div style="text-align:center; font-size:20px;">暫無收視率資料</div>`;
+
+                    //     // Remove loading effect
+                    //     topbar.hide();
+                    // }
+                    // else{
+                        if(updatedDramaContent == ""){
+                            originalRatingContent = `<div style="text-align:center; font-size:20px;">暫無收視率資料</div>`;
+                            $("#dramaRating").append(`${originalRatingContent}`);
+
+                            // After update the rating list, restore the textarea content to the latest content one.
+                            let updatedTextarea = "";
+
+                            ratingToBeEdit = updatedTextarea;
+
+                            // Remove loading effect
+                            topbar.hide();
+                        }
+                        else{
+                            originalRatingContent = `<canvas id="myChart"></canvas>`;
+
+                            $("#dramaRating").append(`${originalRatingContent}`);
+
+                            const rating = updatedDramaContent;
+                            const maxRating = parseInt(Math.max(...rating));
+                            const maxRatingisDivisible = (maxRating % 2 === 0) ? maxRating + 6 : maxRating + 5; // Maximum ceiling in y-axis
+                            const sum = rating.reduce((acc, val) => acc + parseFloat(val), 0);
+                            const avgRating = (sum / rating.length).toFixed(1);
+                            const episode = [];
+                
+                            for(let i = 0; i < rating.length; i ++){
+                                episode.push(`第${i + 1}話`);
+                            };
+                
+                            // Callback function
+                            ratingData(rating, maxRatingisDivisible, avgRating, episode);
+        
+                            originalRating = rating;
+                            originalRatingMax = maxRatingisDivisible;
+                            originalRatingAvg = avgRating;
+                            originalRatingEpisode = episode;
+    
+                            // After update the rating list, restore the textarea content to the latest content one.
+                            let updatedTextarea = "";
+        
+                            for(let i = 0; i < updatedDramaContent.length; i ++){
+                                if(i !== updatedDramaContent.length - 1){
+                                    updatedTextarea = updatedTextarea + updatedDramaContent[i] + ", ";
+                                }
+                                else{
+                                    updatedTextarea = updatedTextarea + updatedDramaContent[i];
+                                };
+                            };
+        
+                            ratingToBeEdit = updatedTextarea;
+        
+                            // Remove loading effect
+                            topbar.hide();
+
+                        };
+
+
+                    // };
 
                 };
             };

@@ -215,7 +215,7 @@
     margin-bottom: 30px;
 }
 
-.rating-chart {
+#dramaRating {
     width: 70%;
     height: auto;
     margin: auto;
@@ -486,6 +486,11 @@
     cursor: pointer;
 }
 
+#edit9 {
+    transform: translate(63px, -30px);
+    cursor: pointer;
+}
+
 #confirmYes{
     position: absolute;
     width: 25px;
@@ -562,6 +567,14 @@
 
 [data-confirm-no-8] {
     transform: translate(21px,26px);
+}
+
+[data-confirm-yes-9] {
+    transform: translate(-20px, 13px);
+}
+
+[data-confirm-no-9] {
+    transform: translate(18px,12px);
 }
 
 .edit-drama-cover-photo-submit-btn {
@@ -689,7 +702,7 @@
         width: 38%;
     }
 
-    .rating-chart {
+    #dramaRating {
         width: 85%;
     }
 
