@@ -15,6 +15,8 @@ export default function getEachDramaData(){
     let originalRatingMax = "";
     let originalRatingAvg = "";
     let originalRatingEpisode = "";
+    let originalMediaContent = "";
+    let mediaToBeEdit = "";
     let dramaVideoTitle = null;
 
     const dramaID = location.href.split("/").pop();
@@ -502,15 +504,23 @@ export default function getEachDramaData(){
             };
 
             // Media information
-            if(dramaData.dramaMedia == "None"){
+            if(dramaData.dramaMedia == "None" || dramaData.dramaMedia == "" || dramaData.dramaMedia == null){
                 $("#dramaMedia").append(`
                     <div style="font-size:20px;">暫無媒體資訊</div>
                 `);
+
+                mediaToBeEdit = "暫無媒體資訊";
+
+                originalMediaContent = `<div style="font-size:20px;">暫無媒體資訊</div>`;
             }
             else{
                 $("#dramaMedia").append(`
                     <iframe class="media-video" src="${dramaData.dramaMedia}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 `);
+
+                mediaToBeEdit = dramaData.dramaMedia;
+
+                originalMediaContent = `<iframe class="media-video" src="${dramaData.dramaMedia}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             };
 
             // Show content
@@ -565,6 +575,7 @@ export default function getEachDramaData(){
                     // Clear the CSS hover effect.
                     $("#dramaCoverPhoto").off("mouseenter mouseleave");
     
+                    // Return to the first tab of video bar.
                     $("#home-tab").click();
 
                     // Remove loading effect
@@ -629,7 +640,7 @@ export default function getEachDramaData(){
         $(`div.drama-details-content-${individualBtnID}`).text("");
 
         // Check whether the click button is edit video link button.
-        if(individualBtnID != "edit7" && individualBtnID != "edit8" && individualBtnID != "edit9"){
+        if(individualBtnID != "edit7" && individualBtnID != "edit8" && individualBtnID != "edit9" && individualBtnID != "edit10"){
             // Change the content to be updated to "edit mode" (e.g. input / textarea tag - depends on the length of content) before HTML DOM.
             if(contentToBeEdit.length > 10){
                 $(`div.drama-details-content-${individualBtnID}`).append(`
@@ -665,6 +676,12 @@ export default function getEachDramaData(){
             `);
         };
 
+        if(individualBtnID == "edit10"){
+            $(`div.drama-details-content-${individualBtnID}`).append(`
+                <textarea id="editDramaContent-${individualBtnID}" class="edit-drama-content">${mediaToBeEdit}</textarea>
+            `);
+        };
+
     });
 
     // Handle "no" button click.
@@ -690,8 +707,11 @@ export default function getEachDramaData(){
         // Clear the CSS hover effect.
         $("#dramaCoverPhoto").off("mouseenter mouseleave");
 
+        // Return to the first tab of video bar.
+        $("#home-tab").click();
+
         // Check whether the click button is edit video link button, and restore the content to the original one.
-        if(confirmNoBtnID != "edit7" && confirmNoBtnID != "edit8" && confirmNoBtnID != "edit9"){
+        if(confirmNoBtnID != "edit7" && confirmNoBtnID != "edit8" && confirmNoBtnID != "edit9" && confirmNoBtnID != "edit10"){
             $(`div.drama-details-content-${confirmNoBtnID}`).text(`${contentToBeEdit}`);
         };
 
@@ -795,6 +815,11 @@ export default function getEachDramaData(){
             ratingData(originalRating, originalRatingMax, originalRatingAvg, originalRatingEpisode);
         };
 
+        if(confirmNoBtnID == "edit10"){
+            // Add HTML DOM to the original content.
+            $("#dramaMedia").append(`${originalMediaContent}`);
+        };
+        
     });
 
     // Handle "yes" button click.
@@ -809,7 +834,7 @@ export default function getEachDramaData(){
         const updateIndicator = confirmYesBtnID;
         const editDramaID = location.href.split("/").pop();
 
-        if(confirmYesBtnID != "edit7" || confirmYesBtnID != "edit8" || confirmYesBtnID != "edit9"){
+        if(confirmYesBtnID != "edit7" || confirmYesBtnID != "edit8" || confirmYesBtnID != "edit9" || confirmYesBtnID != "edit10"){
             if(contentToBeEdit.length > 10){
                 editDramaContent = $(`textarea#editDramaContent-${confirmYesBtnID}`).val();
             }
@@ -828,6 +853,10 @@ export default function getEachDramaData(){
 
         if(confirmYesBtnID == "edit9"){
             editDramaContent = $(`textarea#editDramaContent-edit9`).val();
+        };
+
+        if(confirmYesBtnID == "edit10"){
+            editDramaContent = $(`textarea#editDramaContent-edit10`).val();
         };
 
         async function addEditdata(url, method){
@@ -854,8 +883,10 @@ export default function getEachDramaData(){
                 $("#editDramaCoverPhotoLabel").attr("for", "");
                 $("#dramaCoverPhoto").css("cursor", "");
                 $("#dramaCoverPhoto").off("mouseenter mouseleave");
+                // Return to the first tab of video bar.
+                $("#home-tab").click();
 
-                if(confirmYesBtnID != "edit7" && confirmYesBtnID != "edit8" && confirmYesBtnID != "edit9"){
+                if(confirmYesBtnID != "edit7" && confirmYesBtnID != "edit8" && confirmYesBtnID != "edit9" && confirmYesBtnID != "edit10"){
                     const threshold = 65;
                     
                     if(updatedDramaContent.length > threshold){
@@ -1142,6 +1173,44 @@ export default function getEachDramaData(){
                     // };
 
                 };
+
+                if(confirmYesBtnID == "edit10"){
+
+                    if(updatedDramaContent == "None"){
+
+                        originalMediaContent = `<div style="text-align:center; font-size:20px;">暫無媒體資訊</div>`;
+
+                        $("#dramaMedia").append(`${originalMediaContent}`);
+
+                        // After update the media list, restore the textarea content to the latest content one.
+                        let updatedTextarea = "";
+
+                        updatedTextarea = "暫無媒體資訊";
+
+                        mediaToBeEdit = updatedTextarea;
+
+                        // Remove loading effect
+                        topbar.hide();
+                    }
+                    else{
+
+                        originalMediaContent = `<iframe class="media-video" src="${updatedDramaContent}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
+                        $("#dramaMedia").append(`${originalMediaContent}`);
+
+                        // After update the media list, restore the textarea content to the latest content one.
+                        let updatedTextarea = "";
+
+                        updatedTextarea = updatedDramaContent;
+
+                        mediaToBeEdit = updatedTextarea;
+
+                        // Remove loading effect
+                        topbar.hide();
+                    };
+
+                };
+
             };
         })
         .catch(error => {

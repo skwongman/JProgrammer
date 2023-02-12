@@ -151,6 +151,20 @@ router.put("/api/edit/:id", upload.single("editDramaCoverPhoto"), (req, res) => 
 
             insertValue = { $set: { dramaRating: dramaRating } };
         }
+        else if(updateIndicator == "edit10"){
+
+            let clearEditDramaContent = null;
+
+            if(editDramaContent == ""){
+                clearEditDramaContent = "None";
+                insertValue = { $set: { dramaMedia: clearEditDramaContent } };
+            }
+            else{
+                insertValue = { $set: { dramaMedia: editDramaContent } };
+            }
+
+        }
+
 
 
 
@@ -195,6 +209,9 @@ router.put("/api/edit/:id", upload.single("editDramaCoverPhoto"), (req, res) => 
                     }
                     else if(updateIndicator == "edit9"){
                         res.status(200).json({"data": editResult.dramaRating});
+                    }
+                    else if(updateIndicator == "edit10"){
+                        res.status(200).json({"data": editResult.dramaMedia});
                     }
                 });
 

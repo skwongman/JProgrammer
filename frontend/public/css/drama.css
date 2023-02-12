@@ -320,7 +320,7 @@
     text-align: center;
 }
 
-.media-video-container {
+#dramaMedia {
     text-align: center;
 }
 
@@ -429,6 +429,7 @@
     margin: 50px 0px 50px 0px;
 }
 
+
 /* Edit Drama Information */
 .edit-drama-content {
     width: 100%;
@@ -488,6 +489,11 @@
 
 #edit9 {
     transform: translate(63px, -30px);
+    cursor: pointer;
+}
+
+#edit10 {
+    transform: translate(73px, -28px);
     cursor: pointer;
 }
 
@@ -575,6 +581,14 @@
 
 [data-confirm-no-9] {
     transform: translate(18px,12px);
+}
+
+[data-confirm-yes-10] {
+    transform: translate(-20px, 13px);
+}
+
+[data-confirm-no-10] {
+    transform: translate(18px, 14px);
 }
 
 .edit-drama-cover-photo-submit-btn {
