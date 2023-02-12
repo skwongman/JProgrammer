@@ -25,12 +25,14 @@ export default function getLatestSeasonDramaData(){
         render: function(data){
             if(data.data){
                 data.data.map(result => {
+                    const shortenDramaTitle = result.dramaTitle.split("～")[0];
+
                     $("#latestDramaPhotoContainer").append(`
                         <div class="latest-drama-photo">
                             <a href="/drama/${result.dramaID}">
                                 <img class="latest-drama-photo-individual" src="${result.dramaCoverPhoto}">
                                 ${(result.dramaDownload.length != 0) ? `<div class="latest-drama-video">線上觀看</div>` : ""}
-                                <div class="latest-drama-photo-individual-title">${result.dramaTitle}</div>
+                                <div class="latest-drama-photo-individual-title">${shortenDramaTitle}</div>
                             </a>
                         </div>
                     `);
