@@ -1,10 +1,12 @@
 const express = require("express");
-const { client, ObjectId, s3 } = require("../commons/common");
+const { client, s3 } = require("../commons/common");
 const fs = require("fs");
-const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const upload = multer({dest: "/backend/uploads"});
 const { getAverageColor } = require("fast-average-color-node");
+const { categoryRegex, introductionRegex,
+        TVRegex, dateRegex, weekRegex, timeRegex, actorRegex,
+        ratingRegex, mediaRegex, videoRegex } = require("./dramaRegex.js");
 const router = express.Router();
 
 // Middleware function to add the database connection to the request object
@@ -25,6 +27,21 @@ router.put("/api/edit/:id", upload.single("editDramaCoverPhoto"), (req, res) => 
 
     if(addDramaPhoto != undefined){
         const photoExtension = "." + addDramaPhoto.mimetype.split("/").pop();
+
+        // Limit the photo type to jpg, jpeg and png only.
+        const typeOfPhotoAllowed = ["image/jpeg", "image/jpg", "image/png"];
+        const matchTypeOfPhoto = typeOfPhotoAllowed.includes(addDramaPhoto.mimetype);
+
+        if(!matchTypeOfPhoto){
+            res.status(400).json({"error": true, "message": "The picture type should only be jpg, jpeg or png."});
+        };
+
+        // Limit the photo size up to 1MB only.
+        const meetPhotoUploadSize = addDramaPhoto.size <= 1 * 1024 * 1024 // 1MB
+
+        if(!meetPhotoUploadSize){
+            res.status(400).json({"error": true, "message": "The picture size should only be up to 1MB."});
+        };
     
         // AWS S3 upload setting.
         const params = {
@@ -165,129 +182,150 @@ router.put("/api/edit/:id", upload.single("editDramaCoverPhoto"), (req, res) => 
 
         }
 
+        // Use regex to verify the user input.
 
-
-
-        client.connect(err => {
-            if(err){
-                res.status(500).json({"error": true, "message": err.message});
-                console.log("Error(timetableAPI.route - 1): " + err);
-            };
-
-            const collection = req.db.collection("drama");
-            const insertQuery = { dramaID: editDramaID };
-            // const insertValue = { $set: { dramaIntroduction: editDramaIntroduction } };
-
-            collection.updateOne(insertQuery, insertValue, (err, result) => {
+        // If the regex is invalid.
+        if(updateIndicator == "edit1" && !editDramaContent.match(categoryRegex)){
+            res.status(400).json({"error": true, "message": "The category does not match with the designated format"});
+        }
+        else if(updateIndicator == "edit2" && !editDramaContent.match(introductionRegex)){
+            res.status(400).json({"error": true, "message": "The introduction does not match with the designated format"});
+        }
+        else if(updateIndicator == "edit3" && !editDramaContent.match(TVRegex)){
+            res.status(400).json({"error": true, "message": "The tv does not match with the designated format"});
+        }
+        else if(updateIndicator == "edit4" && !editDramaContent.match(dateRegex)){
+            res.status(400).json({"error": true, "message": "The date does not match with the designated format"});
+        }
+        else if(updateIndicator == "edit5" && !editDramaContent.match(weekRegex)){
+            res.status(400).json({"error": true, "message": "The week does not match with the designated format"});
+        }
+        else if(updateIndicator == "edit6" && !editDramaContent.match(timeRegex)){
+            res.status(400).json({"error": true, "message": "The time does not match with the designated format"});
+        }
+        else if(updateIndicator == "edit7" && !editDramaContent.match(videoRegex)){
+            res.status(400).json({"error": true, "message": "The video does not match with the designated format"});
+        }
+        else if(updateIndicator == "edit8" && !editDramaContent.match(actorRegex)){
+            res.status(400).json({"error": true, "message": "The actor does not match with the designated format"});
+        }
+        else if(updateIndicator == "edit9" && !editDramaContent.match(ratingRegex)){
+            res.status(400).json({"error": true, "message": "The rating does not match with the designated format"});
+        }
+        else if(updateIndicator == "edit10" && !editDramaContent.match(mediaRegex)){
+            res.status(400).json({"error": true, "message": "The media does not match with the designated format"});
+        }
+        // if the regex is valid.
+        else{
+            client.connect(err => {
                 if(err){
                     res.status(500).json({"error": true, "message": err.message});
-                    console.log("Error(timetableAPI.route - 2): " + err);
+                    console.log("Error(timetableAPI.route - 1): " + err);
                 };
-
-                collection.findOne({dramaID: editDramaID}, (err, editResult) => {
-
-                    if(updateIndicator == "edit1"){
-                        res.status(200).json({"data": editResult.dramaCategory});
-                    }
-                    else if(updateIndicator == "edit2"){
-                        res.status(200).json({"data": editResult.dramaIntroduction});
-                    }
-                    else if(updateIndicator == "edit3"){
-                        res.status(200).json({"data": editResult.dramaTV});
-                    }
-                    else if(updateIndicator == "edit4"){
-                        res.status(200).json({"data": editResult.dramaDateOfBoardcast});
-                    }
-                    else if(updateIndicator == "edit5"){
-                        res.status(200).json({"data": editResult.dramaWeek});
-                    }
-                    else if(updateIndicator == "edit6"){
-                        res.status(200).json({"data": editResult.dramaTimeOfBoardcast});
-                    }
-                    else if(updateIndicator == "edit7"){
-                        res.status(200).json({"data": editResult.dramaVideo});
-                    }
-                    else if(updateIndicator == "edit9"){
-                        res.status(200).json({"data": editResult.dramaRating});
-                    }
-                    else if(updateIndicator == "edit10"){
-                        res.status(200).json({"data": editResult.dramaMedia});
-                    }
-                });
-
-                if(updateIndicator == "edit8"){
-
-                    const matchDramaID = { $match: { dramaID: editDramaID } };
-                    const unwind = { $unwind: "$dramaActor" };
-                    const aggreActor = {
-                        $lookup: {
-                            from: "actorMix",
-                            localField: "dramaActor",
-                            foreignField: "actorNameChi",
-                            as: "dramaActor"
-                        }
-                    };
-                    const limitNoOfCast = { $limit: 9 };
-                    const group = {
-                        $group: {
-                            _id: "$_id",
-                            dramaID: { $first: "$dramaID" },
-                            dramaActor: { $push: "$dramaActor" },
-                            dramaCast: { $first: "$dramaCast" }
-                        }
-                    };
-                    const sortlisted = {
-                        $project: {
-                            _id: 0,
-                            "dramaActor._id": 0,
-                            "dramaActor._id": 0,
-                            "dramaActor.actorID": 0,
-                            "dramaActor.actorNameJp": 0,
-                            "dramaActor.actorCreatedTime": 0
-                        }
+    
+                const collection = req.db.collection("drama");
+                const insertQuery = { dramaID: editDramaID };
+                // const insertValue = { $set: { dramaIntroduction: editDramaIntroduction } };
+    
+                collection.updateOne(insertQuery, insertValue, (err, result) => {
+                    if(err){
+                        res.status(500).json({"error": true, "message": err.message});
+                        console.log("Error(timetableAPI.route - 2): " + err);
                     };
     
-                    const aggregatePipeline = [matchDramaID, unwind, aggreActor, limitNoOfCast, group, sortlisted];
+                    collection.findOne({dramaID: editDramaID}, (err, editResult) => {
     
-                    // Fetching data
-                    collection
-                    .aggregate(aggregatePipeline)
-                    .limit(1)
-                    .toArray((err, result) => {
-                        if(err){
-                            res.status(500).json({"error": true, "message": err.message});
-                            console.log("Error(dramaQueryStringAPI.route - 2): " + err);
+                        if(editResult){
+                            if(updateIndicator == "edit1"){
+                                res.status(200).json({"data": editResult.dramaCategory});
+                            }
+                            else if(updateIndicator == "edit2"){
+                                res.status(200).json({"data": editResult.dramaIntroduction});
+                            }
+                            else if(updateIndicator == "edit3"){
+                                res.status(200).json({"data": editResult.dramaTV});
+                            }
+                            else if(updateIndicator == "edit4"){
+                                res.status(200).json({"data": editResult.dramaDateOfBoardcast});
+                            }
+                            else if(updateIndicator == "edit5"){
+                                res.status(200).json({"data": editResult.dramaWeek});
+                            }
+                            else if(updateIndicator == "edit6"){
+                                res.status(200).json({"data": editResult.dramaTimeOfBoardcast});
+                            }
+                            else if(updateIndicator == "edit7"){
+                                res.status(200).json({"data": editResult.dramaVideo});
+                            }
+                            else if(updateIndicator == "edit9"){
+                                res.status(200).json({"data": editResult.dramaRating});
+                            }
+                            else if(updateIndicator == "edit10"){
+                                res.status(200).json({"data": editResult.dramaMedia});
+                            };
                         };
     
-                        // console.log(result[0].dramaActor)
-                        // console.log(result[0].dramaCast)
-    
-                        res.status(200).json({"data": {"dramaActor": result[0].dramaActor, "dramaCast": result[0].dramaCast}});
-                        
                     });
-
-                }
-
-
-            
-            });
-
-
-
-
-
-
-            
-        });
-    };
-
-
-
-
-
     
+                    if(updateIndicator == "edit8"){
+    
+                        const matchDramaID = { $match: { dramaID: editDramaID } };
+                        const unwind = { $unwind: "$dramaActor" };
+                        const aggreActor = {
+                            $lookup: {
+                                from: "actorMix",
+                                localField: "dramaActor",
+                                foreignField: "actorNameChi",
+                                as: "dramaActor"
+                            }
+                        };
+                        const limitNoOfCast = { $limit: 9 };
+                        const group = {
+                            $group: {
+                                _id: "$_id",
+                                dramaID: { $first: "$dramaID" },
+                                dramaActor: { $push: "$dramaActor" },
+                                dramaCast: { $first: "$dramaCast" }
+                            }
+                        };
+                        const sortlisted = {
+                            $project: {
+                                _id: 0,
+                                "dramaActor._id": 0,
+                                "dramaActor._id": 0,
+                                "dramaActor.actorID": 0,
+                                "dramaActor.actorNameJp": 0,
+                                "dramaActor.actorCreatedTime": 0
+                            }
+                        };
+        
+                        const aggregatePipeline = [matchDramaID, unwind, aggreActor, limitNoOfCast, group, sortlisted];
+        
+                        // Fetching data
+                        collection
+                        .aggregate(aggregatePipeline)
+                        .limit(1)
+                        .toArray((err, result) => {
+                            if(err){
+                                res.status(500).json({"error": true, "message": err.message});
+                                console.log("Error(dramaQueryStringAPI.route - 2): " + err);
+                            };
+        
+                            // console.log(result[0].dramaActor)
+                            // console.log(result[0].dramaCast)
+        
+                            res.status(200).json({"data": {"dramaActor": result[0].dramaActor, "dramaCast": result[0].dramaCast}});
+                            
+                        });
+    
+                    }
+                
+                });
+    
+            });
+        };
 
-
+    };
 
 });
 

@@ -354,7 +354,7 @@ export default function getEachDramaData(){
                         topbar.show();
 
                         // Add the video link to the html DOM.
-                        $("#video").attr("src", "/api/video?link=" + e.target.attributes.link.value) // "http://140.238.54.62:3000/server?link="  "/api/video?link="
+                        $("#video").attr("src", "https://video.jprogrammer.online:5000/api/video?link=" + e.target.attributes.link.value) // "http://140.238.54.62:3000/server?link="  "/api/video?link="
 
                         // Add the drama video title to the video navigation bar.
                         $("#videoTitle").text(e.target.attributes.titleChi.value + " - " + e.target.attributes.titleEpisode.value);
@@ -874,6 +874,68 @@ export default function getEachDramaData(){
             })
         })
         .then(data => {
+
+            if(data.error && data.message == "The category does not match with the designated format"){
+                alert("請輸入正確劇集類別格式！");
+
+                // Remove loading effect
+                topbar.hide();
+            }
+            else if(data.error && data.message == "The introduction does not match with the designated format"){
+                alert("請輸入正確劇集概要格式！");
+
+                // Remove loading effect
+                topbar.hide();
+            }
+            else if(data.error && data.message == "The tv does not match with the designated format"){
+                alert("請輸入正確播放電視台格式！");
+
+                // Remove loading effect
+                topbar.hide();
+            }
+            else if(data.error && data.message == "The date does not match with the designated format"){
+                alert("請輸入正確播放日期格式！");
+
+                // Remove loading effect
+                topbar.hide();
+            }
+            else if(data.error && data.message == "The week does not match with the designated format"){
+                alert("請輸入正確播放星期格式！");
+
+                // Remove loading effect
+                topbar.hide();
+            }
+            else if(data.error && data.message == "The time does not match with the designated format"){
+                alert("請輸入正確播放時間格式！");
+
+                // Remove loading effect
+                topbar.hide();
+            }
+            else if(data.error && data.message == "The video does not match with the designated format"){
+                alert("請輸入正確磁力連結格式！");
+
+                // Remove loading effect
+                topbar.hide();
+            }
+            else if(data.error && data.message == "The actor does not match with the designated format"){
+                alert("請輸入正確演員資料格式！");
+
+                // Remove loading effect
+                topbar.hide();
+            }
+            else if(data.error && data.message == "The rating does not match with the designated format"){
+                alert("請輸入正確收視率格式！");
+
+                // Remove loading effect
+                topbar.hide();
+            }
+            else if(data.error && data.message == "The media does not match with the designated format"){
+                alert("請輸入正確媒體資料格式！");
+
+                // Remove loading effect
+                topbar.hide();
+            }
+
             if(data.data){
                 let updatedDramaContent = data.data;
 
