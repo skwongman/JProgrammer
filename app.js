@@ -63,7 +63,7 @@ app.get("/api/popular", popularAPIRouter);
 // Get timetable API
 app.get("/api/timetable", timetableAPIRouter);
 // Search drama API
-app.put("/api/search", searchDramaAPIRouter);
+app.get("/api/search", searchDramaAPIRouter);
 
 // Get each drama API
 app.get("/api/drama/:id", dramaQueryStringAPIRouter);

@@ -8,13 +8,16 @@ router.use(function(req, res, next){
     next();
 });
 
-router.put("/api/search", (req, res) => {
+router.get("/api/search", (req, res) => {
 
     // User input from frontend side.
-    const keyword = req.body.searchBarInput;
+    const keyword = req.query.keyword;
 
     // Use regex to verify the user input.
     const keywordRegex = /[\u4E00-\u9FFF\u3400-\u4DBF\a-z\d]{1,20}/;
+
+    // Max no. of results in the search menu.
+    const maxNoOfResult = 5;
 
     // If the regex is invalid.
     if(!keyword.match(keywordRegex)){
@@ -56,6 +59,7 @@ router.put("/api/search", (req, res) => {
             // Fetching data
             collection
             .aggregate(aggregatePipeline)
+            .limit(maxNoOfResult)
             .toArray((err, result) => {
                 if(err){
                     res.status(500).json({"error": true, "message": err.message});
@@ -67,7 +71,7 @@ router.put("/api/search", (req, res) => {
                     res.status(400).json({"error": true, "message": "not found"});
                 }
                 else{
-                    const data = result[0];
+                    const data = result;
 
                     res.status(200).json({"data": data });
                 };
