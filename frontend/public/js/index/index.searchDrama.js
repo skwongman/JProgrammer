@@ -12,8 +12,14 @@ export default function searchDrama(){
 
     // Show the search bar after click the search bar itself.
     $("#searchBarInput").click((e) => {
-        $("#searchResult").css("display", "block");
-        e.stopPropagation();
+        if($("#searchResult").css("display") == "none"){
+            $("#searchResult").css("display", "block");
+            e.stopPropagation();
+        }
+        else{
+            $("#searchResult").css("display", "none");
+            e.stopPropagation();
+        }
     });
 
     // Handle search bar input.
