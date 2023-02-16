@@ -1,7 +1,37 @@
 <div class="discuss-container">
     <div class="discuss-width">
         <div class="discuss">討論區</div>
-        <div class="discuss-content">
+        <div class="discuss-no-post">目前沒有關於<b>逆轉交響樂團</b>的討論，你有興趣<span id="discussCreatePost" class="discuss-create-post">寫一則討論帖子嗎？</span></div>
+        
+        <div id="discussLayer" class="discuss-layer"></div>
+
+        <div id="discussCreatePostInput" class="discuss-create-post-input">
+
+            <div class="discuss-create-post-header-container">
+                <div id="discussCreatePostHeader" class="discuss-create-post-header"></div>
+                <img id="discussCloseBtn" class="discuss-create-post-close-icon" src="/img/icon_delete.png">
+            </div>
+
+            <div class="discuss-create-post-header-input-container">
+                <input id="discussHeader" class="discuss-create-post-header-input" type="text" placeholder="討論標題">
+            </div>
+
+            <div class="discuss-create-post-content-input-container">
+                <textarea id="discussContent" class="discuss-create-post-content-input"></textarea>
+            </div>
+            
+
+            <!-- <div class="discuss-create-post-content-input-container">
+                <textarea class="discuss-create-post-content-input" type="text" placeholder="討論內容"></textarea>
+            </div> -->
+
+            <div class="discuss-create-post-submit-btn">
+                <div id="discussPostBtn" class="discuss-create-post-submit-btn-title">發表</div>
+            </div>
+
+        </div>
+
+        <!-- <div class="discuss-content">
             <div class="discuss-title">
                 <div class="discuss-title-user-profile">
                     <img class="discuss-title-user-profile-picture" src="https://www.themoviedb.org/t/p/w45_and_h45_face/qpuUNplRt3TrrEratMUFZiofNWD.jpg">
@@ -18,6 +48,6 @@
                 <img class="discuss-reply-icon-reply" src="/img/icon_reply.png">
                 <div class="discuss-reply-quote">引用</div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>

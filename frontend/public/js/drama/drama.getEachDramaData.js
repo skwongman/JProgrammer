@@ -52,6 +52,8 @@ export default function getEachDramaData(){
 
             $("#dramaTitle").text(dramaData.dramaTitle + yearOfDrama);
 
+            $("#discussCreatePostHeader").text(`發表討論 (${dramaData.dramaTitle})`);
+
             // Category
             dramaData.dramaCategory.map((result, index) => {
                 $("#dramaCategory").append(result);

@@ -214,14 +214,7 @@ router.post("/api/add", upload.single("addDramaCoverphoto"), (req, res) => {
                                                 clearAddDramaActor.push(i.split(" / ")[0]);
                                                 clearAddDramaCast.push(i.split(" / ")[1] + " / " + i.split(" / ")[0]);
                                             };
-                                            // Record the data insert time.
-                                            const date = new Date();
-                                            const offset = 8;
-                                            const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
-                                            const nd = new Date(utc + (3600000 * offset));
-                                            const hkTime = new Date(nd.getTime() + (3600000 * offset));
-                                            const hkTimeString = hkTime.toISOString().replace(/T/, " ").replace(/Z$/, "+08:00");
-                                            const dramaCreatedTime = hkTimeString;
+                                            c
                                             // Handle no input drama rating from user.
                                             if(addDramaRating == "None"){
                                                 addDramaRating = "None";
