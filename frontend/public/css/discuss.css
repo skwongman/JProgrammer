@@ -1,0 +1,128 @@
+.discuss-post-header {
+    margin: 10px 0px 20px 0px;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+}
+
+.discuss-post-title {
+    margin: 10px 0px 10px 0px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+    /* text-align: center; */
+}
+
+.discuss-content {
+    border: 1px solid #e3e3e3;
+    border-radius: 10px;
+    margin: 20px 0px 20px 0px;
+    /* box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2); */
+}
+
+.discuss-title {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e3e3e3;
+    padding: 15px;
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.discuss-title-user-profile {
+    flex: none;
+    width: 45px;
+    margin-right: 10px;
+}
+
+.discuss-title-user-profile-picture {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+}
+
+.discuss-title-user-content {
+    flex: auto;
+    width: 85%;
+}
+
+.discuss-post {
+    border-bottom: 1px solid #e3e3e3;
+    padding: 15px;
+}
+
+.discuss-reply {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.discuss-reply-icon-like,
+.discuss-reply-icon-reply {
+    width: 15px;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.discuss-reply-like-count,
+.discuss-reply-quote {
+    margin: 0px 10px 0px 5px;
+    font-size: 14px;
+}
+
+.discuss-reply-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .discuss-reply-btn-width,
+.discuss-cancel-btn-width {
+    flex: none;
+    width: 5%;
+} */
+
+.discuss-reply-btn {
+    width: 70px;
+    height: auto;
+    margin: 20px 0px 20px 0px;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    background-color: rgb(2, 177, 247);
+}
+
+.discuss-reply-btn:hover,
+.discuss-cancel-btn:hover {
+    opacity: 0.8;
+}
+
+.discuss-cancel-btn {
+    display: none;
+    width: 70px;
+    height: auto;
+    margin: 20px 0px 20px 0px;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid gray;
+}
+
+.discuss-reply-post-container {
+    display: none;
+    margin-top: 30px;
+    /* box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2); */
+}
+
+.fr-placeholder,
+.fr-view {
+    font-size: 16px !important;
+}

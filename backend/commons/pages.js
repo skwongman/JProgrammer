@@ -31,6 +31,11 @@ router.get("/latest", (req, res) => {
     res.render("latest");
 })
 
+// discuss/id.html
+router.get("/discuss/:id", (req, res) => {
+    res.render("discuss");
+})
+
 // Error page
 router.use((req, res) => {
     res.status(404).send("ERROR! 404 NOT FOUND!");
