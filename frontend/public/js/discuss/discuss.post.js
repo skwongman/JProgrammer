@@ -107,7 +107,7 @@ export default function discussPost(){
             else{
                 $("#pagination").append(`
                     <li id="page${i + 1}" class="page-item">
-                        <a class="page-link" href="https://localhost:5000/discuss/${discussPostID}?page=${i + 1}">${i + 1}</a>
+                        <a class="page-link" href="/discuss/${discussPostID}?page=${i + 1}">${i + 1}</a>
                     </li>
                 `);
             };
