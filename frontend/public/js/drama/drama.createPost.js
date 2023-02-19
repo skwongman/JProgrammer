@@ -66,6 +66,9 @@ export default function createPost(){
 
     $("#discussPostBtn").click(() => {
 
+        // Add loading effect
+        topbar.show();
+
         // Get the image temp url link.
         const tempPhotoData = new FormData();
         const regex = /<img[^>]+src="([^">]+)"/g;
@@ -103,16 +106,39 @@ export default function createPost(){
             })
             .then(response => response.json())
             .then(data => {
-                // console.log(data.data.discussPostID);
-                // alert(data.data.discussPostID);
-                location.href = `/discuss/${data.data.discussPostID}?page=1`;
+                // User input error handling.
+                if(data.error && data.message == "The title does not match with the designated format"){
+                    alert("請輸入正確標題內容！");
+
+                    // Remove loading effect
+                    topbar.hide();
+                }
+                else if(data.error && data.message == "The content does not match with the designated format"){
+                    alert("請輸入正確回覆內容！");
+
+                    // Remove loading effect
+                    topbar.hide();
+                };
+
+                if(data.data){
+                    location.href = `/discuss/${data.data.discussPostID}?page=1`;
+
+                    // Remove loading effect
+                    topbar.hide();
+                };
             })
             .catch(error => {
                 console.log("Error(drama.createPost.js - 2): " + error);
+
+                // Remove loading effect
+                topbar.hide();
             });
         })
         .catch(error => {
             console.log("Error(drama.createPost.js - 3): " + error);
+
+            // Remove loading effect
+            topbar.hide();
         });
 
     });

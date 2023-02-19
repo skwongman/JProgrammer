@@ -117,7 +117,7 @@ export default function addDrama(){
                     // Remove loading effect
                     topbar.hide();
                 }
-                if(data.error && data.message == "The Japanese title does not match with the designated format"){
+                else if(data.error && data.message == "The Japanese title does not match with the designated format"){
                     alert("請輸入正確日文劇集標題格式！");
 
                     // Remove loading effect

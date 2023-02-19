@@ -206,24 +206,38 @@ export default function discussPost(){
                             })
                             .then(response => response.json())
                             .then(data => {
+                                // User input error handling.
+                                if(data.error && data.message == "The input does not match with the designated format"){
+                                    alert("請輸入正確回覆內容！");
+
+                                    // Remove loading effect
+                                    topbar.hide();
+                                };
+
                                 if(data.ok){
                                     // Clear the input area data before redirection.
                                     editor.html.set("");
 
                                     // Redirect to the latest page if successful.
                                     location.href = location.href.split("=")[0] + "=" + totalPages;
+
+                                    // Remove loading effect
+                                    topbar.hide();
                                 };
                             })
                             .catch(error => {
                                 console.log("Error(discuss.post.js - 1): " + error);
+
+                                // Remove loading effect
+                                topbar.hide();
                             });
                         })
                         .catch(error => {
                             console.log("Error(discuss.post.js - 2): " + error);
-                        });
 
-                        // Remove loading effect
-                        topbar.hide();
+                            // Remove loading effect
+                            topbar.hide();
+                        });
                     };
                 };
             })
