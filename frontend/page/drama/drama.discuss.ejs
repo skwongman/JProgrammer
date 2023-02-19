@@ -1,12 +1,10 @@
 <div class="discuss-container">
     <div class="discuss-width">
         <div class="discuss">討論區</div>
-        <div class="discuss-no-post">目前沒有關於<b>逆轉交響樂團</b>的討論，你有興趣<span id="discussCreatePost" class="discuss-create-post">寫一則討論帖子嗎？</span></div>
         
+        <!-- Create post pop-up window -->
         <div id="discussLayer" class="discuss-layer"></div>
-
         <div id="discussCreatePostInput" class="discuss-create-post-input">
-
             <div class="discuss-create-post-header-container">
                 <div id="discussCreatePostHeader" class="discuss-create-post-header"></div>
                 <img id="discussCloseBtn" class="discuss-create-post-close-icon" src="/img/icon_delete.png">
@@ -20,35 +18,38 @@
                 <textarea id="discussContent" class="discuss-create-post-content-input"></textarea>
             </div>
             
-
-            <!-- <div class="discuss-create-post-content-input-container">
-                <textarea class="discuss-create-post-content-input" type="text" placeholder="討論內容"></textarea>
-            </div> -->
-
             <div class="discuss-create-post-submit-btn">
                 <div id="discussPostBtn" class="discuss-create-post-submit-btn-title">發表</div>
             </div>
-
         </div>
 
-        <div class="discuss-content">
+        <!-- No post -->
+        <div id="discussNoPostContainer" class="discuss-no-post" style="display:none;">
+            目前沒有關於<b id="discussNoPost"></b>的討論，你有興趣<span id="discussCreatePost" class="discuss-create-post">寫一則討論帖子嗎？</span>
+        </div>
+
+        <!-- Display 1st post if available -->
+        <div id="discussContentContainer" class="discuss-content" style="display:none;">
             <div class="discuss-title">
                 <div class="discuss-title-user-profile">
-                    <img class="discuss-title-user-profile-picture" src="https://www.themoviedb.org/t/p/w45_and_h45_face/qpuUNplRt3TrrEratMUFZiofNWD.jpg">
+                    <img id="discussMemberProfilePicture" class="discuss-title-user-profile-picture">
                 </div>
                 <div class="discuss-title-user-content">
-                    <div>[女神的教室] 第一集</div>
-                    <div>Miner 於 2023-01-12 13:40:22 發佈</div>
+                    <div id="discussPostTitle" class="discuss-post-title"></div>
+                    <div>
+                        <span id="discussMemberName"></span>
+                        <span id="discussCreatedTime"></span>
+                    </div>
                 </div>
             </div>
-            <div class="discuss-post">後半學生們的模擬法庭部份，還滿好看的! 希望每一集都有模擬法庭戲可以看~ </div>
+            <div id="discussPost" class="discuss-post"></div>
             <div class="discuss-reply">
                 <img class="discuss-reply-icon-like" src="/img/icon_like.png">
-                <div class="discuss-reply-like-count">1</div>
-                <img class="discuss-reply-icon-reply" src="/img/icon_reply.png">
+                <div id="discussLikeCount" class="discuss-reply-like-count"></div>
+                <img id="discussReplyQuote" class="discuss-reply-icon-reply" src="/img/icon_reply.png">
                 <div class="discuss-reply-quote">引用</div>
             </div>
         </div>
-        
+
     </div>
 </div>

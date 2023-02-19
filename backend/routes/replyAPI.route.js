@@ -12,7 +12,7 @@ router.use(function(req, res, next){
     next();
 });
 
-router.post("/api/discuss", upload.single("discussPhoto"), (req, res) => {
+router.post("/api/reply", upload.single("replyPhoto"), (req, res) => {
 
     // Decode the member id from JWT of cookie.
     const token = req.cookies.token;
@@ -25,12 +25,13 @@ router.post("/api/discuss", upload.single("discussPhoto"), (req, res) => {
         }
         // If the decode is successful.
         else{
-            const { discussPostID, discussDramaTitle, discussHeader, discussContent } = req.body;
-            const handleDiscussPostID = parseInt(discussPostID);
-            const discussPhoto = req.file;
-            const photoExtension = "." + discussPhoto.mimetype.split("/").pop();
+            const { replyPostID, replyDramaTitle, replyContent } = req.body;
+            const handleReplyPostID = parseInt(replyPostID);
+            const replyPhoto = req.file;
+            const photoExtension = "." + replyPhoto.mimetype.split("/").pop();
         
             client.connect(err => {
+                
                 // Error message.
                 if(err){
                     res.status(500).json({"error": true, "message": err.message});
@@ -41,8 +42,8 @@ router.post("/api/discuss", upload.single("discussPhoto"), (req, res) => {
                 const params = {
                     Bucket: process.env.AWS_BUCKET,
                     Key: generatePictureName() + photoExtension,
-                    Body: fs.createReadStream(discussPhoto.path),
-                    ContentType: discussPhoto.mimetype
+                    Body: fs.createReadStream(replyPhoto.path),
+                    ContentType: replyPhoto.mimetype
                 };
         
                 // Generate random file name.
@@ -74,14 +75,15 @@ router.post("/api/discuss", upload.single("discussPhoto"), (req, res) => {
                             console.log("Error(signinStatusAPI.route - 3): " + err);
                         };
 
-                        const collection = req.db.collection("discuss");
+                        const collection = req.db.collection("reply");
                         const CdnURL = "https://d11c6b10livv50.cloudfront.net/";
-                        const discussPhotoName = uploadData.Location.split("/").pop();
-                        const discussPhotoURL = CdnURL + discussPhotoName;
-                        const handledDiscussContent = discussContent.replace(/blob:https:\/\/[^\/]+\/[^"]+/, discussPhotoURL);
-                        const discussMemberID = checkMemberIDResult._id.toString();
-                        const discussMemberName = checkMemberIDResult.memberName;
-                        const discussMemberProfilePicture = checkMemberIDResult.memberProfilePicture;
+                        const replyPhotoName = uploadData.Location.split("/").pop();
+                        const replyPhotoURL = CdnURL + replyPhotoName;
+                        const handledReplyContent = replyContent.replace(/blob:https:\/\/[^\/]+\/[^"]+/, replyPhotoURL);
+                        const replyMemberID = checkMemberIDResult._id.toString();
+                        const replyMemberName = checkMemberIDResult.memberName;
+                        const replyMemberProfilePicture = checkMemberIDResult.memberProfilePicture;
+                        const defaultLikeCount = 0;
                         // Record the data insert time.
                         const date = new Date();
                         const offset = 8;
@@ -89,9 +91,9 @@ router.post("/api/discuss", upload.single("discussPhoto"), (req, res) => {
                         const nd = new Date(utc + (3600000 * offset));
                         const hkTime = new Date(nd.getTime() + (3600000 * offset));
                         const hkTimeString = hkTime.toISOString().replace(/T/, " ").replace(/Z$/, "+08:00");
-                        const discussCreatedTime = hkTimeString;
+                        const replyCreatedTime = hkTimeString;
 
-                        function generateDiscussID(){
+                        function generateReplyID(){
                             const date = new Date();
                             const year = date.getUTCFullYear().toString();
                             const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
@@ -101,20 +103,20 @@ router.post("/api/discuss", upload.single("discussPhoto"), (req, res) => {
                             const seconds = date.getUTCSeconds().toString().padStart(2, '0');
                             const milliseconds = date.getUTCMilliseconds().toString().padStart(3, '0');
                             const hkTime = year + month + day + hours + minutes + seconds + milliseconds;
-                            const discussID = parseInt(hkTime);
-                            return discussID;
+                            const replyID = parseInt(hkTime);
+                            return replyID;
                         };
 
                         const insertQuery = {
-                            discussID: generateDiscussID(),
-                            discussPostID: handleDiscussPostID,
-                            discussDramaTitle: discussDramaTitle,
-                            discussHeader: discussHeader,
-                            discussContent: handledDiscussContent,
-                            discussMemberID: discussMemberID,
-                            discussMemberName: discussMemberName,
-                            discussMemberProfilePicture: discussMemberProfilePicture,
-                            discussCreatedTime: discussCreatedTime
+                            replyID: generateReplyID(),
+                            replyPostID: handleReplyPostID,
+                            replyDramaTitle: replyDramaTitle,
+                            replyContent: handledReplyContent,
+                            replyMemberID: replyMemberID,
+                            replyMemberName: replyMemberName,
+                            replyMemberProfilePicture: replyMemberProfilePicture,
+                            replyLike: defaultLikeCount,
+                            replyCreatedTime: replyCreatedTime
                         };
                 
                         collection.insertOne(insertQuery, (err, insertResult) => {
@@ -123,20 +125,17 @@ router.post("/api/discuss", upload.single("discussPhoto"), (req, res) => {
                                 console.log("Error(addDramaAPI.route - 3): " + err);
                             };
                 
-                            const insertDiscussID = insertResult.insertedId.toString();
-                            const checkdiscussID = { _id: new ObjectId(insertDiscussID) };
+                            const insertReplyID = insertResult.insertedId.toString();
+                            const checkReplyID = { _id: new ObjectId(insertReplyID) };
                 
-                            collection.findOne(checkdiscussID, (err, checkDiscussIdResult) => {
+                            collection.findOne(checkReplyID, (err, checkReplyIdResult) => {
                                 // Internal server error message.
                                 if(err){
                                     res.status(500).json({"error": true, "message": err.message});
                                     console.log("Error(signinStatusAPI.route - 3): " + err);
                                 };
-                    
-                                // Return the newly added discuss ID to the frontend.
-                                const data = {"discussPostID": checkDiscussIdResult.discussPostID};
                                 
-                                res.status(200).json({"data": data});
+                                res.status(200).json({"ok": true});
                             });
                         });
                     });        

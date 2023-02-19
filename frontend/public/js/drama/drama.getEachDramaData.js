@@ -505,6 +505,50 @@ export default function getEachDramaData(){
                 originalRatingContent = `<canvas id="myChart"></canvas>`;
             };
 
+            // Discuss.
+            const discussPostID = location.href.split("/").pop();
+        
+            async function getData(url){
+                const response = await fetch(url);
+                const data = await response.json();
+                return data;
+            };
+        
+            getData(`/api/discuss/${discussPostID}`)
+            .then(data => {
+
+                // If no discuss data.
+                const dramaTitle = $("#dramaTitle").text().split(" (20")[0];
+
+                if(data.error && data.message == "ID not found"){
+                    $("#discussNoPostContainer").css("display", "block");
+                    $("#discussNoPost").text(dramaTitle);
+                };
+        
+                // If discuss data is found.
+                const discussData = data.data;
+        
+                if(discussData){
+                    // Post content.
+                    $("#discussContentContainer").css("display", "block");
+                    $("#discussPostTitle").text(`[${discussData.discussDramaTitle}] ${discussData.discussHeader}`);
+                    $("#discussMemberProfilePicture").attr("src", discussData.discussMemberProfilePicture);
+                    $("#discussMemberName").text(discussData.discussMemberName);
+                    $("#discussCreatedTime").text(` 於 ${discussData.discussCreatedTime.split(".")[0].replace(" ", ", ")} 發佈`);
+                    $("#discussPost").append(discussData.discussContent);
+                    $("#discussLikeCount").text(discussData.likePostCount.length);
+                };
+            })
+            .catch(error => {
+                console.log("Error(discuss.post.js - 1): " + error);
+            });
+
+            // Handle full discuss content click if available.
+            $("#discussContentContainer").click(() => {
+                location.href = `/discuss/${discussPostID}?page=1`;
+            });
+
+
             // Media information
             if(dramaData.dramaMedia == "None" || dramaData.dramaMedia == "" || dramaData.dramaMedia == null){
                 $("#dramaMedia").append(`

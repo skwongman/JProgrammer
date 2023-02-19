@@ -1,0 +1,163 @@
+const express = require("express");
+const { client } = require("../commons/common");
+const router = express.Router();
+
+// Middleware function to add the database connection to the request object
+router.use(function(req, res, next){
+    req.db = client.db("website");
+    next();
+});
+
+router.get("/api/discuss/:id", (req, res) => {
+
+    client.connect(err => {
+        // Error handling
+        if(err){
+            res.status(500).json({"error": true, "message": err.message});
+            console.log("Error(dramaQueryStringAPI.route - 1): " + err);
+        };
+        
+        // Assign names
+        const id = parseInt(req.params.id);
+        const page = parseInt(req.query.page) || 1; // default page is 1
+        const limit = 9; // number of records to show per page (not including the first post)
+        const skip = (page - 1) * limit;
+        const collection = req.db.collection("discuss");
+
+        const matchDramaID = { $match: { discussPostID: id } };
+
+        const aggrePost = {
+            $lookup: {
+                from: "reply",
+                localField: "discussPostID",
+                foreignField: "replyPostID",
+                as: "discussReply"
+            }
+        };
+        
+        const aggreLikePost = {
+            $lookup: {
+                from: "like",
+                localField: "discussID",
+                foreignField: "likePostID",
+                as: "likePostCount"
+            }
+        };
+
+        const aggreLikeReply = {
+            $lookup: {
+                from: "like",
+                localField: "discussReply.replyID",
+                foreignField: "likePostID",
+                as: "likeReplyCount"
+            }
+        };
+        
+        const excludeFields = {
+            $project: {
+                _id: 0,
+                discussMemberID: 0,
+                "discussReply._id": 0,
+                "discussReply.replyDramaTitle": 0,
+                "discussReply.replyMemberID": 0
+            }
+        };
+        
+        const countReply = { $addFields: { count: { $size: "$discussReply" } } };
+        
+        const addIndex = {
+            $addFields: {
+                discussReply: {
+                    $map: {
+                        input: "$discussReply",
+                        as: "reply",
+                        in: {
+                            $mergeObjects: [
+                                "$$reply",
+                                { replyNo: { $add: [{ $indexOfArray: ["$discussReply", "$$reply"] }, 1 + 1] } }
+                            ]
+                        }
+                    }
+                }
+            }
+        };
+        
+        const addReplyLike = {
+            $addFields: {
+                discussReply: {
+                    $map: {
+                        input: "$discussReply",
+                        as: "reply",
+                        in: {
+                            $mergeObjects: [
+                                "$$reply",
+                                {
+                                    likeReplyCount: {
+                                        $map: {
+                                            input: {
+                                                $filter: {
+                                                    input: "$likeReplyCount",
+                                                    as: "like",
+                                                    cond: {
+                                                        $eq: ["$$like.likePostID", "$$reply.replyID"]
+                                                    }
+                                                }
+                                            },
+                                            as: "like",
+                                            in: {
+                                                likeMemberName: "$$like.likeMemberName"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        };
+        
+        const sliceReply = {
+            $project: {
+                discussReply: { $slice: ["$discussReply", skip, limit] },
+                count: 1,
+                discussID: 1,
+                discussPostID: 1,
+                discussDramaTitle: 1,
+                discussHeader: 1,
+                discussContent: 1,
+                discussMemberID: 1,
+                discussMemberName: 1,
+                discussMemberProfilePicture: 1,
+                likePostCount: 1,
+                discussCreatedTime: 1
+            }
+        };
+        
+        const aggregatePipeline = [matchDramaID, aggrePost, excludeFields, countReply, addIndex, aggreLikeReply, aggreLikePost, addReplyLike, sliceReply];
+        
+        // Fetching data
+        collection.aggregate(aggregatePipeline).toArray((err, result) => {
+            if(err){
+                res.status(500).json({ error: true, message: err.message });
+                console.log("Error(dramaQueryStringAPI.route - 2): " + err);
+            };
+        
+            if(result == ""){
+                res.status(400).json({ error: true, message: "ID not found" });
+            }
+            else{
+                const count = result[0].count;
+                const data = result[0];
+                const nextPage = (count > skip + limit) ? page + 1 : null;
+                const totalPages = (count == 0) ? 1 : Math.ceil(count / limit);
+
+                res.status(200).json({totalPages, nextPage, data});
+            };
+        });
+        
+    });
+
+});
+
+module.exports = router;

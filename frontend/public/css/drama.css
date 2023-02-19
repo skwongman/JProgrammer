@@ -244,6 +244,7 @@
     border: 1px solid #e3e3e3;
     border-radius: 10px;
     margin: 10px;
+    cursor: pointer;
     box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
 }
 
@@ -266,6 +267,7 @@
     border-radius: 50%;
     width: 45px;
     height: 45px;
+    border: 1px solid rgb(209, 206, 206);
 }
 
 .discuss-title-user-content {
@@ -318,7 +320,7 @@
 
 .discuss-layer {
     display: none;
-    z-index: 11;
+    z-index: 12;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -338,7 +340,7 @@
     height: 620px;
     border-radius: 5px;
     background-color: #fff;
-    z-index: 12;
+    z-index: 13;
 }
 
 .discuss-create-post-header-container {
@@ -393,10 +395,6 @@
     margin: 0px 18px 0px 18px;
 }
 
-/* .discuss-create-post-content-input {
-    font: 20px !important;
-} */
-
 .discuss-create-post-submit-btn {
     display: flex;
     justify-content: flex-end;
@@ -423,6 +421,11 @@
 .fr-placeholder,
 .fr-view {
     font-size: 16px !important;
+}
+
+.discuss-post-title {
+    font-size: 18px;
+    font-weight: bold;
 }
 
 
@@ -468,7 +471,7 @@
     width: 65%;
     height: auto;
     object-position: center;
-    z-index: 12;
+    z-index: 13;
 }
 
 .video-btn-jp,
@@ -485,7 +488,7 @@
     color: green;
     font-size: 50px;
     font-weight: bold;
-    z-index: 12;
+    z-index: 13;
     cursor: pointer;
 }
 
@@ -495,7 +498,7 @@
 
 .video-layer {
     display: block;
-    z-index: 11;
+    z-index: 12;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -508,7 +511,7 @@
 
 .video-navigation-bar-layer {
     display: block;
-    z-index: 11;
+    z-index: 12;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -527,7 +530,7 @@
     text-align: center;
     font-size: 18px;
     font-weight: bold;
-    z-index: 12;
+    z-index: 13;
 }
 
 .nav.nav-tabs {

@@ -18,7 +18,10 @@ const addDramaAPIRouter = require("./backend/routes/addDramaAPI.route");
 const videoServerAPIRouter = require("./backend/routes/videoServerAPI.route");
 const editDramaAccessAPIRouter = require("./backend/routes/editDramaAccessAPI.route");
 const editDramaAPIRouter = require("./backend/routes/editDramaAPI.route");
-const discussAPIRouter = require("./backend/routes/discussAPI.route")
+const discussAPIRouter = require("./backend/routes/discussAPI.route");
+const replyAPIRouter = require("./backend/routes/replyAPI.route");
+const discussQueryStringAPIRouter = require("./backend/routes/discussQueryStringAPI.route");
+const discussLikeCountAPIRouter = require("./backend/routes/discussLikeCountAPI.route");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
@@ -100,6 +103,9 @@ app.put("/api/edit/:id", editDramaAPIRouter);
 
 // Discuss
 app.post("/api/discuss", discussAPIRouter)
+app.post("/api/reply", replyAPIRouter)
+app.get("/api/discuss/:id", discussQueryStringAPIRouter);
+app.post("/api/like", discussLikeCountAPIRouter);
 
 // 404 Error page
 app.use(pageRouter);

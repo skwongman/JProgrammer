@@ -36,7 +36,7 @@ html {
 /* Navigation Bar */
 .nav-bar-center {
     display: flex;
-    z-index: 10;
+    z-index: 11;
     position: fixed;
     align-items: center;
     justify-content: center;
@@ -46,6 +46,7 @@ html {
     color: #1f2b3e;;
     font-size: 17px;
     font-weight: bold;
+    box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.1);
 }
 
 .nav-bar-width {

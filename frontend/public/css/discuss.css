@@ -1,15 +1,10 @@
-.discuss-post-header {
-    margin: 10px 0px 20px 0px;
-    font-weight: bold;
-    font-size: 25px;
-    text-align: center;
-}
+/* Discuss Post Content */
 
 .discuss-post-title {
-    margin: 10px 0px 10px 0px;
-    font-size: 20px;
+    /* margin: 10px 0px 10px 0px; */
+    font-size: 18px;
     font-weight: bold;
-    text-decoration: underline;
+    /* text-decoration: underline; */
     /* text-align: center; */
 }
 
@@ -39,6 +34,7 @@
     border-radius: 50%;
     width: 45px;
     height: 45px;
+    border: 1px solid rgb(209, 206, 206);
 }
 
 .discuss-title-user-content {
@@ -57,10 +53,12 @@
     padding: 10px;
 }
 
-.discuss-reply-icon-like,
-.discuss-reply-icon-reply {
-    width: 15px;
-    height: auto;
+.discuss-post-like-click,
+.discuss-reply-icon-reply,
+.discuss-reply-quote-icon,
+.discuss-reply-like-click {
+    width: 17px;
+    height: 17px;
     object-fit: contain;
     object-position: center;
     cursor: pointer;
@@ -71,6 +69,7 @@
 .discuss-reply-quote {
     margin: 0px 10px 0px 5px;
     font-size: 14px;
+    font-weight: bold;
 }
 
 .discuss-reply-btn-container {
@@ -78,12 +77,6 @@
     justify-content: center;
     align-items: center;
 }
-
-/* .discuss-reply-btn-width,
-.discuss-cancel-btn-width {
-    flex: none;
-    width: 5%;
-} */
 
 .discuss-reply-btn {
     width: 70px;
@@ -125,4 +118,60 @@
 .fr-placeholder,
 .fr-view {
     font-size: 16px !important;
+}
+
+p > img {
+    max-width: 100%;
+    height: auto;
+}
+
+blockquote {
+    border-left: 4px solid rgb(19, 169, 228);
+    margin: 0;
+    padding: 10px;
+}
+
+.discuss-main-header-container {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.discuss-main-header-underline {
+    width: 200px;
+    margin-top: 10px;
+    border-bottom: 5px solid rgb(19, 169, 228);
+}
+
+
+/* Pagination */
+
+.pagination {
+    margin: 80px 0px 80px 0px;
+    color: rgb(19, 169, 228) !important;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: rgb(19, 169, 228) !Important;
+    border: solid 1px rgb(19, 169, 228) !Important;
+}
+
+.pagination > li > a
+{
+    color: rgb(19, 169, 228);
+}
+
+.pagination > .active > span
+{
+    color: white;
+    background-color: rgb(19, 169, 228) !Important;
+    border: solid 1px rgb(19, 169, 228) !Important;
+}
+
+.pagination > li > span
+{
+    color: rgb(19, 169, 228);
 }

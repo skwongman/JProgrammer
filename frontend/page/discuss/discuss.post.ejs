@@ -1,35 +1,52 @@
-<br/><br/><br/>
+<!-- Separator -->
+<br/><br/><br/><br/>
 
+<!-- Discuss Post -->
 <div class="container mx-auto" style="max-width: 1200px;">
 
-    <div class="discuss-post-header">討論劇集：女神的教室</div>
+    <div id="discussMainHeaderContainer" class="discuss-main-header-container">
+        <span id="discussMainHeader"></span>
+        <div class="discuss-main-header-underline mx-auto"></div>
+    </div>
 
-    <div class="discuss-post-title">標題：[女神的教室] 第一集</div>
-
-    <div class="discuss-content">
+    <!-- Post -->
+    <div id="discussPostContainer" class="discuss-content" style="display:none;">
+        <!-- Post content -->
         <div class="discuss-title">
             <div class="discuss-title-user-profile">
-                <img class="discuss-title-user-profile-picture" src="https://www.themoviedb.org/t/p/w45_and_h45_face/qpuUNplRt3TrrEratMUFZiofNWD.jpg">
+                <img id="discussMemberProfilePicture" class="discuss-title-user-profile-picture">
             </div>
             <div class="discuss-title-user-content">
-                <div>Miner 於 2023-01-12 13:40:22 發佈</div>
+                <div id="discussHeader" class="discuss-post-title"></div>
+                <div>
+                    <span id="discussMemberName"></span>
+                    <span id="discussCreatedTime"></span>
+                </div>
             </div>
         </div>
-        <div class="discuss-post">後半學生們的模擬法庭部份，還滿好看的! 希望每一集都有模擬法庭戲可以看~ </div>
+        <div id="discussContent" class="discuss-post"></div>
+
+        <!-- Like and Reply icon -->
         <div class="discuss-reply">
-            <img class="discuss-reply-icon-like" src="/img/icon_like.png">
-            <div class="discuss-reply-like-count">1</div>
-            <img class="discuss-reply-icon-reply" src="/img/icon_reply.png">
+            <img id="discussReplyLike" class="discuss-post-like-click" src="/img/icon_like.png">
+            <div id="likePostCount" class="discuss-reply-like-count">0</div>
+
+            <img id="discussReplyQuote" class="discuss-reply-icon-reply" src="/img/icon_reply.png">
             <div class="discuss-reply-quote">引用</div>
         </div>
     </div>
 
+    <!-- Reply -->
+    <div id="replyPostContainer"></div>
+
+    <!-- Reply input field -->
     <div id="discussReplyContainer" class="discuss-reply-post-container">
         <textarea id="discussReply" class="discuss-reply-post-input"></textarea>
     </div>
 
 </div>
 
+<!-- Reply button -->
 <div class="discuss-reply-btn-container">
     <div id="discussReplyBtnWidth" class="discuss-reply-btn-width">
         <div id="discussReplyBtn" class="discuss-reply-btn mx-auto">回覆</div>
@@ -40,4 +57,8 @@
     </div>
 </div>
 
-<br/><br/><br/><br/><br/><br/><br/><br/>
+<!-- Pagination bar -->
+<ul id="pagination" class="pagination mx-auto d-flex justify-content-center" style="max-width: 1200px;"></ul>
+
+<!-- Separator -->
+<br/><br/><br/><br/>

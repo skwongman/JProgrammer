@@ -1,5 +1,5 @@
 export default function createPost(){
-
+    
     // Clear all the input value on web initial load.
     $("#discussHeader").val("");
     $("#discussContent").val("");
@@ -45,11 +45,9 @@ export default function createPost(){
 
     // Handle close menu click.
     $("#discussCloseBtn").click(() => {
-
         $("#discussCreatePostInput").css("display", "none");
         $("#discussLayer").css("display", "none");
         $("body").css("overflow", "auto");
-
     });
 
     // Froala Editor library setting.
@@ -62,7 +60,7 @@ export default function createPost(){
         height: 300,
         width: 750,
         language: "zh_tw",
-        toolbarButtons: ["fontSize", "bold", "italic", "underline", "strikeThrough", "textColor", "quote", "insertHR", "align", "emoticons", "insertImage"]
+        toolbarButtons: ["fontSize", "bold", "italic", "underline", "strikeThrough", "textColor", "quote", "insertHR", "align", "insertImage"]
     });
 
 
@@ -80,7 +78,7 @@ export default function createPost(){
         // Convert the photo blob to file format.
         const tempPhotoURL = tempPhotoData.get("photo");
         const discussData = new FormData();
-        const discussID = location.href.split("/").pop();
+        const discussPostID = location.href.split("/").pop();
         const discussDramaTitle = $("#dramaTitle").text().split(" (20")[0];
         const discussHeader = $("#discussHeader").val();
         const discussContent = editor.html.get();
@@ -92,7 +90,7 @@ export default function createPost(){
                 type: myBlob.type
             });
 
-            discussData.append("discussID", discussID);
+            discussData.append("discussPostID", discussPostID);
             discussData.append("discussDramaTitle", discussDramaTitle);
             discussData.append("discussHeader", discussHeader);
             discussData.append("discussContent", discussContent);
@@ -105,8 +103,9 @@ export default function createPost(){
             })
             .then(response => response.json())
             .then(data => {
-                // console.log(data.data.discussID);
-                alert(data.data.discussID);
+                // console.log(data.data.discussPostID);
+                // alert(data.data.discussPostID);
+                location.href = `/discuss/${data.data.discussPostID}?page=1`;
             })
             .catch(error => {
                 console.log("Error(drama.createPost.js - 2): " + error);
