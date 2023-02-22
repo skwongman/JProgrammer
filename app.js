@@ -22,6 +22,7 @@ const discussAPIRouter = require("./backend/routes/discussAPI.route");
 const replyAPIRouter = require("./backend/routes/replyAPI.route");
 const discussQueryStringAPIRouter = require("./backend/routes/discussQueryStringAPI.route");
 const discussLikeCountAPIRouter = require("./backend/routes/discussLikeCountAPI.route");
+const chatHistoryAPIRouter = require("./backend/routes/chatHistoryAPI.route");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
@@ -34,6 +35,12 @@ const privateKey = fs.readFileSync("venv/privkey.pem", "utf8");
 const certificate = fs.readFileSync("venv/fullchain.pem", "utf8");
 const credentials = {key: privateKey, cert: certificate};
 const httpsServer = https.createServer(credentials, app);
+
+
+// Socket.io
+const io = require("socket.io")(httpsServer);
+const chatSocket = require("./backend/routes/chat");
+chatSocket(io);
 
 
 // Dotenv
@@ -106,6 +113,9 @@ app.post("/api/discuss", discussAPIRouter)
 app.post("/api/reply", replyAPIRouter)
 app.get("/api/discuss/:id", discussQueryStringAPIRouter);
 app.post("/api/like", discussLikeCountAPIRouter);
+
+// Chat
+app.put("/api/chat/history/:id", chatHistoryAPIRouter);
 
 // 404 Error page
 app.use(pageRouter);

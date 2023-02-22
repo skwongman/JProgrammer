@@ -67,7 +67,7 @@
 
 .pagination {
     margin: 20px 0px 0px 0px;
-    color: rgb(19, 169, 228) !important;
+    color: rgb(2, 177, 247) !important;
 }
 
 .page-item {
@@ -77,13 +77,13 @@
 .pagination > .active > a
 {
     color: white;
-    background-color: rgb(19, 169, 228) !Important;
-    border: solid 1px rgb(19, 169, 228) !Important;
+    background-color: rgb(2, 177, 247) !Important;
+    border: solid 1px rgb(2, 177, 247) !Important;
 }
 
 .pagination > li > a
 {
-    color: rgb(19, 169, 228);
+    color: rgb(2, 177, 247);
 }
 
 /* Sortlist Bar */

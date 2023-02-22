@@ -56,10 +56,8 @@ router.get("/api/discuss/:id", (req, res) => {
         const excludeFields = {
             $project: {
                 _id: 0,
-                discussMemberID: 0,
                 "discussReply._id": 0,
-                "discussReply.replyDramaTitle": 0,
-                "discussReply.replyMemberID": 0
+                "discussReply.replyDramaTitle": 0
             }
         };
         

@@ -1,3 +1,5 @@
+import discussChat from "./discuss.chat.js";
+
 export default function discussPost(){
 
     // Add loading effect
@@ -41,9 +43,11 @@ export default function discussPost(){
             if(pageNo == "1"){
                 $("#discussPostContainer").css("display", "block");
                 $("#discussHeader").text(`[${discussData.discussDramaTitle}] ${discussData.discussHeader}`);
-                $("#discussMemberProfilePicture").attr("src", discussData.discussMemberProfilePicture);
-                $("#discussMemberName").append(`<span style="color:rgb(19, 169, 228);">#1</span> ${discussData.discussMemberName}`);
-                $("#discussCreatedTime").text(` 於 ${discussData.discussCreatedTime.split(".")[0].replace(" ", ", ")} 發佈`);
+                $("#replyMemberProfilePicture").attr("src", discussData.discussMemberProfilePicture);
+                $("#replyMemberProfilePicture").attr("chat", discussData.discussMemberID);
+                $("#replyMemberName").append(`${discussData.discussMemberName}`);
+                $("#replyMemberName").attr("class", `${discussData.discussMemberID}`);
+                $("#discussCreatedTime").text(` 於 ${discussData.discussCreatedTime.split(".")[0].slice(0, 16).replace(" ", ", ")} 發佈`);
                 $("#discussContent").append(discussData.discussContent);
                 $(".discuss-post-like-click").attr("id", discussData.discussID);
                 $(".discuss-post-like-click").attr("data-like-id", discussData.discussID + document.cookie.split("-").pop());
@@ -58,12 +62,13 @@ export default function discussPost(){
                         <!-- Reply content -->
                         <div class="discuss-title">
                             <div class="discuss-title-user-profile">
-                                <img id="replyMemberProfilePicture" class="discuss-title-user-profile-picture" src="${replyData[i].replyMemberProfilePicture}">
+                                <img id="replyMemberProfilePicture" class="discuss-title-user-profile-picture" src="${replyData[i].replyMemberProfilePicture}" chat="${replyData[i].replyMemberID}">
                             </div>
                             <div class="discuss-title-user-content">
                                 <div>
-                                    <span id="replyMemberName">#${replyData[i].replyNo} ${replyData[i].replyMemberName}</span>
-                                    <span id="replyCreatedTime"> 於 ${replyData[i].replyCreatedTime.split(".")[0].replace(" ", ", ")} 回覆</span>
+                                    <span>#${replyData[i].replyNo}</span>
+                                    <span id="replyMemberName" class="c${replyData[i].replyMemberID}">${replyData[i].replyMemberName}</span>
+                                    <span id="replyCreatedTime"> 於 ${replyData[i].replyCreatedTime.split(".")[0].slice(0, 16).replace(" ", ", ")} 回覆</span>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +76,7 @@ export default function discussPost(){
 
                         <!-- Like and quote buttons -->
                         <div class="discuss-reply">
-                            <img id="${replyData[i].replyID}" class="discuss-reply-like-click" data-like-id="like${replyData[i].replyID + document.cookie.split("-").pop()}" src="/img/icon_like.png">
+                            <img id="${replyData[i].replyID}" class="discuss-reply-like-click" data-like-id="like${replyData[i].replyID + document.cookie.split(".").pop()}" src="/img/icon_like.png">
                             <div id="id${replyData[i].replyID}" class="discuss-reply-like-count">${(replyData[i].likeReplyCount.length == 0) ? 0 : replyData[i].likeReplyCount.length}</div>
                 
                             <img id="${replyData[i].replyNo}" class="discuss-reply-quote-icon" src="/img/icon_reply.png">
@@ -90,6 +95,9 @@ export default function discussPost(){
             // Remove loading effect.
             topbar.hide();
         };
+    })
+    .then(() => {
+        discussChat();
     })
     .then(() => {
         // Pagination
