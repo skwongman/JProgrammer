@@ -15,7 +15,7 @@ export default function discussChat(){
         // Add loading effect
         topbar.show();
 
-        // Disconnect any existing socket connections
+        // Disconnect any existing socket connections.
         socket.disconnect();
         socket = io();
 
@@ -62,6 +62,9 @@ export default function discussChat(){
                     return false;
                 }
                 else{
+                    // Disable the browser scolling bar function.
+                    $("body").css("overflow", "hidden");
+
                     // Chat message window HTML DOM.
                     $("#chatOuterContainer").empty();
         
@@ -125,6 +128,7 @@ export default function discussChat(){
                             // Disconnect any existing socket connections
                             socket.disconnect();
                             socket = io();
+                            $("body").css("overflow", "auto");
                             $("#chatOuterContainer").empty();
                         });
                         
@@ -164,6 +168,7 @@ export default function discussChat(){
                             // Disconnect any existing socket connections
                             socket.disconnect();
                             socket = io();
+                            $("body").css("overflow", "auto");
                             $("#chatOuterContainer").empty();
                         });
                     });
@@ -433,6 +438,7 @@ export default function discussChat(){
                     // Disconnect any existing socket connections
                     socket.disconnect();
                     socket = io();
+                    $("body").css("overflow", "auto");
                     $("#chatOuterContainer").empty();
                 });
 

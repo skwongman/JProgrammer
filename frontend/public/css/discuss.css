@@ -466,4 +466,24 @@ blockquote {
         color: gray;
     }
 
+    .chat-receiver-name {
+        margin-left: 30px;
+    }
+
+    .chat-receiver-online-status.online {
+        margin: 5px 0px 0px 30px;
+    }
+
+    .chat-receiver-online-status.last-online-today {
+        margin: 5px 0px 0px 20px;
+    }
+
+    .chat-receiver-online-status.last-online {
+        margin: 5px 0px 0px 12px;
+    }
+
+    .chat-receiver-online-status.last-offline {
+        margin: 5px 0px 0px 30px;
+    }
+
 }
