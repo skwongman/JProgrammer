@@ -45,8 +45,9 @@ export default function discussPost(){
                 $("#discussHeader").text(`[${discussData.discussDramaTitle}] ${discussData.discussHeader}`);
                 $("#replyMemberProfilePicture").attr("src", discussData.discussMemberProfilePicture);
                 $("#replyMemberProfilePicture").attr("chat", discussData.discussMemberID);
+                $("#replyMemberProfilePicture").attr("post", "1");
                 $("#replyMemberName").append(`${discussData.discussMemberName}`);
-                $("#replyMemberName").attr("class", `${discussData.discussMemberID}`);
+                $("#replyMemberName").attr("class", `c1${discussData.discussMemberID}`);
                 $("#discussCreatedTime").text(` 於 ${discussData.discussCreatedTime.split(".")[0].slice(0, 16).replace(" ", ", ")} 發佈`);
                 $("#discussContent").append(discussData.discussContent);
                 $(".discuss-post-like-click").attr("id", discussData.discussID);
@@ -62,12 +63,12 @@ export default function discussPost(){
                         <!-- Reply content -->
                         <div class="discuss-title">
                             <div class="discuss-title-user-profile">
-                                <img id="replyMemberProfilePicture" class="discuss-title-user-profile-picture" src="${replyData[i].replyMemberProfilePicture}" chat="${replyData[i].replyMemberID}">
+                                <img id="replyMemberProfilePicture" class="discuss-title-user-profile-picture" src="${replyData[i].replyMemberProfilePicture}" chat="${replyData[i].replyMemberID}" post="${replyData[i].replyNo}">
                             </div>
                             <div class="discuss-title-user-content">
                                 <div>
                                     <span>#${replyData[i].replyNo}</span>
-                                    <span id="replyMemberName" class="c${replyData[i].replyMemberID}">${replyData[i].replyMemberName}</span>
+                                    <span id="replyMemberName" class="c${replyData[i].replyNo}${replyData[i].replyMemberID}">${replyData[i].replyMemberName}</span>
                                     <span id="replyCreatedTime"> 於 ${replyData[i].replyCreatedTime.split(".")[0].slice(0, 16).replace(" ", ", ")} 回覆</span>
                                 </div>
                             </div>

@@ -38,7 +38,8 @@ export default function discussChat(){
             else if(data.data){
 
                 receiverNames = e.target.attributes.chat.value;
-                receiverName = $(`#replyMemberName.c${receiverNames}`).text();
+                const postID = e.target.attributes.post.value;
+                receiverName = $(`#replyMemberName.c${postID}${receiverNames}`).text();
                 receiverProfoliePicture = e.target.attributes.src.value;
                 const senderName = data.data.memberName;
                 memberDisplayName = data.data.memberName;
@@ -147,7 +148,6 @@ export default function discussChat(){
                                 $(`#onlineStatus`).empty();
 
                                 $(`#onlineStatus`).append(`
-    
                                     <div class="chat-receiver-name-container">
                                         <div class="chat-receiver-name">${member}</div>
                                         <div class="chat-receiver-online-status online">在線上</div>
@@ -401,8 +401,8 @@ export default function discussChat(){
                     // console.log(`User ${senderName} is offline at ${memberLeaveTime}`);
                 
                     $(`#onlineStatus`).empty();
+
                     $(`#onlineStatus`).append(`
-    
                         <div class="chat-receiver-name-container">
                             <div class="chat-receiver-name">${senderName}</div>
                             <div class="chat-receiver-online-status last-online-today">最後上線時間: 今天 ${memberLeaveTime.split(", ").pop().slice(0, 5)}</div>
@@ -414,9 +414,9 @@ export default function discussChat(){
                 }
                 // Otherwise, display the date and time directly.
                 else{
-                    console.log(`User ${senderName} is offline at ${memberLeaveTime}`);
-                
+                    // console.log(`User ${senderName} is offline at ${memberLeaveTime}`);
                     $(`#onlineStatus`).empty();
+
                     $(`#onlineStatus`).append(`
                         <div class="chat-receiver-name-container">
                             <div class="chat-receiver-name">${senderName}</div>
