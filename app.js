@@ -23,6 +23,8 @@ const replyAPIRouter = require("./backend/routes/replyAPI.route");
 const discussQueryStringAPIRouter = require("./backend/routes/discussQueryStringAPI.route");
 const discussLikeCountAPIRouter = require("./backend/routes/discussLikeCountAPI.route");
 const chatHistoryAPIRouter = require("./backend/routes/chatHistoryAPI.route");
+const updateMemberPhotoAPIRouter = require("./backend/routes/updateMemberPhotoAPI.route");
+const updateMemberPasswordAPIRouter = require("./backend/routes/updateMemberPasswordAPI.route");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
@@ -116,6 +118,10 @@ app.post("/api/like", discussLikeCountAPIRouter);
 
 // Chat
 app.put("/api/chat/history/:id", chatHistoryAPIRouter);
+
+// Member
+app.put("/api/member/photo", updateMemberPhotoAPIRouter);
+app.put("/api/member/password", updateMemberPasswordAPIRouter);
 
 // 404 Error page
 app.use(pageRouter);

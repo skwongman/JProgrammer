@@ -43,15 +43,15 @@ export default function discussPost(){
             if(pageNo == "1"){
                 $("#discussPostContainer").css("display", "block");
                 $("#discussHeader").text(`[${discussData.discussDramaTitle}] ${discussData.discussHeader}`);
-                $("#replyMemberProfilePicture").attr("src", discussData.discussMemberProfilePicture);
-                $("#replyMemberProfilePicture").attr("chat", discussData.discussMemberID);
+                $("#replyMemberProfilePicture").attr("src", discussData.discussMemberID[0].memberProfilePicture);
+                $("#replyMemberProfilePicture").attr("chat", discussData.discussMemberID[0]._id);
                 $("#replyMemberProfilePicture").attr("post", "1");
-                $("#replyMemberName").append(`${discussData.discussMemberName}`);
-                $("#replyMemberName").attr("class", `c1${discussData.discussMemberID}`);
+                $("#replyMemberName").append(`${discussData.discussMemberID[0].memberName}`);
+                $("#replyMemberName").attr("class", `c1${discussData.discussMemberID[0]._id}`);
                 $("#discussCreatedTime").text(` 於 ${discussData.discussCreatedTime.split(".")[0].slice(0, 16).replace(" ", ", ")} 發佈`);
                 $("#discussContent").append(discussData.discussContent);
                 $(".discuss-post-like-click").attr("id", discussData.discussID);
-                $(".discuss-post-like-click").attr("data-like-id", discussData.discussID + document.cookie.split("-").pop());
+                $(".discuss-post-like-click").attr("data-like-id", discussData.discussID + document.cookie.slice(-6));
                 (discussData.likePostCount.length == 0) ? 0 : $("#likePostCount").text(discussData.likePostCount.length);
             };
 
@@ -63,12 +63,12 @@ export default function discussPost(){
                         <!-- Reply content -->
                         <div class="discuss-title">
                             <div class="discuss-title-user-profile">
-                                <img id="replyMemberProfilePicture" class="discuss-title-user-profile-picture" src="${replyData[i].replyMemberProfilePicture}" chat="${replyData[i].replyMemberID}" post="${replyData[i].replyNo}">
+                                <img id="replyMemberProfilePicture" class="discuss-title-user-profile-picture" src="${replyData[i].replyMemberID[0].memberProfilePicture}" chat="${replyData[i].replyMemberID[0].memberID}" post="${replyData[i].replyNo}">
                             </div>
                             <div class="discuss-title-user-content">
                                 <div>
                                     <span>#${replyData[i].replyNo}</span>
-                                    <span id="replyMemberName" class="c${replyData[i].replyNo}${replyData[i].replyMemberID}">${replyData[i].replyMemberName}</span>
+                                    <span id="replyMemberName" class="c${replyData[i].replyNo}${replyData[i].replyMemberID[0].memberID}">${replyData[i].replyMemberID[0].memberName}</span>
                                     <span id="replyCreatedTime"> 於 ${replyData[i].replyCreatedTime.split(".")[0].slice(0, 16).replace(" ", ", ")} 回覆</span>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@ export default function discussPost(){
 
                         <!-- Like and quote buttons -->
                         <div class="discuss-reply">
-                            <img id="${replyData[i].replyID}" class="discuss-reply-like-click" data-like-id="like${replyData[i].replyID + document.cookie.split(".").pop()}" src="/img/icon_like.png">
+                            <img id="${replyData[i].replyID}" class="discuss-reply-like-click" data-like-id="like${replyData[i].replyID + document.cookie.slice(-6)}" src="/img/icon_like.png">
                             <div id="id${replyData[i].replyID}" class="discuss-reply-like-count">${(replyData[i].likeReplyCount.length == 0) ? 0 : replyData[i].likeReplyCount.length}</div>
                 
                             <img id="${replyData[i].replyNo}" class="discuss-reply-quote-icon" src="/img/icon_reply.png">

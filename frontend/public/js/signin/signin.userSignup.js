@@ -25,7 +25,7 @@ export default function userSignup(){
                 topbar.hide();
 
                 setTimeout(() => {
-                    alert("請輸入正確註冊資料！");
+                    alert("抱歉！請設定8個字元或以上的密碼。");
                 }, 500);
             };
 

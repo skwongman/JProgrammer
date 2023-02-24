@@ -1,3 +1,5 @@
+import memberProfile from "../member/member.profile.js";
+
 export default function userSigninStatus(){
 
     async function userSigninStatusData(url){
@@ -53,6 +55,14 @@ export default function userSigninStatus(){
             });           
         };
 
+    })
+    .then(() => {
+        if(location.href.split("/").pop() != "member"){
+            return false;
+        }
+        else{
+            memberProfile();
+        };
     })
     .catch(error => {
         console.log("Error(signin.userSigninStatus.js): " + error);

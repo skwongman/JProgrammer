@@ -35,6 +35,38 @@ router.get("/api/discuss/:id", (req, res) => {
             }
         };
         
+        const aggreMemberPost = {
+            $lookup:
+            {
+                from: "member",
+                let: { pid: "$discussMemberID" },
+                pipeline: [
+                    {
+                        $match: {
+                            $expr: {
+                                $eq: ["$_id", { $toObjectId: "$$pid" }]
+                            }
+                        }
+                    }
+                ],
+                as: "discussMemberID"
+            }
+        };
+
+        const aggreMemberReply = {
+            $lookup: {
+                from: "member",
+                let: {
+                    memberIds: { $map: { input: "$discussReply.replyMemberID", as: "id", in: { $toObjectId: "$$id" } } }
+                },
+                pipeline: [
+                    { $match: { $expr: { $in: [ "$_id", "$$memberIds" ] } } }
+                ],
+                as: "replyMemberID"
+            }
+        };
+
+
         const aggreLikePost = {
             $lookup: {
                 from: "like",
@@ -56,8 +88,14 @@ router.get("/api/discuss/:id", (req, res) => {
         const excludeFields = {
             $project: {
                 _id: 0,
+                discussMemberName: 0,
+                discussMemberProfilePicture: 0,
                 "discussReply._id": 0,
-                "discussReply.replyDramaTitle": 0
+                "discussReply.replyDramaTitle": 0,
+                "discussReply.replyMemberName": 0,
+                "discussReply.replyMemberProfilePicture": 0,
+                "discussMemberID.memberEmail": 0,
+                "discussMemberID.memberPassword": 0
             }
         };
         
@@ -114,6 +152,46 @@ router.get("/api/discuss/:id", (req, res) => {
                 }
             }
         };
+
+        const addMemberReply = {
+            $addFields: {
+                discussReply: {
+                    $map: {
+                        input: "$discussReply",
+                        as: "reply",
+                        in: {
+                            $mergeObjects: [
+                                "$$reply",
+                                {
+                                    replyMemberID: {
+                                        $map: {
+                                            input: {
+                                                $filter: {
+                                                    input: "$replyMemberID",
+                                                    as: "member",
+                                                    cond: {
+                                                        $eq: [
+                                                            { $toObjectId: "$$member._id" },
+                                                            { $toObjectId: "$$reply.replyMemberID" }
+                                                        ]
+                                                    }
+                                                }
+                                            },
+                                            as: "member",
+                                            in: {
+                                                memberID: "$$member._id",
+                                                memberName: "$$member.memberName",
+                                                memberProfilePicture: "$$member.memberProfilePicture"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        };
         
         const sliceReply = {
             $project: {
@@ -132,7 +210,7 @@ router.get("/api/discuss/:id", (req, res) => {
             }
         };
         
-        const aggregatePipeline = [matchDramaID, aggrePost, excludeFields, countReply, addIndex, aggreLikeReply, aggreLikePost, addReplyLike, sliceReply];
+        const aggregatePipeline = [matchDramaID, aggrePost, aggreMemberPost, aggreMemberReply, excludeFields, countReply, addIndex, aggreLikeReply, aggreLikePost, addReplyLike, addMemberReply, sliceReply];
         
         // Fetching data
         collection.aggregate(aggregatePipeline).toArray((err, result) => {

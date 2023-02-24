@@ -532,8 +532,8 @@ export default function getEachDramaData(){
                     // Post content.
                     $("#discussContentContainer").css("display", "block");
                     $("#discussPostTitle").text(`[${discussData.discussDramaTitle}] ${discussData.discussHeader}`);
-                    $("#discussMemberProfilePicture").attr("src", discussData.discussMemberProfilePicture);
-                    $("#discussMemberName").text(discussData.discussMemberName);
+                    $("#discussMemberProfilePicture").attr("src", discussData.discussMemberID[0].memberProfilePicture);
+                    $("#discussMemberName").text(discussData.discussMemberID[0].memberName);
                     $("#discussCreatedTime").text(` 於 ${discussData.discussCreatedTime.split(".")[0].replace(" ", ", ")} 發佈`);
                     $("#discussPost").append(discussData.discussContent);
                     $("#discussLikeCount").text(discussData.likePostCount.length);

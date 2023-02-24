@@ -38,7 +38,7 @@ export default function editCoverPhoto(){
 
     });
 
-    // Cantel not upload
+    // Cancel not upload
     $("#editDramaCoverPhotoNotConfirmBtn").click((e) => {
 
         e.preventDefault();
