@@ -1,6 +1,6 @@
 const { client, ObjectId } = require("../../commons/common");
-const commonView = require("../../views/common.view");
 const jwt = require("jsonwebtoken");
+const commonView = require("../../views/common.view");
 
 const model = {
 
@@ -20,7 +20,7 @@ const model = {
             client.connect(err => {
                 // Internal server error message.
                 if(err){
-                    const errorMessage = "Error(watchDramaAccessAPI.route - 1): " + err;
+                    const errorMessage = "Error(signinStatusAPI.route - 1): " + err;
                     commonView.renderError(err, res, errorMessage);
                     return;
                 };
@@ -33,21 +33,21 @@ const model = {
                 collection.findOne(checkMemberID, (err, result) => {
                     // Internal server error message.
                     if(err){
-                        const errorMessage = "Error(watchDramaAccessAPI.route - 3): " + err;
+                        const errorMessage = "Error(signinStatusAPI.route - 2): " + err;
                         commonView.renderError(err, res, errorMessage);
                         return;
                     };
 
-                    // Compare with the member id whether it is the testing account member id.
-                    const testAccountID = "63e76017fdc1e54772c8c140";
-                    
-                    if(result._id.toString() != testAccountID){
-                        commonView.renderVideoAuth(res);
-                        return;
-                    };
-
                     if(result){
-                        commonView.renderSuccessful(res);
+                        // Return user data.
+                        const memberData = {
+                            "memberID": result._id.toString(),
+                            "memberName": result.memberName,
+                            "memberEmail": result.memberEmail,
+                            "memberProfilePicture": result.memberProfilePicture
+                        };
+
+                        commonView.renderMemberData(res, memberData);
                         return;
                     };
                 });
