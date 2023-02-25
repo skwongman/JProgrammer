@@ -43,7 +43,7 @@ export default function searchDrama(){
                 topbar.hide();
             };
 
-            if(data.error && data.message == "not found"){
+            if(data.error && data.message == "ID not found"){
                 // $("#searchResult").css("display", "none");
 
                 $("#searchResult").html('<div class="search-no-result-text">抱歉，找不到任何相關劇集內容！</div>');
@@ -98,7 +98,7 @@ export default function searchDrama(){
     
         searchKeyword(`/api/search?keyword=${searchBarInput.value}`)
         .then(data => {
-            if(data.error && data.message == "not found"){
+            if(data.error && data.message == "ID not found"){
                 alert("抱歉，找不到任何相關劇集內容！");
 
                 // Remove loading effect

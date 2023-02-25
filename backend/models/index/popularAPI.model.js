@@ -23,7 +23,7 @@ const model = {
                 };
 
                 if(result){
-                    commonView.renderSuccessful(result, res);
+                    commonView.renderSuccessfulData(result, res);
                     return;
                 };
             });

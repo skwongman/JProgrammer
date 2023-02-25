@@ -20,7 +20,7 @@ const searchDramaAPIRouter = require("./backend/routes/index/searchDramaAPI.rout
 // Drama page routes
 const dramaQueryStringAPIRouter = require("./backend/routes/drama/dramaQueryStringAPI.route");
 const proxyAPIRouter = require("./backend/routes/drama/proxyAPI.route");
-const watchDramaAccessAPIRouter = require("./backend/routes/drama/watchDramaAccessAPI.route");
+const videoAuthAPIRouter = require("./backend/routes/drama/videoAuthAPI.route");
 const videoServerAPIRouter = require("./backend/routes/drama/videoServerAPI.route");
 
 // Signin page routes
@@ -105,7 +105,7 @@ app.get("/api/search", searchDramaAPIRouter);
 // Drama page routes
 app.get("/api/drama/:id", dramaQueryStringAPIRouter);
 app.get("/api/proxy", proxyAPIRouter);
-app.get("/api/video/auth", watchDramaAccessAPIRouter);
+app.get("/api/video/auth", videoAuthAPIRouter);
 app.get("/api/video", videoServerAPIRouter);
 
 // Signin page routes

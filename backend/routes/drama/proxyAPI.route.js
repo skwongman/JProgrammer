@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const request = require("request");
 
 router.get("/api/proxy", (req, res) => {
 
     const url = req.query.url;
-    const request = require("request");
     request(url).pipe(res);
 
 });

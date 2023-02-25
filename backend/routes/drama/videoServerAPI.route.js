@@ -1,13 +1,6 @@
 const express = require("express");
-const { client } = require("../../commons/common");
 const TorrentStream = require("torrent-stream");
 const router = express.Router();
-
-// Middleware function to add the database connection to the request object
-router.use(function(req, res, next){
-    req.db = client.db("website");
-    next();
-});
 
 router.get("/api/video", (req, res) => {
 
@@ -33,8 +26,8 @@ router.get("/api/video", (req, res) => {
             });
         });
     }
-    catch(error){
-        console.log("Error(videoServerAPI.route): " + error);
+    catch(err){
+        console.log("Error(videoServerAPI.route): " + err);
     };
 
 });
