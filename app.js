@@ -1,6 +1,7 @@
 // Commons
 const express = require("express");
 const app = express();
+const { client } = require("./backend/commons/common");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
@@ -84,6 +85,10 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use("/js", express.static(path.join(__dirname, "node_modules/torrent-stream/client")));
+app.use(function(req, res, next){
+    req.db = client.db("website");
+    next();
+});
 
 
 // HTML pages
@@ -134,7 +139,7 @@ app.put("/api/member/photo", updateMemberPhotoAPIRouter);
 app.put("/api/member/password", updateMemberPasswordAPIRouter);
 
 
-// 404 Error page
+// Error page
 app.use(pageRouter);
 
 
