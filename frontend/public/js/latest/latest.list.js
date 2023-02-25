@@ -10,7 +10,7 @@ export default function latestList(){
         return data;
     };
 
-    getData("/api/latest")
+    getData("/api/drama")
     .then(data => {
         if(data.data){
             const totalPages = parseInt(data.totalPages);
@@ -131,7 +131,7 @@ export default function latestList(){
             return data;
         };
 
-        getLatestDramaData(`/api/latest?page=${apiPageNum}`)
+        getLatestDramaData(`/api/drama?page=${apiPageNum}`)
         .then(data => {
             if(data.data){
                 $("#latestListContainer").text("");

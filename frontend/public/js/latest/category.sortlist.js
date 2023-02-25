@@ -65,7 +65,7 @@ export default function categorySortlist(){
                 return data;
             };
 
-            getData(`/api/latest?keyword=${search}`)
+            getData(`/api/drama?keyword=${search}`)
             .then(data => {
                 if(data.data){
                     const totalPages = parseInt(data.totalPages);
@@ -143,7 +143,7 @@ export default function categorySortlist(){
             return data;
         };
 
-        getLatestDramaData(`/api/latest?page=${apiPageNum}&keyword=${search}`)
+        getLatestDramaData(`/api/drama?page=${apiPageNum}&keyword=${search}`)
         .then(data => {
             if(data.data){
                 $("#latestListContainer").text("");

@@ -1,6 +1,5 @@
 const { client } = require("../../commons/common");
-const dramaAPIView = require("../../views/index/dramaAPI.view");
-const commonView = require("../../views/commons/common.view");
+const commonView = require("../../views/common.view");
 
 const model = {
 
@@ -14,7 +13,7 @@ const model = {
             };
     
             const collection = req.db.collection("drama");
-            const { dataPerPage, keyword, page, dataOrderPerPage } = dramaAPIView.renderVariables(req);
+            const { dataPerPage, keyword, page, dataOrderPerPage } = commonView.renderVariables(req);
     
             // Join to the drama video link table.
             const dramaDownload = {
@@ -81,7 +80,7 @@ const model = {
                 };
     
                 if(result){
-                    dramaAPIView.renderDramaData(result, res, dataOrderPerPage, dataPerPage, page);
+                    commonView.renderDramaData(result, res, dataOrderPerPage, dataPerPage, page);
                     return;
                 };
             });

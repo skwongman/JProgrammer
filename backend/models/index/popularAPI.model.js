@@ -1,9 +1,10 @@
 const { client } = require("../../commons/common");
-const commonView = require("../../views/commons/common.view");
+const commonView = require("../../views/common.view");
 
 const model = {
 
     init: function(req, res){
+        // Connect to database and fetch drama API data
         client.connect(err => {
             if(err){
                 const errorMessage = "Error(popularAPI.route - 1): " + err;
@@ -12,10 +13,40 @@ const model = {
             };
     
             const collection = req.db.collection("drama");
-            const sortlisted = { projection: { _id: 0, dramaID: 1, dramaTitle: 1, dramaCoverPhoto: 1, dramaViewCount: 1 } };
-            const dramaViewCountDescending = { dramaViewCount: -1 };
+            const { dataPerPage, page, dataOrderPerPage } = commonView.renderVariables(req);
     
-            collection.find({}, sortlisted).limit(6).sort(dramaViewCountDescending).toArray((err, result) => {
+            const sortlisted = {
+                $project: {
+                    _id: 0,
+                    nextPage: 1,
+                    dramaID: 1,
+                    dramaTitle: 1,
+                    dramaCoverPhoto: 1,
+                    dramaViewCount: 1,
+                    dramaCreatedTime: 1
+                }
+            };
+    
+            // Final stage to determine nextPage value
+            const nextPage = {
+                $facet: {
+                    data: [
+                        { $sort: { dramaViewCount: -1 } },
+                        { $skip: dataOrderPerPage },
+                        { $limit: dataPerPage }
+                    ],
+                    metadata: [
+                        { $count: "count" }
+                    ]
+                }
+            };
+    
+            const aggregatePipeline = [sortlisted, nextPage];
+            
+            // Fetching data
+            collection
+            .aggregate(aggregatePipeline)
+            .toArray((err, result) => {
                 if(err){
                     const errorMessage = "Error(popularAPI.route - 2): " + err;
                     commonView.renderError(err, res, errorMessage);
@@ -23,10 +54,10 @@ const model = {
                 };
 
                 if(result){
-                    commonView.renderSuccessfulData(result, res);
+                    commonView.renderDramaData(result, res, dataOrderPerPage, dataPerPage, page);
                     return;
                 };
-            });
+            }); 
         });
     }
 

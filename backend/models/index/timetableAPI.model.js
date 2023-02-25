@@ -1,5 +1,5 @@
 const { client } = require("../../commons/common");
-const commonView = require("../../views/commons/common.view");
+const commonView = require("../../views/common.view");
 
 const model = {
 

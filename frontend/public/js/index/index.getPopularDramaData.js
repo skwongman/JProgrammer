@@ -21,7 +21,7 @@ export default function getPopularDramaData(){
     const view = {
         render: function(data){
             if(data.data){
-                data.data.map(result => {
+                data.data.slice(0, 6).map(result => {
                     const shortenDramaTitle = result.dramaTitle.split("～")[0];
 
                     $("#popularDramaPhotoContainer").append(`

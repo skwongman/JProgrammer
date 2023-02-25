@@ -1,5 +1,5 @@
 const { client, ObjectId } = require("../../commons/common");
-const commonView = require("../../views/commons/common.view");
+const commonView = require("../../views/common.view");
 const jwt = require("jsonwebtoken");
 
 const model = {

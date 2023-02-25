@@ -36,7 +36,7 @@ export default function popularList(){
             return data;
         };
 
-        getData("/api/popular/list")
+        getData("/api/popular")
         .then(data => {
             const totalPages = parseInt(data.totalPages);
 
@@ -110,7 +110,7 @@ export default function popularList(){
             return data;
         };
 
-        getLatestDramaData(`/api/popular/list?page=${apiPageNum}`)
+        getLatestDramaData(`/api/popular?page=${apiPageNum}`)
         .then(data => {
             if(data.data){
                 $("#latestListContainer").text("");

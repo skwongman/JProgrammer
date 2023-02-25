@@ -29,10 +29,6 @@ const signinAPIRouter = require("./backend/routes/signin/signinAPI.route");
 const signoutAPIRouter = require("./backend/routes/signin/signoutAPI.route");
 const signinStatusAPIRouter = require("./backend/routes/signin/signinStatusAPI.route");
 
-// Latest drama page routes
-const latestAPIRouter = require("./backend/routes/latest/latestAPI.route");
-const popularListAPIRouter = require("./backend/routes/latest/popularListAPI.route");
-
 // Add drama page route
 const addDramaAPIRouter = require("./backend/routes/add/addDramaAPI.route");
 
@@ -113,10 +109,6 @@ app.post("/api/user", signupAPIRouter);
 app.put("/api/user/auth", signinAPIRouter);
 app.delete("/api/user/auth", signoutAPIRouter);
 app.get("/api/user/auth", signinStatusAPIRouter);
-
-// Latest drama page routes
-app.get("/api/latest", latestAPIRouter);
-app.get("/api/popular/list", popularListAPIRouter);
 
 // Add drama page route
 app.post("/api/add", addDramaAPIRouter);
