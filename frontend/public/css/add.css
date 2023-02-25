@@ -34,6 +34,7 @@
 
 .add-drama-left-bar-margin {
     margin-right: 5px !important;
+    margin-left: 5px !important;
 }
 
 .add-drama-left-bar-point {
@@ -54,3 +55,20 @@
 }
 
 
+@media(max-width:990px) {
+
+    .add-drama-left-bar-title {
+        margin: 0px -12px 0px -12px;
+    }
+
+}
+
+@media(max-width:575) {
+
+
+
+    .add-drama-left-bar-title {
+        margin: 0px -12px 0px -12px;
+    }
+
+}

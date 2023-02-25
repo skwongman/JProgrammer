@@ -38,7 +38,7 @@
 
 .drama-photo {
     width: 95%;
-    height: 330px;
+    height: 340px;
     object-fit: cover;
     object-position: center;
     border-radius: 10px;
@@ -62,7 +62,7 @@
 
 #dramaCategory,
 #dramaIntroduction {
-    margin: 0px 10px 10px 10px;
+    margin: 0px 10px 0px 10px;
     font-size: 17px;
 }
 
@@ -149,6 +149,22 @@
     text-align: center;
 }
 
+.cast-header-underline,
+.media-header-underline {
+    margin-top: 5px;
+    margin: auto;
+    width: 100px;
+    border-bottom: 4px solid rgb(2, 177, 247)
+}
+
+.rating-header-underline,
+.discuss-header-underline {
+    margin-top: 5px;
+    margin: auto;
+    width: 75px;
+    border-bottom: 4px solid rgb(2, 177, 247)
+}
+
 .cast-center {
     display: flex;
     align-items: center;
@@ -230,7 +246,7 @@
 }
 
 .discuss-width {
-    width: 900px;
+    width: 700px;
 }
 
 .discuss {
@@ -437,7 +453,7 @@
 }
 
 .media-width {
-    width: 1200px;
+    width: 600px;
     height: auto;
 }
 
@@ -560,6 +576,7 @@
 
 /* Edit Drama Information */
 .edit-drama-content {
+    flex: auto;
     width: 100%;
     height: auto;
     border-radius: 5px;
@@ -571,8 +588,8 @@
 }
 
 #edit1{
-    position: absolute;
-    transform: translate(114px, -33px);
+    /* position: absolute;
+    transform: translate(114px, -33px); */
     cursor: pointer;
 }
 
@@ -583,8 +600,9 @@
 }
 
 #edit3{
-    position: absolute;
-    transform: translate(124px, -26px);
+    /* position: absolute;
+    transform: translate(124px, -26px); */
+    margin-top: 10px;
     cursor: pointer;
 }
 
@@ -640,11 +658,11 @@
 }
 
 [data-confirm-yes-1] {
-    transform: translate(600px, -39px);
+    transform: translateX(206px);
 }
 
 [data-confirm-no-1] {
-    transform: translate(631px, -40px);
+    transform: translateX(243px);
 }
 
 [data-confirm-yes-2] {
@@ -656,11 +674,11 @@
 }
 
 [data-confirm-yes-3] {
-    transform: translate(600px, -32px);
+    transform: translate(242px, 4px);
 }
 
 [data-confirm-no-3] {
-    transform: translate(631px, -35px);
+    transform: translate(278px, 5px);
 }
 
 [data-confirm-yes-4] {
@@ -696,27 +714,27 @@
 }
 
 [data-confirm-yes-8] {
-    transform: translate(-20px, 27px);
+    transform: translate(-20px, 132px);
 }
 
 [data-confirm-no-8] {
-    transform: translate(21px,26px);
+    transform: translate(21px, 132px);
 }
 
 [data-confirm-yes-9] {
-    transform: translate(-20px, 13px);
+    transform: translate(-20px, 121px);
 }
 
 [data-confirm-no-9] {
-    transform: translate(18px,12px);
+    transform: translate(18px, 121px);
 }
 
 [data-confirm-yes-10] {
-    transform: translate(-20px, 13px);
+    transform: translate(-20px, 133px);
 }
 
 [data-confirm-no-10] {
-    transform: translate(18px, 14px);
+    transform: translate(18px, 133px);
 }
 
 .edit-drama-cover-photo-submit-btn {
@@ -761,13 +779,13 @@
         top: 550px;
     }
 
-    [data-confirm-yes-1] {
+    /* [data-confirm-yes-1] {
         transform: translate(130px, -39px);
     }
     
     [data-confirm-no-1] {
         transform: translate(161px, -40px);
-    }
+    } */
 
     [data-confirm-yes-2] {
         transform: translate(60px, -100px);
@@ -777,13 +795,13 @@
         transform: translate(90px, -103px);
     }
 
-    [data-confirm-yes-3] {
+    /* [data-confirm-yes-3] {
         transform: translate(124px, -32px);
     }
     
     [data-confirm-no-3] {
         transform: translate(154px, -35px);
-    }
+    } */
 
     [data-confirm-yes-4] {
         transform: translateX(191px);
@@ -842,7 +860,7 @@
     }
     
     .drama-photo {
-        width: 100%;
+        width: 90%;
         height: 200px;
     }
 

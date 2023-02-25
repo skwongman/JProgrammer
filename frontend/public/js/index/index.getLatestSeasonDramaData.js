@@ -33,6 +33,7 @@ export default function getLatestSeasonDramaData(){
                                 <img class="latest-drama-photo-individual" src="${result.dramaCoverPhoto}">
                                 ${(result.dramaDownload.length != 0) ? `<div class="latest-drama-video">線上觀看</div>` : ""}
                                 <div class="latest-drama-photo-individual-title">${shortenDramaTitle}</div>
+                                <div class="latest-drama-photo-bottom-line"></div>
                             </a>
                         </div>
                     `);

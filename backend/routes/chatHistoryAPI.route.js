@@ -103,9 +103,8 @@ router.put("/api/chat/history/:id", (req, res) => {
                 
                             if(result == ""){
                                 res.status(400).json({"error": true, "message": "ID not found"});
-                            };
-                
-                            if(result){
+                            }
+                            else if(result){
                                 res.status(200).json({"data": result});
                             };
                         });

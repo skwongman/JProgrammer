@@ -73,7 +73,7 @@ export default function discussChat(){
                         <div id="onlineStatus" class="online-status"></div>
                             <div id="chatArea" class="chat-area"></div>
                             <div class="chat-input-send-container">
-                                <input id="chatInput" class="chat-input" type="text">
+                                <div id="chatInput" class="chat-input" contenteditable="true"></div>
                                 <div id="chatSendBtn" class="chat-send-btn d-flex justify-content-center align-items-center">發送</div>
                             </div>
                         </div>
@@ -191,6 +191,12 @@ export default function discussChat(){
                             // Remove loading effect
                             topbar.hide();
                         }
+                        else if(data.error && data.message == "ID not found"){
+                            // Remove loading effect
+                            topbar.hide();
+
+                            return null;
+                        }
                         else if(data.data){
         
                             // fetching API in the format of date --> chat message --> date --> chat message.
@@ -295,10 +301,10 @@ export default function discussChat(){
 
         // Handle send chat message button click.
         $(`#chatSendBtn`).click(() => {
-            const msg = $(`#chatInput`).val();
+            const msg = $(`#chatInput`).text();
 
             socket.emit("chat message", roomID, msg);
-            $(`#chatInput`).val("");
+            $(`#chatInput`).text("");
             return false;
         });
         

@@ -176,6 +176,10 @@ html {
         margin-right: 20px;
     }
 
+    .nav-bar-right-title-profile-picture {
+        margin-right: 20px;
+    }
+
 }
 
 @media(max-width:600px) {
@@ -190,6 +194,10 @@ html {
     .nav-bar-right-title-signin-icon,
     .nav-bar-right-title-signin-after {
         margin-right: 20px;
+    }
+
+    .nav-bar-right-title-profile-picture {
+        margin-right: 0px;
     }
 
 }
