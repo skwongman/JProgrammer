@@ -33,14 +33,14 @@ router.put("/api/edit/:id", upload.single("editDramaCoverPhoto"), (req, res) => 
         const matchTypeOfPhoto = typeOfPhotoAllowed.includes(addDramaPhoto.mimetype);
 
         if(!matchTypeOfPhoto){
-            res.status(400).json({"error": true, "message": "The picture type should only be jpg, jpeg or png."});
+            res.status(400).json({"error": true, "message": "The picture type should only be jpg, jpeg or png"});
         };
 
         // Limit the photo size up to 1MB only.
         const meetPhotoUploadSize = addDramaPhoto.size <= 1 * 1024 * 1024 // 1MB
 
         if(!meetPhotoUploadSize){
-            res.status(400).json({"error": true, "message": "The picture size should only be up to 1MB."});
+            res.status(400).json({"error": true, "message": "The picture size should only be up to 1MB"});
         };
     
         // AWS S3 upload setting.
