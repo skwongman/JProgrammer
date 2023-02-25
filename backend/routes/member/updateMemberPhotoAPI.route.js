@@ -1,5 +1,5 @@
 const express = require("express");
-const { client, ObjectId, s3 } = require("../commons/common");
+const { client, ObjectId, s3 } = require("../../commons/common");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");

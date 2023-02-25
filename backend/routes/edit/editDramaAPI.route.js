@@ -1,12 +1,12 @@
 const express = require("express");
-const { client, s3 } = require("../commons/common");
+const { client, s3 } = require("../../commons/common");
 const fs = require("fs");
 const multer = require("multer");
 const upload = multer({dest: "/backend/uploads"});
 const { getAverageColor } = require("fast-average-color-node");
 const { categoryRegex, introductionRegex,
         TVRegex, dateRegex, weekRegex, timeRegex, actorRegex,
-        ratingRegex, mediaRegex, videoRegex } = require("./dramaRegex.js");
+        ratingRegex, mediaRegex, videoRegex } = require("../add/dramaRegex.js");
 const router = express.Router();
 
 // Middleware function to add the database connection to the request object

@@ -1,5 +1,5 @@
 const express = require("express");
-const { client } = require("../commons/common");
+const { client } = require("../../commons/common");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 

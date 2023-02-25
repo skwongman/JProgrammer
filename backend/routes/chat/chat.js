@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { client } = require("../commons/common");
+const { client } = require("../../commons/common");
 
 // Middleware function to add the database connection to the request object
 router.use(function(req, res, next){

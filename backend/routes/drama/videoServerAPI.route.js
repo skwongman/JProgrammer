@@ -1,5 +1,5 @@
 const express = require("express");
-const { client } = require("../commons/common");
+const { client } = require("../../commons/common");
 const TorrentStream = require("torrent-stream");
 const router = express.Router();
 

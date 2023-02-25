@@ -1,5 +1,5 @@
 const express = require("express");
-const { client, ObjectId } = require("../commons/common");
+const { client, ObjectId } = require("../../commons/common");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.use(function(req, res, next){
     next();
 });
 
-router.get("/api/user/auth", (req, res) => {
+router.get("/api/edit/auth", (req, res) => {
 
     // Decode the member id from JWT of cookie.
     const token = req.cookies.token;
@@ -26,7 +26,7 @@ router.get("/api/user/auth", (req, res) => {
                 // Internal server error message.
                 if(err){
                     res.status(500).json({"error": true, "message": err.message});
-                    console.log("Error(signinStatusAPI.route - 2): " + err);
+                    console.log("Error(watchDramaAccessAPI.route - 1): " + err);
                 };
         
                 // Fetching user data from database.
@@ -38,18 +38,12 @@ router.get("/api/user/auth", (req, res) => {
                     // Internal server error message.
                     if(err){
                         res.status(500).json({"error": true, "message": err.message});
-                        console.log("Error(signinStatusAPI.route - 3): " + err);
-                    };
-        
-                    // Return user data.
-                    const data = {
-                        "memberID": result._id.toString(),
-                        "memberName": result.memberName,
-                        "memberEmail": result.memberEmail,
-                        "memberProfilePicture": result.memberProfilePicture
+                        console.log("Error(watchDramaAccessAPI.route - 2): " + err);
                     };
 
-                    res.status(200).json({"data": data});
+                    if(result){
+                        res.status(200).json({"ok": true});
+                    };
                 });
             });            
         };

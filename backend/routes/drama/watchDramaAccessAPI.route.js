@@ -1,5 +1,5 @@
 const express = require("express");
-const { client, ObjectId } = require("../commons/common");
+const { client, ObjectId } = require("../../commons/common");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.use(function(req, res, next){
     next();
 });
 
-router.get("/api/edit/auth", (req, res) => {
+router.get("/api/video/auth", (req, res) => {
 
     // Decode the member id from JWT of cookie.
     const token = req.cookies.token;
@@ -39,9 +39,12 @@ router.get("/api/edit/auth", (req, res) => {
                     if(err){
                         res.status(500).json({"error": true, "message": err.message});
                         console.log("Error(watchDramaAccessAPI.route - 2): " + err);
-                    };
-
-                    if(result){
+                    }
+                    // Compare with the member id whether it is the testing account member id.
+                    else if(result._id.toString() != "63e76017fdc1e54772c8c140"){
+                        res.status(403).json({"error": true, "message": "restricted to test account at this stage only"});
+                    }
+                    else if(result){
                         res.status(200).json({"ok": true});
                     };
                 });

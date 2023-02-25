@@ -1,5 +1,5 @@
 const express = require("express");
-const { client, ObjectId } = require("../commons/common");
+const { client, ObjectId } = require("../../commons/common");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.use(function(req, res, next){
     next();
 });
 
-router.get("/api/video/auth", (req, res) => {
+router.get("/api/user/auth", (req, res) => {
 
     // Decode the member id from JWT of cookie.
     const token = req.cookies.token;
@@ -26,7 +26,7 @@ router.get("/api/video/auth", (req, res) => {
                 // Internal server error message.
                 if(err){
                     res.status(500).json({"error": true, "message": err.message});
-                    console.log("Error(watchDramaAccessAPI.route - 1): " + err);
+                    console.log("Error(signinStatusAPI.route - 2): " + err);
                 };
         
                 // Fetching user data from database.
@@ -38,15 +38,18 @@ router.get("/api/video/auth", (req, res) => {
                     // Internal server error message.
                     if(err){
                         res.status(500).json({"error": true, "message": err.message});
-                        console.log("Error(watchDramaAccessAPI.route - 2): " + err);
-                    }
-                    // Compare with the member id whether it is the testing account member id.
-                    else if(result._id.toString() != "63e76017fdc1e54772c8c140"){
-                        res.status(403).json({"error": true, "message": "restricted to test account at this stage only"});
-                    }
-                    else if(result){
-                        res.status(200).json({"ok": true});
+                        console.log("Error(signinStatusAPI.route - 3): " + err);
                     };
+        
+                    // Return user data.
+                    const data = {
+                        "memberID": result._id.toString(),
+                        "memberName": result.memberName,
+                        "memberEmail": result.memberEmail,
+                        "memberProfilePicture": result.memberProfilePicture
+                    };
+
+                    res.status(200).json({"data": data});
                 });
             });            
         };

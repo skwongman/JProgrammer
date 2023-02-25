@@ -1,5 +1,5 @@
 const express = require("express");
-const { client } = require("../commons/common");
+const { client } = require("../../commons/common");
 const { getAverageColor } = require("fast-average-color-node");
 const router = express.Router();
 
