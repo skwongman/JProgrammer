@@ -598,7 +598,7 @@ export default function getEachDramaData(){
             return data;
         };
 
-        editDataAuth("/api/edit/auth")
+        editDataAuth("/api/user/auth")
         .then(data => {
 
             if(data.error && data.message == "forbidden"){
@@ -608,7 +608,7 @@ export default function getEachDramaData(){
                 topbar.hide();
             };
 
-            if(data.ok){
+            if(data.data){
                 if($("img.individual-edit-btn").css("display") == "block"){
                     $("img.individual-edit-btn").css("display", "none");
     

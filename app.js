@@ -33,7 +33,6 @@ const signinStatusAPIRouter = require("./backend/routes/signin/signinStatusAPI.r
 const addDramaAPIRouter = require("./backend/routes/add/addDramaAPI.route");
 
 // Edit drama page routes
-const editDramaAccessAPIRouter = require("./backend/routes/edit/editDramaAccessAPI.route");
 const editDramaAPIRouter = require("./backend/routes/edit/editDramaAPI.route");
 
 // Discuss page routes
@@ -114,7 +113,6 @@ app.get("/api/user/auth", signinStatusAPIRouter);
 app.post("/api/add", addDramaAPIRouter);
 
 // Edit drama page routes
-app.get("/api/edit/auth", editDramaAccessAPIRouter);
 app.put("/api/edit/:id", editDramaAPIRouter);
 
 // Discuss page routes

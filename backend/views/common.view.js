@@ -29,6 +29,58 @@ const view = {
         res.status(400).json({"error": true, "message": "The picture size should only be up to 1MB"});
     },
 
+    renderTitleFormat: function(res){
+        res.status(400).json({"error": true, "message": "The title does not match with the designated format"});
+    },
+
+    renderJpTitleFormat: function(res){
+        res.status(400).json({"error": true, "message": "The Japanese title does not match with the designated format"});
+    },
+
+    renderCategoryFormat: function(res){
+        res.status(400).json({"error": true, "message": "The category does not match with the designated format"});
+    },
+
+    renderIntroductionFormat: function(res){
+        res.status(400).json({"error": true, "message": "The introduction does not match with the designated format"});
+    },
+
+    renderTVFormat: function(res){
+        res.status(400).json({"error": true, "message": "The tv does not match with the designated format"});
+    },
+
+    renderDateFormat: function(res){
+        res.status(400).json({"error": true, "message": "The date does not match with the designated format"});
+    },
+
+    renderWeekFormat: function(res){
+        res.status(400).json({"error": true, "message": "The week does not match with the designated format"});
+    },
+
+    renderTimeFormat: function(res){
+        res.status(400).json({"error": true, "message": "The time does not match with the designated format"});
+    },
+
+    renderActorFormat: function(res){
+        res.status(400).json({"error": true, "message": "The actor does not match with the designated format"});
+    },
+
+    renderRatingFormat: function(res){
+        res.status(400).json({"error": true, "message": "The rating does not match with the designated format"});
+    },
+
+    renderMediaFormat: function(res){
+        res.status(400).json({"error": true, "message": "The media does not match with the designated format"});
+    },
+
+    renderVideoFormat: function(res){
+        res.status(400).json({"error": true, "message": "The video does not match with the designated format"});
+    },
+
+    renderTitleRegistered: function(res){
+        res.status(400).json({"error": true, "message": "This drama title has been registered"});
+    },
+
     renderForbidden: function(res){
         res.status(403).json({"error": true, "message": "forbidden"});
     },
@@ -181,45 +233,6 @@ const view = {
 
 
     // Add drama page.
-    renderTitleFormat: function(res){
-        res.status(400).json({"error": true, "message": "The title does not match with the designated format"});
-    },
-    renderJpTitleFormat: function(res){
-        res.status(400).json({"error": true, "message": "The Japanese title does not match with the designated format"});
-    },
-    renderCategoryFormat: function(res){
-        res.status(400).json({"error": true, "message": "The category does not match with the designated format"});
-    },
-    renderIntroductionFormat: function(res){
-        res.status(400).json({"error": true, "message": "The introduction does not match with the designated format"});
-    },
-    renderTVFormat: function(res){
-        res.status(400).json({"error": true, "message": "The tv does not match with the designated format"});
-    },
-    renderDateFormat: function(res){
-        res.status(400).json({"error": true, "message": "The date does not match with the designated format"});
-    },
-    renderWeekFormat: function(res){
-        res.status(400).json({"error": true, "message": "The week does not match with the designated format"});
-    },
-    renderTimeFormat: function(res){
-        res.status(400).json({"error": true, "message": "The time does not match with the designated format"});
-    },
-    renderActorFormat: function(res){
-        res.status(400).json({"error": true, "message": "The actor does not match with the designated format"});
-    },
-    renderRatingFormat: function(res){
-        res.status(400).json({"error": true, "message": "The rating does not match with the designated format"});
-    },
-    renderMediaFormat: function(res){
-        res.status(400).json({"error": true, "message": "The media does not match with the designated format"});
-    },
-    renderVideoFormat: function(res){
-        res.status(400).json({"error": true, "message": "The video does not match with the designated format"});
-    },
-    renderTitleRegistered: function(res){
-        res.status(400).json({"error": true, "message": "This drama title has been registered"});
-    },
     renderConvertAddDramaData: function(dramaIdResult, addDramaCategory, addDramaActor, addDramaRating, addDramaVideo, checkMemberIDResult){
         // Get latest drama id from the last drama id plus one.
         const latestDramaID = dramaIdResult[0].dramaID + 1;
@@ -312,6 +325,22 @@ const view = {
         const postRegex = /<\s*([a-zA-Z]+\d*)\s*[^>]*>(.*?[\p{L}\p{N}\p{P}\u4E00-\u9FFF]*)<\/\s*\1\s*>/su;
 
         return { replyDramaTitle, replyContent, handleReplyPostID, uploadPhoto, photoExtension, postRegex };
+    },
+
+
+    // Edit drama cover photo.
+    renderEditPhoto: function(res, getAverageColor, addDramaCoverPhotoURL, updateIndicator, editResult){
+        getAverageColor(addDramaCoverPhotoURL).then(color => {
+            const dominantColor = color.rgba.replace(",1)", ",0.84)");
+            const isDark = color.isDark;
+
+            if(updateIndicator == "edit7"){
+                res.status(200).json({"data": editResult.dramaCoverPhoto, "dominantColor": dominantColor, "isDark": isDark});
+            };
+        });
+    },
+    renderEditInformationSuccessful: function(res, result){
+        res.status(200).json({"data": {"dramaActor": result[0].dramaActor, "dramaCast": result[0].dramaCast}});
     }
 
 };
@@ -326,6 +355,18 @@ module.exports = {
     renderDataNotFound: view.renderDataNotFound,
     renderTypeOfPhoto: view.renderTypeOfPhoto,
     renderPhotoUploadSize: view.renderPhotoUploadSize,
+    renderTitleFormat: view.renderTitleFormat,
+    renderJpTitleFormat: view.renderJpTitleFormat,
+    renderCategoryFormat: view.renderCategoryFormat,
+    renderIntroductionFormat: view.renderIntroductionFormat,
+    renderTVFormat: view.renderTVFormat,
+    renderDateFormat: view.renderDateFormat,
+    renderWeekFormat: view.renderWeekFormat,
+    renderTimeFormat: view.renderTimeFormat,
+    renderActorFormat: view.renderActorFormat,
+    renderRatingFormat: view.renderRatingFormat,
+    renderMediaFormat: view.renderMediaFormat,
+    renderVideoFormat: view.renderVideoFormat,
     renderForbidden: view.renderForbidden,
     renderError: view.renderError,
     renderPhotoUpload: view.renderPhotoUpload,
@@ -350,18 +391,6 @@ module.exports = {
     renderEmailRegistered: view.renderEmailRegistered,
 
     // Add drama page.
-    renderTitleFormat: view.renderTitleFormat,
-    renderJpTitleFormat: view.renderJpTitleFormat,
-    renderCategoryFormat: view.renderJpTitleFormat,
-    renderIntroductionFormat: view.renderIntroductionFormat,
-    renderTVFormat: view.renderTVFormat,
-    renderDateFormat: view.renderDateFormat,
-    renderWeekFormat: view.renderWeekFormat,
-    renderTimeFormat: view.renderTimeFormat,
-    renderActorFormat: view.renderActorFormat,
-    renderRatingFormat: view.renderRatingFormat,
-    renderMediaFormat: view.renderMediaFormat,
-    renderVideoFormat: view.renderVideoFormat,
     renderTitleRegistered: view.renderTitleRegistered,
 
     // Discuss Page.
@@ -369,6 +398,10 @@ module.exports = {
     renderDiscussContentFormat: view.renderDiscussContentFormat,
     renderDiscussData: view.renderDiscussData,
     renderDiscussVariables: view.renderDiscussVariables,
-    renderDiscussReplyUserInput: view.renderDiscussReplyUserInput
+    renderDiscussReplyUserInput: view.renderDiscussReplyUserInput,
+
+    // Edit drama cover photo
+    renderEditPhoto: view.renderEditPhoto,
+    renderEditInformationSuccessful: view.renderEditInformationSuccessful
 
 };
