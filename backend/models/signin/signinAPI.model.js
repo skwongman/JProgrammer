@@ -7,7 +7,7 @@ const model = {
 
     init: function(req, res){
         // User input from frontend side.
-        const { signupEmail, signupPassword, emailRegex, passwordRegex } = commonView.renderUserInput(req);
+        const { signupEmail, signupPassword, emailRegex, passwordRegex } = commonView.renderSigninUserInput(req);
 
         // If the regex is invalid.
         if(!signupEmail.match(emailRegex) || !signupPassword.match(passwordRegex)){

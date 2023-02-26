@@ -41,7 +41,7 @@ const model = {
 
                     if(checkMemberIDResult){
                         // Retrieve the drama photo data from the frontend side.
-                        const { updateProfilePhoto, photoExtension, matchTypeOfPhoto, meetPhotoUploadSize } = commonView.renderPhotoUpload(req);
+                        const { uploadPhoto, photoExtension, matchTypeOfPhoto, meetPhotoUploadSize } = commonView.renderPhotoUpload(req);
 
                         if(!matchTypeOfPhoto){
                             commonView.renderTypeOfPhoto(res);
@@ -54,7 +54,7 @@ const model = {
                         };
 
                         // AWS S3 upload setting.
-                        const params = commonView.renderAWS(photoExtension, updateProfilePhoto, fs);
+                        const params = commonView.renderAWS(photoExtension, uploadPhoto, fs);
                     
                         // Upload profile photo.
                         s3.upload(params, (err, data) => {

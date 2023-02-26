@@ -18,7 +18,7 @@ const model = {
             };
 
             // If the decode is successful.
-            const { updatePassword, passwordRegex } = commonView.renderUserInput(req);
+            const { updatePassword, passwordRegex } = commonView.renderSigninUserInput(req);
 
             // If the regex is invalid.
             if(!updatePassword.match(passwordRegex)){
