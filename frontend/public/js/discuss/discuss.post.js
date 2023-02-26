@@ -216,7 +216,7 @@ export default function discussPost(){
                             .then(response => response.json())
                             .then(data => {
                                 // User input error handling.
-                                if(data.error && data.message == "The input does not match with the designated format"){
+                                if(data.error && data.message == "The user input do not match with the designated format"){
                                     alert("請輸入正確回覆內容！");
 
                                     // Remove loading effect

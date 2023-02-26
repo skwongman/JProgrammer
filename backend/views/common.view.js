@@ -1,24 +1,24 @@
 const view = {
 
     // Common pages.
-    renderSuccessfulData: function(result, res){
-        res.status(200).json({"data": result});
-    },
-
     renderSuccessful: function(res){
         res.status(200).json({"ok": true});
+    },
+
+    renderSuccessfulData: function(result, res){
+        res.status(200).json({"data": result});
     },
 
     renderPhotoUploadSuccessful: function(res, photoLinkResult){
         res.status(200).json({"data": photoLinkResult.memberProfilePicture});
     },
 
-    renderIncorrectFormat: function(res){
-        res.status(400).json({"error": true, "message": "The user input do not match with the designated format"});
-    },
-
     renderDataNotFound: function(res){
         res.status(400).json({"error": true, "message": "ID not found"});
+    },
+
+    renderIncorrectFormat: function(res){
+        res.status(400).json({"error": true, "message": "The user input do not match with the designated format"});
     },
 
     renderTypeOfPhoto: function(res){
@@ -273,6 +273,45 @@ const view = {
             latestDramaID, clearAddDramaCategory, clearAddDramaActor, clearAddDramaCast, dramaCreatedTime,
             clearAddDramaRatingList, clearAddDramaVideoList, addDramaMemberID
         };
+    },
+
+
+    // Discuss page.
+    renderDiscussTitleFormat: function(res){
+        res.status(400).json({"error": true, "message": "The title does not match with the designated format"});
+    },
+    renderDiscussContentFormat: function(res){
+        res.status(400).json({"error": true, "message": "The content does not match with the designated format"});
+    },
+    renderDiscussData: function(req){
+        const { discussPostID, discussDramaTitle, discussHeader, discussContent } = req.body;
+        const handleDiscussPostID = parseInt(discussPostID);
+        const uploadPhoto = req.file;
+        const photoExtension = "." + uploadPhoto.mimetype.split("/").pop();
+        const titleRegex = /^[\u4e00-\u9fa5a-zA-Z0-9\s!"#$%&'()*+,\-./:;=?@[\\\]^_`{|}~，、？！…。；“”‘’「」【】『』（）《》〈〉￥：‘’“”〔〕·！@#￥%……&*（）—+【】{};:\'\"\[\]\\,.<>\/?@]{1,20}$/;
+        const postRegex = /<\s*([a-zA-Z]+\d*)\s*[^>]*>(.*?[\p{L}\p{N}\p{P}\u4E00-\u9FFF]*)<\/\s*\1\s*>/su;
+
+        return {
+            discussDramaTitle, discussHeader, discussContent, handleDiscussPostID,
+            uploadPhoto, photoExtension, titleRegex, postRegex
+        };
+    },
+    renderDiscussVariables: function(res, result, skip, limit, page){
+        const count = result[0].count;
+        const data = result[0];
+        const nextPage = (count > skip + limit) ? page + 1 : null;
+        const totalPages = (count == 0) ? 1 : Math.ceil(count / limit);
+
+        res.status(200).json({totalPages, nextPage, data});
+    },
+    renderDiscussReplyUserInput: function(req){
+        const { replyPostID, replyDramaTitle, replyContent } = req.body;
+        const handleReplyPostID = parseInt(replyPostID);
+        const uploadPhoto = req.file;
+        const photoExtension = "." + uploadPhoto.mimetype.split("/").pop();
+        const postRegex = /<\s*([a-zA-Z]+\d*)\s*[^>]*>(.*?[\p{L}\p{N}\p{P}\u4E00-\u9FFF]*)<\/\s*\1\s*>/su;
+
+        return { replyDramaTitle, replyContent, handleReplyPostID, uploadPhoto, photoExtension, postRegex };
     }
 
 };
@@ -323,6 +362,13 @@ module.exports = {
     renderRatingFormat: view.renderRatingFormat,
     renderMediaFormat: view.renderMediaFormat,
     renderVideoFormat: view.renderVideoFormat,
-    renderTitleRegistered: view.renderTitleRegistered
+    renderTitleRegistered: view.renderTitleRegistered,
+
+    // Discuss Page.
+    renderDiscussTitleFormat: view.renderDiscussTitleFormat,
+    renderDiscussContentFormat: view.renderDiscussContentFormat,
+    renderDiscussData: view.renderDiscussData,
+    renderDiscussVariables: view.renderDiscussVariables,
+    renderDiscussReplyUserInput: view.renderDiscussReplyUserInput
 
 };
