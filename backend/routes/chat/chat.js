@@ -1,4 +1,5 @@
 const { client } = require("../../commons/common");
+const { generateTime } = require("../../commons/common");
 
 // Socket.io
 const chatSocket = (io) => {
@@ -65,20 +66,10 @@ const chatSocket = (io) => {
         socket.on("disconnect", () => {
             // console.log(`User ${socket.memberName} disconnected`);
 
-            socket.memberLeaveTime = generateLeaveTime();
+            socket.memberLeaveTime = generateTime();
 
             io.to(socket.currentRoomID).emit("user offline", socket.memberName, socket.memberLeaveTime);
 
-            function generateLeaveTime(){
-                const date = new Date();
-                const offset = 8;
-                const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
-                const nd = new Date(utc + (3600000 * offset));
-                const hkTime = new Date(nd.getTime() + (3600000 * offset));
-                const hkTimeString = hkTime.toISOString().replace(/T/, " ").replace(/Z$/, "+08:00");
-                const leaveTime = hkTimeString.split(" ")[0] + ", " + hkTimeString.split(" ")[1].slice(0, 5);
-                return leaveTime;
-            };
         });
 
     });

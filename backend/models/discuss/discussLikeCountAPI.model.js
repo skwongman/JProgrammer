@@ -1,4 +1,4 @@
-const { client, ObjectId } = require("../../commons/common");
+const { client, ObjectId, generateTimeString } = require("../../commons/common");
 const jwt = require("jsonwebtoken");
 const commonView = require("../../views/common.view");
 
@@ -59,20 +59,11 @@ const model = {
                                 const likeMemberID = checkMemberIDResult._id.toString();
                                 const likeMemberName = checkMemberIDResult.memberName;
             
-                                // Record the data insert time.
-                                const date = new Date();
-                                const offset = 8;
-                                const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
-                                const nd = new Date(utc + (3600000 * offset));
-                                const hkTime = new Date(nd.getTime() + (3600000 * offset));
-                                const hkTimeString = hkTime.toISOString().replace(/T/, " ").replace(/Z$/, "+08:00");
-                                const likeTime = hkTimeString;
-            
                                 const insertQuery = {
                                     likePostID: likePostID,
                                     likeMemberID: likeMemberID,
                                     likeMemberName: likeMemberName,
-                                    likeTime: likeTime
+                                    likeTime: generateTimeString()
                                 };
                         
                                 likeCollection.insertOne(insertQuery, (err, insertResult) => {

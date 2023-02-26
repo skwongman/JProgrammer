@@ -1,4 +1,4 @@
-const { client, ObjectId, s3 } = require("../../commons/common");
+const { client, ObjectId, s3, generateTimeString } = require("../../commons/common");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const commonView = require("../../views/common.view");
@@ -184,7 +184,7 @@ const model = {
                     
                                                 // Data clearance before adding record.
                                                 const {
-                                                    latestDramaID, clearAddDramaCategory, clearAddDramaActor, clearAddDramaCast, dramaCreatedTime,
+                                                    latestDramaID, clearAddDramaCategory, clearAddDramaActor, clearAddDramaCast,
                                                     clearAddDramaRatingList, clearAddDramaVideoList, addDramaMemberID
                                                 } = commonView.renderConvertAddDramaData(
                                                     dramaIdResult, addDramaCategory, addDramaActor, addDramaRating, addDramaVideo, checkMemberIDResult
@@ -209,7 +209,7 @@ const model = {
                                                     dramaMedia: addDramaMedia,
                                                     dramaVideo: clearAddDramaVideoList,
                                                     dramaMemberID: addDramaMemberID,
-                                                    dramaCreatedTime: dramaCreatedTime
+                                                    dramaCreatedTime: generateTimeString()
                                                 };
                             
                                                 // Insert drama data into the database.

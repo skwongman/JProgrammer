@@ -1,4 +1,4 @@
-const { client, ObjectId, s3 } = require("../../commons/common");
+const { client, ObjectId, s3, generateTimeString, generateIDByTime } = require("../../commons/common");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const commonView = require("../../views/common.view");
@@ -72,32 +72,9 @@ const model = {
                             const discussMemberID = checkMemberIDResult._id.toString();
                             const discussMemberName = checkMemberIDResult.memberName;
                             const discussMemberProfilePicture = checkMemberIDResult.memberProfilePicture;
-
-                            // Record the data insert time.
-                            const date = new Date();
-                            const offset = 8;
-                            const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
-                            const nd = new Date(utc + (3600000 * offset));
-                            const hkTime = new Date(nd.getTime() + (3600000 * offset));
-                            const hkTimeString = hkTime.toISOString().replace(/T/, " ").replace(/Z$/, "+08:00");
-                            const discussCreatedTime = hkTimeString;
-    
-                            function generateDiscussID(){
-                                const date = new Date();
-                                const year = date.getUTCFullYear().toString();
-                                const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
-                                const day = date.getUTCDate().toString().padStart(2, '0');
-                                const hours = date.getUTCHours().toString().padStart(2, '0');
-                                const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-                                const seconds = date.getUTCSeconds().toString().padStart(2, '0');
-                                const milliseconds = date.getUTCMilliseconds().toString().padStart(3, '0');
-                                const hkTime = year + month + day + hours + minutes + seconds + milliseconds;
-                                const discussID = parseInt(hkTime);
-                                return discussID;
-                            };
-    
+                            
                             const insertQuery = {
-                                discussID: generateDiscussID(),
+                                discussID: generateIDByTime(),
                                 discussPostID: handleDiscussPostID,
                                 discussDramaTitle: discussDramaTitle,
                                 discussHeader: discussHeader,
@@ -105,7 +82,7 @@ const model = {
                                 discussMemberID: discussMemberID,
                                 discussMemberName: discussMemberName,
                                 discussMemberProfilePicture: discussMemberProfilePicture,
-                                discussCreatedTime: discussCreatedTime
+                                discussCreatedTime: generateTimeString()
                             };
                     
                             collection.insertOne(insertQuery, (err, insertResult) => {
