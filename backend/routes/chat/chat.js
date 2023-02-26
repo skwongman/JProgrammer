@@ -1,12 +1,4 @@
-const express = require("express");
-const router = express.Router();
 const { client } = require("../../commons/common");
-
-// Middleware function to add the database connection to the request object
-router.use(function(req, res, next){
-    req.db = client.db("website");
-    next();
-});
 
 // Socket.io
 const chatSocket = (io) => {
@@ -36,7 +28,7 @@ const chatSocket = (io) => {
 
         // Send message between members.
         socket.on("chat message", (roomID, msg) => {
-            const chatMessageRegex = /^[\u4e00-\u9fa5a-zA-Z0-9\s!"#$%&'()*+,\-./:;=?@[\\\]^_`{|}~，、？！…。；“”‘’「」【】『』（）《》〈〉￥：‘’“”〔〕·！@#￥%……&*（）—+【】{};:\'\"\[\]\\,.<>\/?@]{1,100}$/;
+            const chatMessageRegex = /^[\u4e00-\u9fa5a-zA-Z0-9\s!"#$%&'()*+,\-./:;=?@[\\\]^_`{|}~，、？！…。；“”‘’「」【】『』（）《》〈〉￥：‘’“”〔〕·！@#￥%……&*（）—+【】{};:\'\"\[\]\\,.<>\/?@]{1,200}$/;
 
             if(!msg.match(chatMessageRegex)){
                 return false;
