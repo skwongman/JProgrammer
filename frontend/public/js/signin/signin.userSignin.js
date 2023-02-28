@@ -1,27 +1,55 @@
 export default function userSignin(){
 
-    $("#handleSigninBtn").click(() => {
-        // Add loading effect
-        topbar.show();
+    const model = {
 
-        async function userSigninData(url, method){
-            const response = await fetch(url, method);
-            const data = await response.json();
-            return data;
-        };
+        init: function(){
+            $("#handleSigninBtn").click(() => {
+                view.renderAddLoadingEffect();
+        
+                async function userSigninData(url, method){
+                    const response = await fetch(url, method);
+                    const data = await response.json();
+                    return data;
+                };
+        
+                userSigninData("/api/user/auth", {
+                    method: "PUT",
+                    headers: {"Content-type": "application/json"},
+                    body: JSON.stringify({
+                        "email": signinEmail.value,
+                        "password": signinPassword.value
+                    })
+                })
+                .then(data => {
+                    view.renderSignin(data);
+                })
+                .catch(error => {
+                    view.renderError(error);
+                });
+            });
+        
+            // Direct the user to signup if they do not have account.
+            $("#signinReminder").click(() => {
+                $("#signinContainer").css("display", "none");
+                $("#signupContainer").css("display", "block");
+            });
+        }
 
-        userSigninData("/api/user/auth", {
-            method: "PUT",
-            headers: {"Content-type": "application/json"},
-            body: JSON.stringify({
-                "email": signinEmail.value,
-                "password": signinPassword.value
-            })
-        })
-        .then(data => {
+    };
+
+    const view = {
+
+        renderAddLoadingEffect: function(){
+            topbar.show();
+        },
+
+        renderRemoveLoadingEffect: function(){
+            topbar.hide();
+        },
+
+        renderSignin: function(data){
             if(data.error && data.message == "The user input do not match with the designated format" || data.message == "The email is not found"){
-                // Remove loading effect
-                topbar.hide();
+                view.renderRemoveLoadingEffect();
 
                 setTimeout(() => {
                     alert("請輸入正確註冊資料！");
@@ -29,8 +57,7 @@ export default function userSignin(){
             };
 
             if(data.error && data.message == "The email or password is not correct"){
-                // Remove loading effect
-                topbar.hide();
+                view.renderRemoveLoadingEffect();
 
                 setTimeout(() => {
                     alert("電子信箱或密碼不正確，請重新輸入！");
@@ -45,22 +72,25 @@ export default function userSignin(){
                 signinEmail.value = "";
                 signinPassword.value = "";
 
-                // Remove loading effect
-                topbar.hide();
+                view.renderRemoveLoadingEffect();
             };
-        })
-        .catch(error => {
+        },
+
+        renderError: function(error){
             console.log("Error(signin.userSignin.js): " + error);
+        
+            view.renderRemoveLoadingEffect();
+        }
 
-            // Remove loading effect
-            topbar.hide();
-        });
-    });
+    };
 
-    // Direct the user to signup if they do not have account.
-    $("#signinReminder").click(() => {
-        $("#signinContainer").css("display", "none");
-        $("#signupContainer").css("display", "block");
-    });
+    const controller = {
+
+        init: function(){
+            model.init();
+        }
+
+    };
+    controller.init();
 
 };

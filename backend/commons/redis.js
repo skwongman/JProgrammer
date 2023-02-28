@@ -11,6 +11,11 @@ redisClient.on("connect", () => {
 });
 
 const cache = (req, res, next) => {
+    // Disable caching for user auth route.
+    if(req.originalUrl === "/api/user/auth"){
+      return next();
+    };
+
     const key = req.originalUrl;
 
     redisClient.get(key, (err, data) => {
