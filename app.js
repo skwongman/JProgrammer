@@ -5,7 +5,7 @@ const { client } = require("./backend/commons/common");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const cache = require('./redis');
+const cache = require('./backend/commons/redis');
 
 
 // HTML pages

@@ -1,6 +1,7 @@
 export default function getPopularDramaData(){
         
     const model = {
+
         init: function(){
             async function getData(url){
                 const response = await fetch(url);
@@ -16,9 +17,11 @@ export default function getPopularDramaData(){
                 view.renderError(err);
             });
         }
+
     };
 
     const view = {
+
         render: function(data){
             if(data.data){
                 data.data.slice(0, 6).map(result => {
@@ -36,15 +39,19 @@ export default function getPopularDramaData(){
                 });
             };
         },
+        
         renderError: function(err){
-            console.log("JsError(2): " + err);
+            console.log("Error(index.getPopularDramaData.js): " + err);
         }
+
     };
 
     const controller = {
+
         init: function(){
             model.init();
         }
+        
     };
     controller.init();
     

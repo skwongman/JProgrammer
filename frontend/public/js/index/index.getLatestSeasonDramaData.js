@@ -1,9 +1,9 @@
 export default function getLatestSeasonDramaData(){
         
     const model = {
+
         init: function(){
-            // Add loading effect
-            topbar.show();
+            view.renderAddLoadingEffect();
 
             async function getData(url){
                 const response = await fetch(url);
@@ -19,9 +19,19 @@ export default function getLatestSeasonDramaData(){
                 view.renderError(err);
             });
         }
+
     };
 
     const view = {
+
+        renderAddLoadingEffect: function(){
+            topbar.show();
+        },
+
+        renderRemoveLoadingEffect: function(){
+            topbar.hide();
+        },
+
         render: function(data){
             if(data.data){
                 data.data.slice(0, 6).map(result => {
@@ -44,22 +54,23 @@ export default function getLatestSeasonDramaData(){
                     $("#indexContentContainer").css("visibility", "visible");
                 }, 50);
 
-                // Remove loading effect
-                topbar.hide();
+                view.renderRemoveLoadingEffect();
             };
         },
         renderError: function(err){
-            console.log("JsError(1): " + err);
+            console.log("Error(index.getLatestSeasonDramaData.js): " + err);
 
-            // Remove loading effect
-            topbar.hide();
+            view.renderRemoveLoadingEffect();
         }
+
     };
 
     const controller = {
+
         init: function(){
             model.init();
         }
+
     };
     controller.init();
     

@@ -1,60 +1,96 @@
 export default function searchDrama(){
-    
-    // Clear search bar value on each web initial load.
-    searchBarInput.value = "";
 
-    // Hide search bar menu after window click.
-    $(document).on("click", (e) => {
-        if (!$(e.target).is("div.a")) {
-            $("#searchResult").css("display", "none");
+    const model = {
+
+        init: function(){
+            // Clear search bar value on each web initial load.
+            searchBarInput.value = "";
+
+            // Hide search bar menu after window click.
+            $(document).on("click", (e) => {
+                if(!$(e.target).is("div.a")){
+                    $("#searchResult").css("display", "none");
+                };
+            });
+
+            // Show the search bar after click the search bar itself.
+            $("#searchBarInput").click((e) => {
+                if($("#searchResult").css("display") == "none"){
+                    $("#searchResult").css("display", "block");
+                    e.stopPropagation();
+                }
+                else{
+                    $("#searchResult").css("display", "none");
+                    e.stopPropagation();
+                };
+            });
+
+            // Handle search bar input.
+            $("#searchBarInput").on("input", () => {
+                view.renderAddLoadingEffect();
+
+                async function searchKeyword(url){
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    return data;
+                };
+
+                searchKeyword(`/api/search?keyword=${searchBarInput.value}`)
+                .then(data => {
+                    view.renderSearchBarInput(data);
+                })
+                .catch(error => {
+                    view.renderSearchBarInputError(error);
+                });
+            });
+
+            // Handle search button click.
+            $("#searchBarBtn").click(() => {
+                view.renderAddLoadingEffect();
+
+                async function searchKeyword(url, method){
+                    const response = await fetch(url, method);
+                    const data = await response.json();
+                    return data;
+                };
+            
+                searchKeyword(`/api/search?keyword=${searchBarInput.value}`)
+                .then(data => {
+                    view.renderSearchBarBtn(data);
+                })
+                .catch(error => {
+                    view.renderSearchBarBtnError(error);
+                });
+            });
         }
-    });
 
-    // Show the search bar after click the search bar itself.
-    $("#searchBarInput").click((e) => {
-        if($("#searchResult").css("display") == "none"){
-            $("#searchResult").css("display", "block");
-            e.stopPropagation();
-        }
-        else{
-            $("#searchResult").css("display", "none");
-            e.stopPropagation();
-        }
-    });
+    };
 
-    // Handle search bar input.
-    $("#searchBarInput").on("input", () => {
+    const view = {
 
-        // Add loading effect
-        topbar.show();
+        renderAddLoadingEffect: function(){
+            topbar.show();
+        },
 
-        async function searchKeyword(url){
-            const response = await fetch(url);
-            const data = await response.json();
-            return data;
-        };
+        renderRemoveLoadingEffect: function(){
+            topbar.hide();
+        },
 
-        searchKeyword(`/api/search?keyword=${searchBarInput.value}`)
-        .then(data => {
+        renderSearchBarInput: function(data){
             if(data.message == "The user input do not match with the designated format"){
                 $("#searchResult").text("");
 
-                // Remove loading effect
-                topbar.hide();
+                view.renderRemoveLoadingEffect();
             };
 
             if(data.error && data.message == "ID not found"){
-                // $("#searchResult").css("display", "none");
-
                 $("#searchResult").html('<div class="search-no-result-text">抱歉，找不到任何相關劇集內容！</div>');
 
-                // Remove loading effect
-                topbar.hide();
+                view.renderRemoveLoadingEffect();
             };
 
             if(data.data){
                 $("#searchResult").text("");
-
                 $("#searchResult").css("display", "block");
 
                 data.data.map(result => {
@@ -65,51 +101,33 @@ export default function searchDrama(){
     
                 $(`div#dramaTitle`).click((e) => {
                     searchBarInput.value = "";
-
                     $("#searchResult").css("display", "none");
-
-                    location.href = `/drama/${e.target.attributes.dramaID.value}`
+                    location.href = `/drama/${e.target.attributes.dramaID.value}`;
                 });
 
-                // Remove loading effect
-                topbar.hide();
+                view.renderRemoveLoadingEffect();
             };
-        })
-        .catch(error => {
+        },
+
+        renderSearchBarInputError: function(error){
             searchBarInput.value = "";
 
-            console.log("Error(index.searchDrama.js): " + error);
+            console.log("Error(index.searchDrama.js - 1): " + error);
 
-            // Remove loading effect
-            topbar.hide();
-        });
-    });
+            view.renderRemoveLoadingEffect();
+        },
 
-    // Handle search button click.
-    $("#searchBarBtn").click(() => {
-        // Add loading effect
-        topbar.show();
-
-        async function searchKeyword(url, method){
-            const response = await fetch(url, method);
-            const data = await response.json();
-            return data;
-        };
-    
-        searchKeyword(`/api/search?keyword=${searchBarInput.value}`)
-        .then(data => {
+        renderSearchBarBtn: function(data){
             if(data.error && data.message == "ID not found"){
                 alert("抱歉，找不到任何相關劇集內容！");
 
-                // Remove loading effect
-                topbar.hide();
+                view.renderRemoveLoadingEffect();
             };
 
             if(data.error && data.message == "The user input do not match with the designated format"){
                 alert("請輸入正確內容！");
 
-                // Remove loading effect
-                topbar.hide();
+                view.renderRemoveLoadingEffect();
             };
 
             if(data.data){
@@ -117,13 +135,23 @@ export default function searchDrama(){
 
                 searchBarInput.value = "";
 
-                // Remove loading effect
-                topbar.hide();
+                view.renderRemoveLoadingEffect();
             };
-        })
-        .catch(error => {
-            console.log("Error(index.searchDrama.js): " + error);
-        });
-    });
+        },
+
+        renderSearchBarBtnError(error){
+            console.log("Error(index.searchDrama.js - 2): " + error);
+        }
+
+    };
+
+    const controller = {
+
+        init: function(){
+            model.init();
+        }
+
+    };
+    controller.init();
 
 };

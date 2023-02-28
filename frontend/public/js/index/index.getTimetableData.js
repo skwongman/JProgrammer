@@ -1,6 +1,7 @@
 export default function getTimetableData(){
         
     const model = {
+
         init: function(){
             async function getData(url){
                 const response = await fetch(url);
@@ -16,9 +17,11 @@ export default function getTimetableData(){
                 view.renderError(err);
             });
         }
+
     };
 
     const view = {
+
         render: function(data){
             if(data.data){
                 data.data.map(result => {
@@ -54,15 +57,19 @@ export default function getTimetableData(){
                 });
             };
         },
+        
         renderError: function(err){
-            console.log("JsError(3): " + err);
+            console.log("Error(index.getTimetableData.js): " + err);
         }
+
     };
 
     const controller = {
+
         init: function(){
             model.init();
         }
+
     };
     controller.init();
     
