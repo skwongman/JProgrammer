@@ -5,7 +5,6 @@ const { client } = require("./backend/commons/common");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const cache = require("./backend/commons/redis");
 
 
 // HTML pages
@@ -85,7 +84,6 @@ app.use(function(req, res, next){
     req.db = client.db("website");
     next();
 });
-app.use(cache);
 
 
 // HTML pages

@@ -11,33 +11,42 @@ redisClient.on("connect", () => {
 });
 
 const cache = (req, res, next) => {
-    // Disable caching for user auth route.
-    if(req.originalUrl === "/api/user/auth"){
-      return next();
-    };
 
-    const key = req.originalUrl;
+  const key = req.originalUrl;
 
+  // Check if the current route should be cached or not
+  if(
+      key === "/api/drama" || key === "/api/popular" || key === "/api/timetable" ||
+      key.startsWith("/api/drama?") || key.startsWith("/api/discuss/") ||
+      key.startsWith("/api/chat/history/")
+  )
+  {
     redisClient.get(key, (err, data) => {
         if(err){
-            console.error(err);
-            return next();
+          console.error(err);
+          return next();
         };
 
         if(data !== null){
-            return res.send(JSON.parse(data));
+          return res.send(JSON.parse(data));
         }
         else{
-            res.sendResponse = res.send;
+          res.sendResponse = res.send;
 
-            res.send = (body) => {
-              redisClient.set(key, JSON.stringify(body), "EX", 100);
-              res.sendResponse(body);
-            };
+          res.send = (body) => {
+            redisClient.set(key, JSON.stringify(body), "EX", 100);
+            res.sendResponse(body);
+          };
 
-            next();
+          next();
         };
     });
+  }
+  else{
+      // If the current route should not be cached, just call next()
+      next();
+  };
+
 };
 
 module.exports = cache;

@@ -21,7 +21,7 @@ const model = {
             
             const aggreActor = {
                 $lookup: {
-                    from: "actorMix",
+                    from: "actor",
                     localField: "dramaActor",
                     foreignField: "actorNameChi",
                     as: "dramaActor"
