@@ -58,10 +58,6 @@ export default function latestList(){
                 $("#lastestListPagination").off("click");
 
                 $("#lastestListPagination").click((e) => {
-                    console.log($("#lastestListPagination"))
-                    e.stopPropagation()
-                    e.preventDefault()
-
                     const currentPage = e.target;
                     const pageNum = parseInt(e.target.text);
                     const apiPageNum = pageNum - 1;

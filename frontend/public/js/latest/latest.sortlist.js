@@ -5,10 +5,11 @@ export default function latestSortlist(){
     // Global variable to get the search value.
     let search;
     let totalPages;
+    console.log(totalPages)
 
     const model = {
 
-        init: async function(){
+        init: function(){
 
             // Handle latest sortlist menu button click.
             function latestSortListFunc(){
@@ -44,74 +45,83 @@ export default function latestSortlist(){
             function latestSortListItemFunc(){
                 // Shortlist buttons.
                 document.querySelectorAll("div.latest-sortlist-title").forEach(result => {
-                    result.addEventListener("click", (e) => {
-                        view.renderAddLoadingEffect();
+                    result.addEventListener("click", async (e) => {
 
-                        // CSS and content clearance before button color change effect.
-                        // Week sortlist button.
-                        document.querySelectorAll(".latest-sortlist-title").forEach(result => {
-                            result.style.color = "#000";
-                            result.style.border = "none";
-                        });
-                        $("#latestSortlistAll").css("color", "#000");
-                        $("#latestSortlistAll").css("border", "none");
+                        function buttonColorChangeEffectFunc(){
+                            // CSS and content clearance before button color change effect.
+                            // Week sortlist button.
+                            document.querySelectorAll(".latest-sortlist-title").forEach(result => {
+                                result.style.color = "#000";
+                                result.style.border = "none";
+                            });
+                            $("#latestSortlistAll").css("color", "#000");
+                            $("#latestSortlistAll").css("border", "none");
 
-                        // Category sortlist button.
-                        document.querySelectorAll(".category-list-title").forEach(result => {
-                            result.style.color = "#000";
-                            result.style.border = "none";
-                        });
-                        $("#categoryListAll").css("color", "#000");
-                        $("#categoryListAll").css("border", "none");
-                        $(`#${e.target.attributes.id.value}`).css("color", "rgb(2, 177, 247)");
-                        $(`#${e.target.attributes.id.value}`).css("border", "1px solid rgb(2, 177, 247)");
-                        $("#categoryListAll").css("color", "rgb(2, 177, 247)");
-                        $("#categoryListAll").css("border", "1px solid rgb(2, 177, 247)");
-
-                        // Fetching API.
-                        search = e.target.attributes.id.value;
-
-                        async function getData(url){
-                            const response = await fetch(url);
-                            const data = response.json();
-                            return data;
+                            // Category sortlist button.
+                            document.querySelectorAll(".category-list-title").forEach(result => {
+                                result.style.color = "#000";
+                                result.style.border = "none";
+                            });
+                            $("#categoryListAll").css("color", "#000");
+                            $("#categoryListAll").css("border", "none");
+                            $(`#${e.target.attributes.id.value}`).css("color", "rgb(2, 177, 247)");
+                            $(`#${e.target.attributes.id.value}`).css("border", "1px solid rgb(2, 177, 247)");
+                            $("#categoryListAll").css("color", "rgb(2, 177, 247)");
+                            $("#categoryListAll").css("border", "1px solid rgb(2, 177, 247)");
                         };
+                        buttonColorChangeEffectFunc();
 
-                        return getData(`/api/drama?keyword=${search}`)
-                        .then(data => {
-                            if(data.data){
-                                view.renderLatestSortlistItem(data);
+                        function latestSortListItemData(){
+                            view.renderAddLoadingEffect();
+
+                            // Fetching API.
+                            search = e.target.attributes.id.value;
+    
+                            async function getData(url){
+                                const response = await fetch(url);
+                                const data = response.json();
+                                return data;
                             };
-                        })
-                        .catch(error => {
-                            view.renderLatestSortlistItemError(error);
-                        });
-                        
+    
+                            return getData(`/api/drama?keyword=${search}`)
+                            .then(data => {
+                                if(data.data){
+                                    view.renderLatestSortlistItem(data);
+                                };
+                            })
+                            .catch(error => {
+                                view.renderLatestSortlistItemError(error);
+                            });
+                        };
+                        await latestSortListItemData();
+
+                        // Load pagination bar.
+                        function loadPaginationBarFunc(){
+                            // Clearance before loading the pagination bar.
+                            $("#lastestListPagination").text("");
+                            $("#lastestSortlistPagination").text("");
+                            $("#popularPagination").text("");
+                            $("#categoryPagination").text("");
+
+                            console.log(totalPages)
+
+                            // Load the pagination bar.
+                            for(let i = 1 ; i <= totalPages; i ++){
+                                $("#lastestSortlistPagination").append(`
+                                    <li id="lastestSortlistPagination${i}" class="page-item">
+                                        <a class="page-link">${i}</a>
+                                    </li>
+                                `);
+                            };
+
+                            $(`#lastestSortlistPagination1`).attr("class", "page-item active");
+                        };
+                        loadPaginationBarFunc();
+
                     });
                 });
             };
-            await latestSortListItemFunc();
-
-            // Load pagination bar.
-            function loadPaginationBarFunc(){
-                // Clearance before loading the pagination bar.
-                $("#lastestListPagination").text("");
-                $("#lastestSortlistPagination").text("");
-                $("#popularPagination").text("");
-                $("#categoryPagination").text("");
-
-                // Load the pagination bar.
-                for(let i = 1 ; i <= totalPages; i ++){
-                    $("#lastestSortlistPagination").append(`
-                        <li id="lastestSortlistPagination${i}" class="page-item">
-                            <a class="page-link">${i}</a>
-                        </li>
-                    `);
-                };
-
-                $(`#lastestSortlistPagination1`).attr("class", "page-item active");
-            };
-            loadPaginationBarFunc();
+            latestSortListItemFunc();
 
             // Handle pagination click.
             function paginationClickFunc(){
@@ -174,6 +184,7 @@ export default function latestSortlist(){
 
         renderLatestSortlistItem: function(data){
             totalPages = parseInt(data.totalPages);
+            console.log(totalPages)
 
             $("#latestListContainer").text("");
 
