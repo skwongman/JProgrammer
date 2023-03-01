@@ -19,7 +19,7 @@ export default function memberProfile(){
                     view.renderUserAuth(data);
                 })
                 .catch(error => {
-                    view.renderError(error);
+                    view.renderUserAuthError(error);
                 });
             };
             webInitialLoadFunc();
@@ -42,7 +42,7 @@ export default function memberProfile(){
                         view.renderSignout(data);
                     })
                     .catch(error => {
-                        view.renderError(error);
+                        view.renderSignoutError(error);
                     });
                 });
             };
@@ -106,7 +106,7 @@ export default function memberProfile(){
                         view.renderUploadPhoto(data);
                     })
                     .catch(error => {
-                        view.renderError(error);
+                        view.renderUploadPhotoError(error);
                     });
                 });
             };
@@ -137,7 +137,7 @@ export default function memberProfile(){
                         view.renderUpdatePassword(data);
                     })
                     .catch(error => {
-                        view.renderError(error);
+                        view.renderUpdatePasswordError(error);
                     });
                 });
             };
@@ -209,11 +209,8 @@ export default function memberProfile(){
             };
         },
 
-        renderError: function(error){
+        renderUserAuthError: function(error){
             console.log("Error(member.profile.js - 1): " + error);
-            console.log("Error(member.profile.js - 2): " + error);
-            console.log("Error(member.profile.js - 3): " + error);
-            console.log("Error(member.profile.js - 4): " + error);
 
             view.renderRemoveLoadingEffect();
         },
@@ -224,6 +221,12 @@ export default function memberProfile(){
 
                 view.renderRemoveLoadingEffect();
             };
+        },
+
+        renderSignoutError: function(error){
+            console.log("Error(member.profile.js - 2): " + error);
+
+            view.renderRemoveLoadingEffect();
         },
 
         renderUploadPhoto: function(data){
@@ -241,6 +244,12 @@ export default function memberProfile(){
     
                 view.renderRemoveLoadingEffect();
             };
+        },
+
+        renderUploadPhotoError: function(error){
+            console.log("Error(member.profile.js - 3): " + error);
+
+            view.renderRemoveLoadingEffect();
         },
 
         renderUpdatePassword: function(data){
@@ -264,7 +273,13 @@ export default function memberProfile(){
     
                 view.renderRemoveLoadingEffect();
             };
-        }
+        },
+
+        renderUpdatePasswordError: function(error){
+            console.log("Error(member.profile.js - 4): " + error);
+
+            view.renderRemoveLoadingEffect();
+        },
 
     };
 

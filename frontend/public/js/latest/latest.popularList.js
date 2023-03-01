@@ -1,46 +1,152 @@
 export default function popularList(){
 
-    // Most popular list button.
-    $("#mostPopularList").click(() => {
+    // Gloal variable.
+    let totalPages;
 
-        document.querySelectorAll(".latest-sortlist-title").forEach(result => {
-            result.style.color = "#000";
-            result.style.border = "none";
-        });
+    const model = {
 
-        // Week list button color change effect.
-        $("#latestSortlistAll").css("color", "rgb(2, 177, 247)");
-        $("#latestSortlistAll").css("border", "1px solid rgb(2, 177, 247)");
+        init: function(){
 
-        // Category list button color change effect.
-        $("#categoryListAll").css("color", "rgb(2, 177, 247)");
-        $("#categoryListAll").css("border", "1px solid rgb(2, 177, 247)");
+            // Handle most popular list click.
+            function mostPopularListFunc(){
+                $("#mostPopularList").click(async () => {
 
-        // CSS and content clearance before button color change effect.
-        // $("#latestListContainer").text("");
-        $("#popularPagination").text("");
-        $("#lastestSortlistPagination").text("");
-        $("#lastestListPagination").text("");
-        $("#categoryPagination").text("");
-        document.querySelectorAll(".category-list-title").forEach(result => {
-            result.style.color = "#000";
-            result.style.border = "none";
-        });
+                    function buttonColorChangeEffectFunc(){
+                        document.querySelectorAll(".latest-sortlist-title").forEach(result => {
+                            result.style.color = "#000";
+                            result.style.border = "none";
+                        });
+    
+                        // Week list button color change effect.
+                        $("#latestSortlistAll").css("color", "rgb(2, 177, 247)");
+                        $("#latestSortlistAll").css("border", "1px solid rgb(2, 177, 247)");
+    
+                        // Category list button color change effect.
+                        $("#categoryListAll").css("color", "rgb(2, 177, 247)");
+                        $("#categoryListAll").css("border", "1px solid rgb(2, 177, 247)");
+    
+                        // CSS and content clearance before button color change effect.
+                        // $("#latestListContainer").text("");
+                        $("#popularPagination").text("");
+                        $("#lastestSortlistPagination").text("");
+                        $("#lastestListPagination").text("");
+                        $("#categoryPagination").text("");
+    
+                        document.querySelectorAll(".category-list-title").forEach(result => {
+                            result.style.color = "#000";
+                            result.style.border = "none";
+                        });
+                    };
+                    buttonColorChangeEffectFunc();
 
-        // Add loading effect.
-        topbar.show();
+                    function latestPopularListData(){
+                        view.renderAddLoadingEffect();
 
-        async function getData(url){
-            const response = await fetch(url);
-            const data = response.json();
-            return data;
-        };
+                        async function getData(url){
+                            const response = await fetch(url);
+                            const data = response.json();
+                            return data;
+                        };
 
-        getData("/api/popular")
-        .then(data => {
-            const totalPages = parseInt(data.totalPages);
+                        return getData("/api/popular")
+                        .then(data => {
+                            view.renderLatestPopularList(data);
+                        })
+                        .catch(error => {
+                            view.renderLatestPopularListError(error);
+                        });
+                    };
+                    await latestPopularListData();
 
-            callbackTotalPages(totalPages);
+                    function loadPaginationBarFunc(){
+                        // Clearance before loading the pagination bar.
+                        $("#popularPagination").text("");
+                        $("#lastestSortlistPagination").text("");
+                        $("#lastestListPagination").text("");
+                        $("#categoryPagination").text("");
+
+                        // Load the pagination bar.
+                        for(let i = 1 ; i <= totalPages; i ++){
+                            $("#popularPagination").append(`
+                                <li id="popularPagination${i}" class="page-item">
+                                    <a class="page-link">${i}</a>
+                                </li>
+                            `)
+                        };
+
+                        document.querySelector(`#popularPagination1`).className = "page-item active";
+                    };
+                    loadPaginationBarFunc();
+
+                });
+            };
+            mostPopularListFunc();
+
+            // Load pagination bar.
+            function loadPaginationBarFunc(){
+                $("#popularPagination").click((e) => {
+                    const currentPage = e.target;
+                    const pageNum = parseInt(e.target.text);
+                    const apiPageNum = pageNum - 1;
+                    const currentPageNum = pageNum;
+
+                    if(currentPage.classList.contains("active")) return;
+
+                    view.renderAddLoadingEffect();
+
+                    // Resume the browser location to the top of the screen.
+                    window.scrollTo(0, 0);
+
+                    async function getLatestDramaData(url){
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        return data;
+                    };
+
+                    getLatestDramaData(`/api/popular?page=${apiPageNum}`)
+                    .then(data => {
+                        if(data.data){
+                            view.renderPaginationBar(data);
+                        };
+                    })
+                    .catch(error => {
+                        view.renderPaginationBarError(error);
+                    })
+                
+                    // Pagination bar effect.
+                    const currentPageElement = document.querySelector(`#popularPagination${currentPageNum}`);
+                    const previousInnerHTML = currentPageElement.innerHTML;
+                    const results = document.querySelectorAll(`li.page-item`)
+                    results.forEach(result => {
+                        result.classList.remove("active");
+                    });
+                
+                    currentPageElement.classList.add("active");
+                    currentPageElement.innerHTML = `<span class="page-link">${currentPageNum}</span>`;
+                
+                    setTimeout(() => {
+                        currentPageElement.innerHTML = previousInnerHTML;
+                    }, 0);
+                });
+            };
+            loadPaginationBarFunc();
+
+        }
+
+    };
+
+    const view = {
+
+        renderAddLoadingEffect: function(){
+            topbar.show();
+        },
+
+        renderRemoveLoadingEffect: function(){
+            topbar.hide();
+        },
+
+        renderLatestPopularList: function(data){
+            totalPages = parseInt(data.totalPages);
 
             $("#latestListContainer").text("");
     
@@ -59,100 +165,54 @@ export default function popularList(){
                 `);
             };
 
-            // Remove loading effect
-            topbar.hide();
-        })
-        .catch(error => {
-            console.log("Error(latest.popularList.js): " + error);
+            view.renderRemoveLoadingEffect();
+        },
 
-            // Remove loading effect
-            topbar.hide();
-        });
+        renderLatestPopularListError: function(error){
+            console.log("Error(latest.popularList.js - 1): " + error);
 
-        // Clearance before loading the pagination bar.
-        $("#popularPagination").text("");
-        $("#lastestSortlistPagination").text("");
-        $("#lastestListPagination").text("");
-        $("#categoryPagination").text("");
+            view.renderRemoveLoadingEffect();
+        },
 
-        // Load the pagination bar.
-        function callbackTotalPages(callbackTotalPages){
-            for(let i = 1 ; i <= callbackTotalPages; i ++){
-                $("#popularPagination").append(`
-                    <li id="popularPagination${i}" class="page-item">
-                        <a class="page-link">${i}</a>
-                    </li>
-                `)
-            };
-            document.querySelector(`#popularPagination1`).className = "page-item active";
-        };
+        renderPaginationBar: function(data){
+            $("#latestListContainer").text("");
 
-    });
+            data.data.map(result => {
+                $("#latestListContainer").append(`
+                    <div class="latest-list-drama">
+                        <a href="/drama/${result.dramaID}">
+                            <img class="latest-list-drama-photo" src="${result.dramaCoverPhoto}">
+                            <div class="latest-list-drama-title">
+                                <div>${result.dramaTitle.split("～")[0]}</div>
+                                <div class="latest-list-drama-title-separator"></div>
+                                <div class="latest-list-drama-date">更新日期: ${result.dramaCreatedTime.slice(0, 10)}</div>
+                            </div>
+                        </a>
+                    </div>
+                `);
+            });
 
-    // Pagination
-    $("#popularPagination").click((e) => {
-        const currentPage = e.target;
-        const pageNum = parseInt(e.target.text);
-        const apiPageNum = pageNum - 1;
-        const currentPageNum = pageNum;
+            // Show whole content
+            $("#latestDramaListContentContainer").css("visibility", "visible");
 
-        if(currentPage.classList.contains("active")) return;
+            view.renderRemoveLoadingEffect();
+        },
 
-        // Add loading effect
-        topbar.show();
+        renderPaginationBarError: function(error){
+            console.log("Error(latest.popularList.js - 2): " + error);
 
-        // Resume the browser location to the top of the screen.
-        window.scrollTo(0, 0);
+            view.renderRemoveLoadingEffect();
+        }
 
-        async function getLatestDramaData(url){
-            const response = await fetch(url);
-            const data = await response.json();
-            return data;
-        };
+    };
 
-        getLatestDramaData(`/api/popular?page=${apiPageNum}`)
-        .then(data => {
-            if(data.data){
-                $("#latestListContainer").text("");
+    const controller = {
 
-                data.data.map(result => {
-                    $("#latestListContainer").append(`
-                        <div class="latest-list-drama">
-                            <a href="/drama/${result.dramaID}">
-                                <img class="latest-list-drama-photo" src="${result.dramaCoverPhoto}">
-                                <div class="latest-list-drama-title">
-                                    <div>${result.dramaTitle.split("～")[0]}</div>
-                                    <div class="latest-list-drama-title-separator"></div>
-                                    <div class="latest-list-drama-date">更新日期: ${result.dramaCreatedTime.slice(0, 10)}</div>
-                                </div>
-                            </a>
-                        </div>
-                    `);
-                });
-    
-                // Show whole content
-                $("#latestDramaListContentContainer").css("visibility", "visible");
-    
-                // Remove loading effect
-                topbar.hide();
-            };
-        })
-    
-        // Pagination bar effect.
-        const currentPageElement = document.querySelector(`#popularPagination${currentPageNum}`);
-        const previousInnerHTML = currentPageElement.innerHTML;
-        const results = document.querySelectorAll(`li.page-item`)
-        results.forEach(result => {
-            result.classList.remove("active");
-        });
-    
-        currentPageElement.classList.add("active");
-        currentPageElement.innerHTML = `<span class="page-link">${currentPageNum}</span>`;
-    
-        setTimeout(() => {
-            currentPageElement.innerHTML = previousInnerHTML;
-        }, 0);
-    });
+        init: function(){
+            model.init();
+        }
 
+    };
+    controller.init();
 
 };
