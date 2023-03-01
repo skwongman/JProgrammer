@@ -64,6 +64,7 @@ const model = {
                         const replyPhotoName = uploadData.Location.split("/").pop();
                         const replyPhotoURL = CdnURL + replyPhotoName;
                         const handledReplyContent = replyContent.replace(/blob:https:\/\/[^\/]+\/[^"]+/, replyPhotoURL);
+                        const handledReplyContentText = handledReplyContent.replace('<p data-f-id="pbf" style="text-align: center; font-size: 14px; margin-top: 30px; opacity: 0.65; font-family: sans-serif;">Powered by <a href="https://www.froala.com/wysiwyg-editor?pb=1" title="Froala Editor">Froala Editor</a></p>', '')
                         const replyMemberID = checkMemberIDResult._id.toString();
                         const replyMemberName = checkMemberIDResult.memberName;
                         const replyMemberProfilePicture = checkMemberIDResult.memberProfilePicture;
@@ -73,7 +74,7 @@ const model = {
                             replyID: generateIDByTime(),
                             replyPostID: handleReplyPostID,
                             replyDramaTitle: replyDramaTitle,
-                            replyContent: handledReplyContent,
+                            replyContent: handledReplyContentText,
                             replyMemberID: replyMemberID,
                             replyMemberName: replyMemberName,
                             replyMemberProfilePicture: replyMemberProfilePicture,

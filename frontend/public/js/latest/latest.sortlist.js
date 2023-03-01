@@ -5,7 +5,6 @@ export default function latestSortlist(){
     // Global variable to get the search value.
     let search;
     let totalPages;
-    console.log(totalPages)
 
     const model = {
 
@@ -103,8 +102,6 @@ export default function latestSortlist(){
                             $("#popularPagination").text("");
                             $("#categoryPagination").text("");
 
-                            console.log(totalPages)
-
                             // Load the pagination bar.
                             for(let i = 1 ; i <= totalPages; i ++){
                                 $("#lastestSortlistPagination").append(`
@@ -184,7 +181,6 @@ export default function latestSortlist(){
 
         renderLatestSortlistItem: function(data){
             totalPages = parseInt(data.totalPages);
-            console.log(totalPages)
 
             $("#latestListContainer").text("");
 
