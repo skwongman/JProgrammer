@@ -88,6 +88,15 @@ export default function memberProfile(){
 
                     // Pack photo data by using form data approach before fetching API.
                     const updateProfilePhoto = $("#updateProfilePhoto").get(0).files[0];
+                    
+                    if(updateProfilePhoto == undefined){
+                        alert("請選擇要上傳的個人圖片！");
+
+                        view.renderRemoveLoadingEffect();
+
+                        return;
+                    };
+
                     const updateProfilePhotoData = new FormData();
                     updateProfilePhotoData.append("updateProfilePhoto", updateProfilePhoto);
 
@@ -241,6 +250,7 @@ export default function memberProfile(){
                 $("#profilePhoto").attr("src", data.data);
                 $(".nav-bar-right-title-profile-picture").attr("src", "");
                 $(".nav-bar-right-title-profile-picture").attr("src", data.data);
+                $("#updateProfilePhoto").val("");
     
                 view.renderRemoveLoadingEffect();
             };
