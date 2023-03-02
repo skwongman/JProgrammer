@@ -1,25 +1,45 @@
 export default function dramaEditBtn(){
 
-    // Display all the drama edit buttons and hide edit button itself.
-    $("#dramaEditBtn").click(() => {
+    const model = {
 
-        // Add loading effect
-        topbar.show();
+        init: function(){
+            // Display all the drama edit buttons and hide edit button itself.
+            $("#dramaEditBtn").click(() => {
+                view.renderAddLoadingEffect();
 
-        async function editDataAuth(url){
-            const response = await fetch(url);
-            const data = await response.json();
-            return data;
-        };
+                async function editDataAuth(url){
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    return data;
+                };
 
-        editDataAuth("/api/user/auth")
-        .then(data => {
+                editDataAuth("/api/user/auth")
+                .then(data => {
+                    view.renderDramaEditData(data);
+                })
+                .catch(error => {
+                    view.renderDramaEditDataError(error);
+                });
+            });
+        }
 
+    };
+
+    const view = {
+
+        renderAddLoadingEffect: function(){
+            topbar.show();
+        },
+
+        renderRemoveLoadingEffect: function(){
+            topbar.hide();
+        },
+
+        renderDramaEditData: function(data){
             if(data.error && data.message == "forbidden"){
                 location.href = "/signin";
 
-                // Remove loading effect
-                topbar.hide();
+                view.renderRemoveLoadingEffect();
             };
 
             if(data.data){
@@ -38,8 +58,7 @@ export default function dramaEditBtn(){
                     // Return to the first tab of video bar.
                     $("#home-tab").click();
 
-                    // Remove loading effect
-                    topbar.hide();
+                    view.renderRemoveLoadingEffect();
                 }
                 else{
                     $("img.individual-edit-btn").css("display", "block");
@@ -58,23 +77,30 @@ export default function dramaEditBtn(){
                         $("#edit7").css("display", "block");
                         $("#profile-tab-2").click();
 
-                        // Remove loading effect
-                        topbar.hide();
+                        view.renderRemoveLoadingEffect();
                     }
                     else{
                         $("#edit7").css("display", "none");
 
-                        // Remove loading effect
-                        topbar.hide();
+                        view.renderRemoveLoadingEffect();
                     };
                 };
             };
+        },
 
-        })
-        .catch(error => {
-            console.log("Error(drama-getEachDramaData.js - ): " + error);
-        });
+        renderDramaEditDataError: function(error){
+            console.log("Error(drama.editBt.js): " + error);
+        }
 
-    });
+    };
+
+    const controller = {
+
+        init: function(){
+            model.init();
+        }
+
+    };
+    controller.init();
 
 };

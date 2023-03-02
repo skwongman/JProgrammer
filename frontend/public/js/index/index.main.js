@@ -4,15 +4,10 @@ import getTimetableData from "./index.getTimetableData.js";
 import searchDrama from "./index.searchDrama.js";
 import userSigninStatus from "../signin/signin.userSigninStatus.js";
 
-try{
-    await Promise.all([
-        getLatestSeasonDramaData(),
-        getPopularDramaData(),
-        getTimetableData(),
-        searchDrama(),
-        userSigninStatus()
-    ]);
-}
-catch(err){
-    console.log(err);
-};
+await Promise.all([
+    getLatestSeasonDramaData(),
+    getPopularDramaData(),
+    getTimetableData(),
+    searchDrama(),
+    userSigninStatus()
+]);
