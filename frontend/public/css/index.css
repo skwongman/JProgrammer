@@ -9,9 +9,7 @@
     background-image: url("/img/banner.jpg");
     background-position: 0px 60px center;
     background-repeat: no-repeat;
-    /* background-size: 100% auto; */
     background-size: cover;
-    /* filter: brightness(0.8) contrast(120%); */
 }
 
 .transparent-layer {
@@ -65,7 +63,6 @@
 
 .search-result-menu {
     display: none;
-    /* padding: 10px; */
     border-radius: 5px;
     background-color: #fff;
     box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
@@ -252,7 +249,6 @@
 
 .timetable {
     display: flex;
-    /* align-items: center; */
     justify-content: center;
 }
 

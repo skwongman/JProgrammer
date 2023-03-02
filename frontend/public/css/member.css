@@ -52,7 +52,6 @@
 }
 
 
-
 /* Profile update content */
 .profile-update-photo-container,
 .profile-update-password-container {
@@ -68,7 +67,6 @@
     font-size: 22px;
     font-weight: bold;
     text-align: center;
-    /* margin: 20px; */
 }
 
 .profile-update-header-underline {
@@ -101,7 +99,6 @@
 .profile-update-password-confirm-btn {
     width: 100px;
     color: #fff;
-    /* font-size: 18px; */
     font-weight: bold;
     padding: 5px;
     text-align: center;
@@ -118,7 +115,6 @@
 .profile-update-password-title {
     margin: 40px 0px 0px 0px;
     width: 240px;
-    /* text-align: center; */
     font-size: 18px;
     font-weight: bold;
 }
@@ -143,8 +139,6 @@
     .profile-update-password-container {
         width: auto;
         height: auto;
-        /* margin-top: 20px;
-        margin-left: 30px; */
         margin: 20px 30px 10px 30px;
     }
 

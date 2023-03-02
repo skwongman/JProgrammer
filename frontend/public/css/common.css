@@ -8,10 +8,6 @@ html, body, div, p, ul, li {
     vertical-align: baseline;
 }
 
-/* ul, ol {
-    list-style: none;
-} */
-
 a:link,
 a:visited {
     text-decoration: none;
