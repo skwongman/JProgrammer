@@ -63,7 +63,7 @@ const model = {
                         const CdnURL = "https://d11c6b10livv50.cloudfront.net/";
                         const replyPhotoName = uploadData.Location.split("/").pop();
                         const replyPhotoURL = CdnURL + replyPhotoName;
-                        const handledReplyContent = replyContent.replace(/blob:https:\/\/[^\/]+\/[^"]+/, replyPhotoURL);
+                        const handledReplyContent = replyContent.replace(/blob:https:\/\/[^\/]+\/[^"]+/, replyPhotoURL).split('<img src="blob:https://')[0] + "</p>";
                         const handledReplyContentText = handledReplyContent.replace('<p data-f-id="pbf" style="text-align: center; font-size: 14px; margin-top: 30px; opacity: 0.65; font-family: sans-serif;">Powered by <a href="https://www.froala.com/wysiwyg-editor?pb=1" title="Froala Editor">Froala Editor</a></p>', '')
                         const replyMemberID = checkMemberIDResult._id.toString();
                         const replyMemberName = checkMemberIDResult.memberName;

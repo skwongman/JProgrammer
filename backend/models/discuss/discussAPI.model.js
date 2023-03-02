@@ -68,7 +68,8 @@ const model = {
                             const CdnURL = "https://d11c6b10livv50.cloudfront.net/";
                             const discussPhotoName = uploadData.Location.split("/").pop();
                             const discussPhotoURL = CdnURL + discussPhotoName;
-                            const handledDiscussContent = discussContent.replace(/blob:https:\/\/[^\/]+\/[^"]+/, discussPhotoURL);
+                            const handledDiscussContent = discussContent.replace(/blob:https:\/\/[^\/]+\/[^"]+/, discussPhotoURL).split('<img src="blob:https://')[0] + "</p>";
+                            const handledDiscussContentText = handledDiscussContent.replace('<p data-f-id="pbf" style="text-align: center; font-size: 14px; margin-top: 30px; opacity: 0.65; font-family: sans-serif;">Powered by <a href="https://www.froala.com/wysiwyg-editor?pb=1" title="Froala Editor">Froala Editor</a></p>', '');
                             const discussMemberID = checkMemberIDResult._id.toString();
                             const discussMemberName = checkMemberIDResult.memberName;
                             const discussMemberProfilePicture = checkMemberIDResult.memberProfilePicture;
@@ -78,7 +79,7 @@ const model = {
                                 discussPostID: handleDiscussPostID,
                                 discussDramaTitle: discussDramaTitle,
                                 discussHeader: discussHeader,
-                                discussContent: handledDiscussContent,
+                                discussContent: handledDiscussContentText,
                                 discussMemberID: discussMemberID,
                                 discussMemberName: discussMemberName,
                                 discussMemberProfilePicture: discussMemberProfilePicture,
