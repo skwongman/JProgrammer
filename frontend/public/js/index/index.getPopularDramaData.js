@@ -9,7 +9,7 @@ export default function getPopularDramaData(){
                 return data;
             };
         
-            getData("/api/popular")
+            getData("/api/drama/popular")
             .then(data => {
                 view.render(data);
             })

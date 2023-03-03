@@ -107,7 +107,7 @@ export default function addDrama(){
                             return data;
                         };
 
-                        addData("/api/add", {
+                        addData("/api/drama/add", {
                             method: "POST",
                             body: addDramaData
                         })

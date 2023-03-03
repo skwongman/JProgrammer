@@ -309,7 +309,7 @@ export default function getEachDramaData(){
                                     if(Hls.isSupported()){
                                         const video = $("video").get(0);
                                         const hls = new Hls();
-                                        hls.loadSource("/api/proxy?url=" + e.target.attributes.link.value);
+                                        hls.loadSource("/api/video/proxy?url=" + e.target.attributes.link.value);
                                         hls.attachMedia(video);
                                         hls.on(Hls.Events.MANIFEST_PARSED, () => {
                                             video.pause();
@@ -849,8 +849,8 @@ export default function getEachDramaData(){
                     return data;
                 };
 
-                addEditdata(`/api/edit/${editDramaID}`, {
-                    method: "PUT",
+                addEditdata(`/api/drama/edit/${editDramaID}`, {
+                    method: "PATCH",
                     headers: {"Content-type": "application/json"},
                     body: JSON.stringify({
                         editDramaContent: editDramaContent,

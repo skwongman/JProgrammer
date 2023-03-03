@@ -9,7 +9,7 @@ export default function getTimetableData(){
                 return data;
             };
         
-            getData("/api/timetable")
+            getData("/api/drama/timetable")
             .then(data => {
                 view.render(data);
             })

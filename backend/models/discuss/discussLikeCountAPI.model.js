@@ -85,7 +85,7 @@ const model = {
                                         };
                             
                                         if(checkReplyIdResult){
-                                            likeCollection.count({ likePostID }, (err, result) => {
+                                            likeCollection.count({ likePostID }, (err, count) => {
                                                 // Internal server error message.
                                                 if(err){
                                                     const errorMessage = "Error(discussLikeCountAPI.model - 6): " + err;
@@ -93,7 +93,7 @@ const model = {
                                                     return;
                                                 };
             
-                                                commonView.renderSuccessfulData(result, res);
+                                                commonView.renderSuccessfulData(count, res);
                                                 return;
                                             });
                                         };
@@ -111,8 +111,8 @@ const model = {
                                 likeCollection.deleteOne(deleteQuery, (err, deleteResult) => {
                                     // Internal server error message.
                                     if(err){
-                                        res.status(500).json({"error": true, "message": err.message});
-                                        console.log("Error(signinStatusAPI.route - 3): " + err);
+                                        const errorMessage = "Error(discussLikeCountAPI.model - 7): " + err;
+                                        commonView.renderError(err, res, errorMessage);
                                         return;
                                     };
 
@@ -120,12 +120,12 @@ const model = {
                                         likeCollection.count({ likePostID }, (err, count) => {
                                             // Internal server error message.
                                             if(err){
-                                                res.status(500).json({"error": true, "message": err.message});
-                                                console.log("Error(signinStatusAPI.route - 3): " + err);
+                                                const errorMessage = "Error(discussLikeCountAPI.model - 7): " + err;
+                                                commonView.renderError(err, res, errorMessage);
                                                 return;
                                             };
 
-                                            res.status(200).json({"data": count});
+                                            commonView.renderSuccessfulData(count, res);
                                             return;
                                         });
                                     };

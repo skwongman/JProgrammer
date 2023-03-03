@@ -48,7 +48,7 @@ export default function popularList(){
                             return data;
                         };
 
-                        return getData("/api/popular")
+                        return getData("/api/drama/popular")
                         .then(data => {
                             view.renderLatestPopularList(data);
                         })
@@ -103,7 +103,7 @@ export default function popularList(){
                         return data;
                     };
 
-                    getLatestDramaData(`/api/popular?page=${apiPageNum}`)
+                    getLatestDramaData(`/api/drama/popular?page=${apiPageNum}`)
                     .then(data => {
                         if(data.data){
                             view.renderPaginationBar(data);

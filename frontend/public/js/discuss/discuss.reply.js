@@ -194,7 +194,7 @@ export default function discussReply(totalPages){
                             return data;
                         };
 
-                        replyPostData("/api/reply", {
+                        replyPostData("/api/discuss/reply", {
                             method: "POST",
                             body: replyData
                         })

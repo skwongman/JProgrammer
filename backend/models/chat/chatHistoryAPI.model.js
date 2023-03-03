@@ -42,7 +42,7 @@ const model = {
                         // Assign names
                         const id = req.params.id;
                         const chatCollection = req.db.collection("chat");
-                        const matchDramaID = { $match: { chatRoomID: id } };
+                        const matchChatRoomID = { $match: { chatRoomID: id } };
                 
                         const aggreMember = {
                             $lookup:
@@ -86,7 +86,7 @@ const model = {
                             }
                         };
                 
-                        const aggregatePipeline = [matchDramaID, aggreMember, sortlisted, groupByDate, sorting];
+                        const aggregatePipeline = [matchChatRoomID, aggreMember, sortlisted, groupByDate, sorting];
                 
                         // Fetching data
                         chatCollection

@@ -392,7 +392,7 @@ export default function discussChat(){
                         return data;
                     };
 
-                    getData(`/api/chat/history/${roomID}`, {
+                    getData(`/api/discuss/chat/${roomID}`, {
                         method: "PUT"
                     })
                     .then(data => {

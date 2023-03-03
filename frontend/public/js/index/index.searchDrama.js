@@ -35,7 +35,7 @@ export default function searchDrama(){
                     return data;
                 };
 
-                searchKeyword(`/api/search?keyword=${searchBarInput.value}`)
+                searchKeyword(`/api/drama/search?keyword=${searchBarInput.value}`)
                 .then(data => {
                     view.renderSearchBarInput(data);
                 })
@@ -54,7 +54,7 @@ export default function searchDrama(){
                     return data;
                 };
             
-                searchKeyword(`/api/search?keyword=${searchBarInput.value}`)
+                searchKeyword(`/api/drama/search?keyword=${searchBarInput.value}`)
                 .then(data => {
                     view.renderSearchBarBtn(data);
                 })

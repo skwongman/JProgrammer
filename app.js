@@ -93,13 +93,13 @@ app.get("/", pageRouter);
 // API endpoints
 // Index page routes
 app.get("/api/drama", dramaAPIRouter);
-app.get("/api/popular", popularAPIRouter);
-app.get("/api/timetable", timetableAPIRouter);
-app.get("/api/search", searchDramaAPIRouter);
+app.get("/api/drama/popular", popularAPIRouter);
+app.get("/api/drama/timetable", timetableAPIRouter);
+app.get("/api/drama/search", searchDramaAPIRouter);
 
 // Drama page routes
 app.get("/api/drama/:id", dramaQueryStringAPIRouter);
-app.get("/api/proxy", proxyAPIRouter);
+app.get("/api/video/proxy", proxyAPIRouter);
 app.get("/api/video/auth", videoAuthAPIRouter);
 app.get("/api/video", videoServerAPIRouter);
 
@@ -110,19 +110,19 @@ app.delete("/api/user/auth", signoutAPIRouter);
 app.get("/api/user/auth", signinStatusAPIRouter);
 
 // Add drama page route
-app.post("/api/add", addDramaAPIRouter);
+app.post("/api/drama/add", addDramaAPIRouter);
 
 // Edit drama page routes
-app.put("/api/edit/:id", editDramaAPIRouter);
+app.patch("/api/drama/edit/:id", editDramaAPIRouter);
 
 // Discuss page routes
 app.post("/api/discuss", discussAPIRouter)
-app.post("/api/reply", replyAPIRouter)
+app.post("/api/discuss/reply", replyAPIRouter)
 app.get("/api/discuss/:id", discussQueryStringAPIRouter);
-app.post("/api/like", discussLikeCountAPIRouter);
+app.post("/api/discuss/like", discussLikeCountAPIRouter);
 
 // Chat message route
-app.put("/api/chat/history/:id", chatHistoryAPIRouter);
+app.put("/api/discuss/chat/:id", chatHistoryAPIRouter);
 
 // Member page routes
 app.put("/api/member/photo", updateMemberPhotoAPIRouter);

@@ -87,8 +87,8 @@ export default function editCoverPhoto(){
                     return data;
                 };
 
-                editData(`/api/edit/${editDramaID}`, {
-                    method: "PUT",
+                editData(`/api/drama/edit/${editDramaID}`, {
+                    method: "PATCH",
                     body: addDramaData
                 })
                 .then(data => {

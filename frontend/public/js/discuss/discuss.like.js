@@ -101,7 +101,7 @@ export default function discussLike(){
                     return data;
                 };
 
-                addLikeCount("/api/like", {
+                addLikeCount("/api/discuss/like", {
                     method: "POST",
                     headers: {"Content-type": "application/json"},
                     body: JSON.stringify({
@@ -171,7 +171,7 @@ export default function discussLike(){
                     return data;
                 };
     
-                addLikeCount("/api/like", {
+                addLikeCount("/api/discuss/like", {
                     method: "POST",
                     headers: {"Content-type": "application/json"},
                     body: JSON.stringify({
