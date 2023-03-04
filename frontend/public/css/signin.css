@@ -1,0 +1,84 @@
+.signin-container,
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-width,
+.signup-width {
+    width: 500px;
+    margin-top: 100px;
+    padding: 20px;
+    height: 750px;
+}
+
+.signin-header,
+.signup-header {
+    margin: 20px 0px 30px 0px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.signin-email-title,
+.signin-password-title,
+.signup-email-title,
+.signup-name-title,
+.signup-password-title {
+    margin: 20px 5px 5px 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.signin-email-input,
+.signin-password-input,
+.signup-email-input,
+.signup-name-input,
+.signup-password-input {
+    width: 100%;
+    height: 45px;
+    margin: 5px;
+    padding: 10px;
+    border: black solid 1px;
+    border-radius: 5px;
+    outline: none !important;
+}
+
+.signin-btn,
+.signup-btn {
+    width: 100%;
+    margin: 30px 5px 0px 5px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    background-color: #21abe6;
+}
+
+.signin-btn:hover,
+.signup-btn:hover {
+    opacity: 0.8;
+}
+
+.signin-reminder,
+.signup-reminder {
+    margin: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.signin-reminder-text,
+.signup-reminder-text {
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.signin-reminder-text:hover,
+.signup-reminder-text:hover {
+    color: #21abe6;
+}

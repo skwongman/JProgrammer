@@ -1,0 +1,362 @@
+/* Banner */
+.banner {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 700px;
+    background-image: url("/img/banner.jpg");
+    background-position: 0px 60px center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.transparent-layer {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 700px;
+    background-color: rgba(123,134,155,0.4);
+}
+
+
+/* Search Bar */
+.search-bar {
+    z-index: 3;
+    top: 35%;
+    width: 50%;
+    height: 150px;
+    margin-top: -100px;
+    opacity: 0.9;
+}
+
+.input-group, .form-control {
+    height: 45px;
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+.btn {
+    width: 60px;
+    height: 45px;
+    padding: 0;
+    border: none;
+    background-color: rgb(2, 177, 247) !important;
+    background-image: url(/img/icon_search.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.search-bar-title {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 42px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.search-result-menu {
+    display: none;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
+}
+
+.search-result-text,
+.search-no-result-text {
+    padding: 15px;
+    margin: -10px 0px -10px 0px;
+}
+
+.search-result-text:hover {
+    background-color: rgba(2, 178, 247, 0.075);
+    font-weight: bold;
+    color: rgb(10, 166, 228);
+    cursor: pointer;
+}
+
+
+/* Carousel */
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-wide {
+    width: 1000px;
+    margin: 20px;
+}
+
+.carousel-item > img {
+    cursor: pointer;
+}
+
+.card-img-top {
+    width: auto;
+    height: 70%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.card-title {
+    text-align: center;
+}
+
+
+/* Lastest and Popular Drama List */
+.latest-drama-container,
+.popular-drama-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.latest-drama-width,
+.popular-drama-width {
+    width: 1200px;
+    margin: 20px;
+}
+
+.latest-drama-header {
+    margin: 20px 10px 10px 10px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.popular-drama-header {
+    margin: 0px 10px 10px 10px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.latest-drama-header-underline,
+.popular-drama-header-underline {
+    margin-top: 5px;
+    width: 175px;
+    border-bottom: 4px solid rgb(2, 177, 247)
+}
+
+.timetable-header-underline {
+    margin-top: 5px;
+    width: 153px;
+    border-bottom: 4px solid rgb(2, 177, 247)
+}
+
+.latest-drama-photo-container,
+.popular-drama-photo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.latest-drama-photo,
+.popular-drama-photo {
+    flex: auto;
+    width: 20%;
+    height: 300px;
+    margin: 10px;
+    border: 1px solid rgb(223, 218, 218);
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 2;
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
+}
+
+.latest-drama-photo:hover,
+.popular-drama-photo:hover {
+    filter: brightness(0.85) contrast(120%);
+}
+
+.latest-drama-photo-individual,
+.popular-drama-photo-individual {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.latest-drama-photo:hover .latest-drama-video {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.latest-drama-photo-bottom-line {
+    position: relative;
+    bottom: -33px;
+    width: 100%;
+    height: 7px;
+    border-radius: 0px 0px 10px 10px;
+    background-color: rgba(2, 178, 247, 0.596);
+}
+
+.latest-drama-photo-bottom-line.long-title {
+    bottom: -5px;
+}
+
+.latest-drama-video {
+    position: absolute;
+    bottom: 55%;
+    left: 25%;
+    width: 50%;
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.61);
+    opacity: 0;
+}
+
+.latest-drama-photo-individual-title,
+.popular-drama-photo-individual-title {
+    margin: 10px;
+    padding: 5px;
+    font-size: 19px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/* Timetable */
+.timetable-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timetable-width {
+    width: 1200px;
+    margin: 20px;
+    height: auto;
+}
+
+.timetable-header {
+    margin: 10px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.timetable {
+    display: flex;
+    justify-content: center;
+}
+
+.timetable-list {
+    flex: auto;
+    width: 100%;
+    height: auto;
+    margin: 10px;
+    font-size: 18px;
+    padding: 10px;
+    border: 1px solid rgb(209, 206, 206);
+    border-radius: 5px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.timetable-list-header {
+    margin: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.timetable-list-border {
+    margin: 10px 10px 15px 10px;
+    border: 1px solid rgb(209, 206, 206);
+    border-radius: 5px;
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.timetable-list-photo {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.timetable-list-photo:hover {
+    filter: brightness(0.8) contrast(120%);
+}
+
+
+/* Other Devices */
+@media(max-width:1200px) {
+
+    .search-bar {
+        width: 85%;
+    }
+
+    .search-bar-title {
+        font-size: 30px;
+    }
+
+    .latest-drama-photo-container,
+    .popular-drama-photo-container {
+        flex-wrap: wrap;
+    }
+    
+    .latest-drama-photo,
+    .popular-drama-photo {
+        width: 25%;
+    }
+
+    .timetable {
+        flex-wrap: wrap;
+    }
+    
+    .timetable-list {
+        width: 20%;
+    }
+
+    .timetable-list-title {
+        font-size: 15px;
+    }
+
+}
+
+@media(max-width:600px) {
+
+    .search-bar-title {
+        font-size: 25px;
+    }
+
+    .latest-drama-photo,
+    .popular-drama-photo,
+    .timetable-list {
+        width: 90%;
+    }
+
+    .latest-drama-header,
+    .popular-drama-header,
+    .timetable-header {
+        text-align: center;
+    }
+
+    .timetable-list-photo {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .latest-drama-header-underline,
+    .popular-drama-header-underline,
+    .timetable-header-underline {
+        margin-top: 5px;
+        margin: auto;
+    }
+
+}

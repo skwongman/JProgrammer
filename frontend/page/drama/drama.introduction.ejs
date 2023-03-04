@@ -1,0 +1,108 @@
+<div id="dramaBannerBackgroundPhoto" class="drama-banner-center">
+    <div id="transparentLayer" class="transparent-layer"></div>
+    <div class="drama-banner-width">
+
+        <!-- Drama Cover Photo -->
+        <input type="file" id="editDramaCoverPhotoBtn" style="display:none" accept=".jpg, .jpeg, .png" />
+        <label id="editDramaCoverPhotoLabel" class="drama-photo-container">
+            <img id="dramaCoverPhoto" class="drama-photo"></img>
+            <div id="editDramaCoverPhotoSubmitContainer" class="edit-drama-cover-photo-submit-btn" style="display:none;">
+                <img id="editDramaCoverPhotoConfirmBtn" class="edit-drama-cover-photo-submit-btn-confirm" src="/img/icon_tick.png">
+                <img id="editDramaCoverPhotoNotConfirmBtn" class="edit-drama-cover-photo-submit-btn-not-confirm" src="/img/icon_cross.png">
+            </div>
+        </label>
+
+        <div id="dramaDetailsFontColor" class="drama-details-container">
+
+            <!-- Drama Title -->
+            <div id="dramaTitle" class="drama-details-title"></div>
+
+            <!-- Drama Category -->
+            <div class="d-flex align-items-center">
+                <div id="dramaCategory" class="drama-details-content-edit1"></div>
+                <img src="/img/icon_edit_black.png" id="edit1" class="individual-edit-btn" style="z-index:2; display:none"></img>    
+                <img data-confirm-yes-1 src="/img/icon_tick.png" id="confirmYes" class="confirm-btn-edit1" name="edit1" style="z-index:2; display:none"></img>
+                <img data-confirm-no-1 src="/img/icon_cross.png" id="confirmNo" class="confirm-btn-edit1" name="edit1" style="z-index:2; display:none"></img>
+            </div>
+
+            <!-- Drama Introduction -->
+            <div class="drama-details-brief-title">概要</div>
+            <img src="/img/icon_edit_black.png" id="edit2" class="individual-edit-btn" style="z-index:2; display:none"></img>
+            <div id="dramaIntroduction" class="drama-details-content-edit2"></div>
+            <img data-confirm-yes-2 src="/img/icon_tick.png" id="confirmYes" class="confirm-btn-edit2" name="edit2" style="z-index:2; display:none"></img>
+            <img data-confirm-no-2 src="/img/icon_cross.png" id="confirmNo" class="confirm-btn-edit2" name="edit2" style="z-index:2; display:none"></img>
+
+            <!-- Drama TV -->
+            <div class="d-flex align-items-center">
+                <div id="dramaTV" class="drama-details-content-edit3"></div>
+                <img src="/img/icon_edit_black.png" id="edit3" class="individual-edit-btn" style="z-index:2; display:none"></img>
+                <img data-confirm-yes-3 src="/img/icon_tick.png" id="confirmYes" class="confirm-btn-edit3" name="edit3" style="z-index:2; display:none"></img>
+                <img data-confirm-no-3 src="/img/icon_cross.png" id="confirmNo" class="confirm-btn-edit3" name="edit3" style="z-index:2; display:none"></img>    
+            </div>
+
+            <!-- Drama Date -->
+            <ul>
+                <li class="drama-details-date-of-boardcast-container">
+                    <div class="drama-details-date-of-boardcast">
+                        <div class="drama-details-date-of-boardcast-title">首播日期:</div>
+                        <img src="/img/icon_edit_black.png" id="edit4" class="individual-edit-btn" style="z-index:2; display:none"></img>
+                        <img data-confirm-yes-4 src="/img/icon_tick.png" id="confirmYes" class="confirm-btn-edit4" name="edit4" style="z-index:2; display:none"></img>
+                        <img data-confirm-no-4 src="/img/icon_cross.png" id="confirmNo" class="confirm-btn-edit4" name="edit4" style="z-index:2; display:none"></img>
+            
+                        <div id="dramaDateOfBoardcast" class="drama-details-content-edit4"></div>
+                    </div>
+                </li>
+
+                <li class="drama-details-day-time-container">
+                    <!-- Drama Week -->
+                    <div class="drama-details-day-time">
+                        <div id="dramaWeek" class="drama-details-content-edit5"></div><span style="margin-right:10px;">:</span>
+                        <img src="/img/icon_edit_black.png" id="edit5" class="individual-edit-btn" style="z-index:2; display:none"></img>
+                        <img data-confirm-yes-5 src="/img/icon_tick.png" id="confirmYes" class="confirm-btn-edit5" name="edit5" style="z-index:2; display:none"></img>
+                        <img data-confirm-no-5 src="/img/icon_cross.png" id="confirmNo" class="confirm-btn-edit5" name="edit5" style="z-index:2; display:none"></img>
+            
+                    <!-- Drama Time -->
+                        <div id="dramaTimeOfBoardcast" class="drama-details-content-edit6"></div>
+                        <img src="/img/icon_edit_black.png" id="edit6" class="individual-edit-btn" style="z-index:2; display:none"></img>
+                        <img data-confirm-yes-6 src="/img/icon_tick.png" id="confirmYes" class="confirm-btn-edit6" name="edit6" style="z-index:2; display:none"></img>
+                        <img data-confirm-no-6 src="/img/icon_cross.png" id="confirmNo" class="confirm-btn-edit6" name="edit6" style="z-index:2; display:none"></img>
+            
+                    </div>
+                </li>
+            </ul>
+
+            <!-- Drama Video -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">日文字幕 / 沒有字幕</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">中日字幕</button>
+                </li>
+                <li id="dramaDownloadUploadTab" class="nav-item" role="presentation" style="display:none;">
+                    <button class="nav-link" id="profile-tab-2" data-bs-toggle="tab" data-bs-target="#profile-tab-pane2" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">其他</button>
+                </li>
+                <img src="/img/icon_edit_black.png" id="edit7" class="individual-edit-btn" style="z-index:2; display:none"></img>
+                <img data-confirm-yes-7 src="/img/icon_tick.png" id="confirmYes" class="confirm-btn-edit7" name="edit7" style="z-index:2; display:none"></img>
+                <img data-confirm-no-7 src="/img/icon_cross.png" id="confirmNo" class="confirm-btn-edit7" name="edit7" style="z-index:2; display:none"></img>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                    <div id="dramaDownloadJp" class="drama-episode"></div>
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    <div id="dramaDownloadChi" class="drama-episode"></div>
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane2" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    <div data-drama-episode id="dramaDownloadUpload" class="drama-details-content-edit7"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Drama Edit Button -->
+    <div id="dramaEditBtn" class="drama-edit">編輯</div>
+
+</div>

@@ -1,0 +1,47 @@
+<br/><br/><br/><br/>
+
+<div class="d-flex justify-content-center">
+    <div class="profile-width">
+        <div class="profile">
+
+            <!-- Setting List -->
+            <div class="profile-setting-list">
+                <div class="profile-setting-header">個人檔案</div>
+                <div id="profileUpdatePhoto" class="profile-setting-content"><span id="profileUpdatePhotoTextColor" class="profile-setting-content-color">更改個人圖片</span></div>
+                <div id="profileUpdatePassword" class="profile-setting-content"><span id="profileUpdatePasswordTextColor" class="profile-setting-password-color">更改個人密碼</span></div>
+                <div class="profile-setting-content"><span id="handleSignoutBtn">登出</span></div>
+            </div>
+
+            <!-- Update Profile Photo -->
+            <div id="profileUpdatePhotoContainer" class="profile-update-photo-container">
+                <div class="profile-update-header">
+                    <div>更改個人圖片</div>
+                    <div class="profile-update-header-underline mx-auto"></div>
+                </div>
+
+                <input type="file" id="updateProfilePhoto" style="display:none" accept=".jpg, .jpeg, .png" />
+                <div class="profile-update-photo-center d-flex justify-content-center">
+                    <label for="updateProfilePhoto" style="border-radius: 50%;">
+                        <img id="profilePhoto" class="profile-update-photo">
+                    </label>
+                </div>
+                <div id="updatePhotoBtn" class="profile-update-photo-confirm-btn mx-auto">確定更改</div>
+
+            </div>
+
+            <!-- Update Password -->
+            <div id="profileUpdatePasswordContainer" class="profile-update-password-container" style="display:none;">
+                <div class="profile-update-header">
+                    <div>更改個人密碼</div>
+                    <div class="profile-update-header-underline mx-auto"></div>
+                </div>
+                <div class="profile-update-password-title mx-auto">請輸入新的密碼</div>
+                <div class="profile-update-password-center d-flex justify-content-center">
+                    <input id="updatePasswordInput" class="profile-update-password-input" type="password">
+                </div>
+                <div id="updatePasswordBtn" class="profile-update-password-confirm-btn mx-auto">確定更改</div>
+            </div>
+
+        </div>
+    </div>
+</div>

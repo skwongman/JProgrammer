@@ -1,0 +1,880 @@
+/* Introduction */
+.drama-banner-center {
+    display: flex;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 10px;
+}
+
+.transparent-layer {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 600px;
+}
+
+.drama-banner-width {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1200px;
+    margin-top: 50px;
+}
+
+.drama-photo-container {
+    z-index: 3;
+    flex: auto;
+    width: 50%;
+    text-align: center;
+}
+
+.drama-photo {
+    width: 95%;
+    height: 340px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
+}
+
+.drama-details-container {
+    z-index: 3;
+    flex: auto;
+    width: 50%;
+    border-radius: 10px;
+}
+
+.drama-details-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0px 10px 0px 10px;
+}
+
+#dramaCategory,
+#dramaIntroduction {
+    margin: 0px 10px 0px 10px;
+    font-size: 17px;
+}
+
+.drama-details-brief-title,
+#dramaTV {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 10px 0px 10px;
+}
+
+.drama-details-date-of-boardcast-container,
+.drama-details-day-time-container {
+    margin-left: 10px;
+}
+
+.drama-details-day-time,
+.drama-details-date-of-boardcast {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 10px;
+    font-size: 17px;
+}
+
+.drama-details-date-of-boardcast-title {
+    margin-right: 10px;
+}
+
+.drama-episode,
+[data-drama-episode] {
+    display: flex;
+    z-index: 3;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    margin: 10px;
+    font-weight: bold;
+    color: #000;
+}
+
+.drama-episode-title {
+    flex: auto;
+    width: 20%;
+    color: #000;
+}
+
+.drama-edit {
+    position: absolute;
+    top: 530px;
+    background-color: #032541;
+    border-radius: 5px;
+    width: 80px;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 17px;
+    color: #fff;
+    z-index: 3;
+}
+
+.drama-edit:hover {
+    opacity: 0.8;
+}
+
+
+/* Cast */
+.cast-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cast-header-width {
+    width: 1200px;
+}
+
+.cast-header {
+    margin: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cast-header-underline,
+.media-header-underline {
+    margin-top: 5px;
+    margin: auto;
+    width: 100px;
+    border-bottom: 4px solid rgb(2, 177, 247)
+}
+
+.rating-header-underline,
+.discuss-header-underline {
+    margin-top: 5px;
+    margin: auto;
+    width: 75px;
+    border-bottom: 4px solid rgb(2, 177, 247)
+}
+
+.cast-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin: 10px; */
+}
+
+#castContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1200px;
+}
+
+.cast {
+    flex: none;
+    width: 9.45%;
+    margin: 10px;
+    border: 1px solid rgb(209, 206, 206);
+    border-radius: 10px;
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
+}
+
+.cast-photo {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.cast-actor {
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+.cast-actor-name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.cast-cast-name {
+    font-size: 15px;
+    color: #636c7d;
+}
+
+
+/* Rating */
+.rating-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-width {
+    width: 1200px;
+
+}
+
+.rating {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#dramaRating {
+    width: 70%;
+    height: auto;
+    margin: auto;
+}
+
+
+/* Discuss */
+.discuss-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.discuss-width {
+    width: 700px;
+}
+
+.discuss {
+    margin-bottom: 40px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.discuss-content {
+    border: 1px solid #e3e3e3;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
+}
+
+.discuss-title {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e3e3e3;
+    padding: 15px;
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.discuss-title-user-profile {
+    flex: none;
+    width: 45px;
+    margin-right: 10px;
+}
+
+.discuss-title-user-profile-picture {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    border: 1px solid rgb(209, 206, 206);
+}
+
+.discuss-title-user-content {
+    flex: auto;
+    width: 85%;
+}
+
+.discuss-post {
+    border-bottom: 1px solid #e3e3e3;
+    padding: 15px;
+}
+
+.discuss-reply {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.discuss-reply-icon-like,
+.discuss-reply-icon-reply {
+    width: 15px;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.discuss-reply-like-count,
+.discuss-reply-quote {
+    margin: 0px 10px 0px 5px;
+    font-size: 14px;
+}
+
+.discuss-no-post {
+    font-size: 20px;
+    text-align: center;
+}
+
+.discuss-create-post {
+    text-decoration: underline;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+}
+
+.discuss-create-post:hover {
+    color: rgb(2, 177, 247);
+}
+
+.discuss-layer {
+    display: none;
+    z-index: 12;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: rgba(0, 0, 0, 0.884);
+}
+
+.discuss-create-post-input {
+    display: none;
+    position: fixed;
+    top: 10%;
+    left: 30%;
+    width: 40%;
+    height: 620px;
+    border-radius: 5px;
+    background-color: #fff;
+    z-index: 13;
+}
+
+.discuss-create-post-header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid rgb(223, 218, 218);
+    border-radius: 5px 5px 0px 0px;
+    background-color: rgb(2, 177, 247);
+}
+
+.discuss-create-post-header {
+    flex: auto;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+}
+
+.discuss-create-post-close-icon {
+    flex: none;
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.discuss-create-post-close-icon:hover {
+    opacity: 0.8;
+}
+
+.discuss-create-post-header-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.discuss-create-post-header-input {
+    width: 95%;
+    margin: 20px 0px 20px 0px;
+    border-radius: 5px;
+    border: 1px solid #CCCCCC;
+    padding: 5px;
+    outline: none !important;
+}
+
+.discuss-create-post-content-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 18px 0px 18px;
+}
+
+.discuss-create-post-submit-btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.discuss-create-post-submit-btn-title {
+    width: 60px;
+    height: auto;
+    margin: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    background-color: #032541;
+    cursor: pointer;
+}
+
+.discuss-create-post-submit-btn-title:hover {
+    opacity: 0.8;
+}
+
+.fr-placeholder,
+.fr-view {
+    font-size: 16px !important;
+}
+
+.discuss-post-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* Media */
+.media-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.media-width {
+    width: 600px;
+    height: auto;
+}
+
+.media {
+    margin-bottom: 40px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#dramaMedia {
+    text-align: center;
+}
+
+.media-video {
+    border-radius: 10px;
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    width: 490px;
+    height: 280px;
+}
+
+/* Drama Video */
+.video-container {
+    display: none;
+}
+
+.video {
+    position: fixed;
+    top: 10%;
+    left: 18%;
+    width: 65%;
+    height: auto;
+    object-position: center;
+    z-index: 13;
+}
+
+.video-btn-jp,
+.video-btn-chi,
+.video-btn-user {
+    cursor: pointer;
+}
+
+.video-close-btn {
+    position: fixed;
+    width: 25px;
+    height: 25px;
+    margin: 20px;
+    color: green;
+    font-size: 50px;
+    font-weight: bold;
+    z-index: 13;
+    cursor: pointer;
+}
+
+.video-close-btn:hover {
+    opacity: 0.8;
+}
+
+.video-layer {
+    display: block;
+    z-index: 12;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: rgba(0, 0, 0, 0.884);
+}
+
+.video-navigation-bar-layer {
+    display: block;
+    z-index: 12;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 70px;
+    margin: 0px;
+    padding: 0px;
+    background: rgba(0, 0, 0, 0.884);
+}
+
+.video-title {
+    position: fixed;
+    color: #fff;
+    padding: 19px;
+    margin-left: 40px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 13;
+}
+
+.nav.nav-tabs {
+    margin: 10px;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+
+/* Separator */
+.separator-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.separator {
+    width: 1200px;
+    margin: 50px 0px 50px 0px;
+}
+
+
+/* Edit Drama Information */
+.edit-drama-content {
+    flex: auto;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.individual-edit-btn {
+    width: 20px;
+    height: 20px;
+}
+
+#edit1{
+    cursor: pointer;
+}
+
+#edit2{
+    position: absolute;
+    transform: translate(66px, -26px);
+    cursor: pointer;
+}
+
+#edit3{
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#edit4{
+    position: absolute;
+    transform: translateX(190px);
+    cursor: pointer;
+}
+
+#edit5 {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#edit6 {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#edit7 {
+    transform: translate(11px, 11px);
+    cursor: pointer;
+}
+
+#edit8 {
+    position: absolute;
+    transform: translate(75px, -1px);
+    cursor: pointer;
+}
+
+#edit9 {
+    transform: translate(63px, -30px);
+    cursor: pointer;
+}
+
+#edit10 {
+    transform: translate(73px, -28px);
+    cursor: pointer;
+}
+
+#confirmYes{
+    position: absolute;
+    width: 25px;
+    height: auto;
+    cursor: pointer;
+}
+
+#confirmNo{
+    position: absolute;
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+}
+
+[data-confirm-yes-1] {
+    transform: translateX(206px);
+}
+
+[data-confirm-no-1] {
+    transform: translateX(243px);
+}
+
+[data-confirm-yes-2] {
+    transform: translate(600px, -66px);
+}
+
+[data-confirm-no-2] {
+    transform: translate(631px, -68px);
+}
+
+[data-confirm-yes-3] {
+    transform: translate(242px, 4px);
+}
+
+[data-confirm-no-3] {
+    transform: translate(278px, 5px);
+}
+
+[data-confirm-yes-4] {
+    transform: translateX(282px);
+}
+
+[data-confirm-no-4] {
+    transform: translateX(314px);
+}
+
+[data-confirm-yes-5] {
+    transform: translateX(66px);
+}
+
+[data-confirm-no-5] {
+    transform: translateX(97px);
+}
+
+[data-confirm-yes-6] {
+    transform: translateX(265px);
+}
+
+[data-confirm-no-6] {
+    transform: translateX(300px);
+}
+
+[data-confirm-yes-7] {
+    transform: translate(350px, 8px);
+}
+
+[data-confirm-no-7] {
+    transform: translate(386px, 6px);
+}
+
+[data-confirm-yes-8] {
+    transform: translate(-20px, 132px);
+}
+
+[data-confirm-no-8] {
+    transform: translate(21px, 132px);
+}
+
+[data-confirm-yes-9] {
+    transform: translate(-20px, 121px);
+}
+
+[data-confirm-no-9] {
+    transform: translate(18px, 121px);
+}
+
+[data-confirm-yes-10] {
+    transform: translate(-20px, 133px);
+}
+
+[data-confirm-no-10] {
+    transform: translate(18px, 133px);
+}
+
+.edit-drama-cover-photo-submit-btn {
+    z-index: 2;
+}
+
+.edit-drama-cover-photo-submit-btn-confirm,
+.edit-drama-cover-photo-submit-btn-not-confirm {
+    width: 30px;
+    height: auto;
+    margin: 5px;
+    cursor: pointer;
+}
+
+
+/* Other Devices */
+@media(max-width:1200px) {
+
+    #castContainer {
+        flex-wrap: wrap;
+    }
+    
+    .cast {
+        width: 25%;
+    }
+
+    .discuss-width {
+        width: 70%;
+    }
+
+    .separator {
+        width: 80%;
+    }
+
+    .drama-edit {
+        top: 550px;
+    }
+
+    [data-confirm-yes-2] {
+        transform: translate(60px, -100px);
+    }
+    
+    [data-confirm-no-2] {
+        transform: translate(90px, -103px);
+    }
+
+    [data-confirm-yes-4] {
+        transform: translateX(191px);
+    }
+    
+    [data-confirm-no-4] {
+        transform: translateX(222px);
+    }
+
+    [data-confirm-yes-6] {
+        transform: translateX(123px);
+    }
+    
+    [data-confirm-no-6] {
+        transform: translateX(155px);
+    }
+
+    [data-confirm-yes-7] {
+        transform: translate(4px, 118px);
+    }
+    
+    [data-confirm-no-7] {
+        transform: translate(36px, 116px);
+    }
+
+    .discuss-create-post-input {
+        top: 5%;
+        left: 20%;
+        width: 60%;
+        height: 90%;
+    }
+
+    .discuss-create-post-content-input-container {
+        margin: 0px 16px 0px 16px;
+    }
+
+}
+
+@media(max-width:600px) {
+    
+    .drama-banner-center {
+        height: 800px;
+    }
+    
+    .transparent-layer {
+        height: 800px;
+    }
+
+    .drama-banner-width {
+        flex-wrap: wrap;
+    }
+    
+    .drama-photo-container {
+        width: 70%;
+        margin: 10px;
+    }
+    
+    .drama-photo {
+        width: 90%;
+        height: 200px;
+    }
+
+    .drama-details-container {
+        width: 70%;
+        margin: 20px;
+    }
+
+    .cast {
+        width: 38%;
+    }
+
+    #dramaRating {
+        width: 85%;
+    }
+
+    .discuss-width {
+        width: 87%;
+    }
+
+    .media-video {
+        width: 81%;
+        height: 200px;
+    }
+
+    .drama-edit {
+        top: 750px;
+    }
+
+    .video {
+        top: 8%;
+        left: 5%;
+        width: 90%;
+    }
+
+    .video-title {
+        display: none;
+    }
+
+    .discuss-create-post-input {
+        left: 10%;
+        width: 80%;
+        height: 90%;
+    }
+
+    .discuss-create-post-content-input-container {
+        margin: 0px 10px 0px 10px;
+    }
+
+}
