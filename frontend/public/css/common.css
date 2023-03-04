@@ -97,10 +97,10 @@ html {
 
 .nav-bar-right-title {
     display: flex;
-    flex: auto;
+    flex: none;
     align-items: center;
     justify-content: flex-end;
-    width: 50%;
+    width: 40%;
 }
 
 .nav-bar-right-title-add-drama-icon {

@@ -182,6 +182,14 @@
 
 }
 
+@media(max-width: 750px) {
+
+    .latest-sortlist-container {
+        display: none;
+    }
+
+}
+
 @media(max-width: 600px) {
 
     .latest-list-drama-photo {
@@ -191,10 +199,6 @@
 
     .latest-list-drama {
         width: 90%;
-    }
-
-    .latest-sortlist-container {
-        display: none;
     }
 
 }

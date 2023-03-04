@@ -192,7 +192,7 @@
 
 .latest-drama-photo-bottom-line {
     position: relative;
-    bottom: -32px;
+    bottom: -33px;
     width: 100%;
     height: 7px;
     border-radius: 0px 0px 10px 10px;
@@ -200,7 +200,7 @@
 }
 
 .latest-drama-photo-bottom-line.long-title {
-    bottom: -4px;
+    bottom: -5px;
 }
 
 .latest-drama-video {
@@ -328,6 +328,10 @@
 }
 
 @media(max-width:600px) {
+
+    .search-bar-title {
+        font-size: 25px;
+    }
 
     .latest-drama-photo,
     .popular-drama-photo,
