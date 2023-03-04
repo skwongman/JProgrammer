@@ -1,5 +1,5 @@
 const { client } = require("../../commons/common");
-const { generateTime } = require("../../commons/common");
+const { generateTime, generateChatTime } = require("../../commons/common");
 
 // Socket.io
 const chatSocket = (io) => {
@@ -50,15 +50,6 @@ const chatSocket = (io) => {
                 collection.insertOne(insertQuery);
                 
                 io.to(roomID).emit("chat message", msg, socket.memberName);
-    
-                function generateChatTime(){
-                    const date = new Date();
-                    const offset = 8;
-                    const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
-                    const nd = new Date(utc + (3600000 * offset));
-                    const chatTime = new Date(nd.getTime() + (3600000 * offset));
-                    return chatTime;
-                };
             };
         });
 

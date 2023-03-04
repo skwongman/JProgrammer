@@ -27,6 +27,15 @@ function generateTime(){
     return time;
 };
 
+function generateChatTime(){
+    const date = new Date();
+    const offset = 8;
+    const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+    const nd = new Date(utc + (3600000 * offset));
+    const chatTime = new Date(nd.getTime() + (3600000 * offset));
+    return chatTime;
+};
+
 function generateTimeString(){
     const date = new Date();
     const offset = 8;
@@ -56,6 +65,7 @@ module.exports = {
     ObjectId,
     s3,
     generateTime,
+    generateChatTime,
     generateTimeString,
     generateIDByTime
 };
