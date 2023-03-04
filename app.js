@@ -12,41 +12,28 @@ const pageRouter = require("./backend/commons/pages");
 
 
 // Index page routes
-const dramaAPIRouter = require("./backend/routes/index/dramaAPI.route");
-const popularAPIRouter = require("./backend/routes/index/popularAPI.route");
-const timetableAPIRouter = require("./backend/routes/index/timetableAPI.route");
-const searchDramaAPIRouter = require("./backend/routes/index/searchDramaAPI.route");
+const { dramaAPIRouter, popularAPIRouter, timetableAPIRouter, searchDramaAPIRouter } = require("./backend/routes/indexAPI.route");
 
 // Drama page routes
-const dramaQueryStringAPIRouter = require("./backend/routes/drama/dramaQueryStringAPI.route");
-const proxyAPIRouter = require("./backend/routes/drama/proxyAPI.route");
-const videoAuthAPIRouter = require("./backend/routes/drama/videoAuthAPI.route");
-const videoServerAPIRouter = require("./backend/routes/drama/videoServerAPI.route");
+const { dramaQueryStringAPIRouter, videoAuthAPIRouter, proxyAPIRouter, videoServerAPIRouter } = require("./backend/routes/dramaAPI.route");
 
 // Signin page routes
-const signupAPIRouter = require("./backend/routes/signin/signupAPI.route");
-const signinAPIRouter = require("./backend/routes/signin/signinAPI.route");
-const signoutAPIRouter = require("./backend/routes/signin/signoutAPI.route");
-const signinStatusAPIRouter = require("./backend/routes/signin/signinStatusAPI.route");
+const { signupAPIRouter, signinAPIRouter, signoutAPIRouter, signinStatusAPIRouter } = require("./backend/routes/signinAPI.route");
 
 // Add drama page route
-const addDramaAPIRouter = require("./backend/routes/add/addDramaAPI.route");
+const addDramaAPIRouter = require("./backend/routes/addAPI.route");
 
 // Edit drama page routes
-const editDramaAPIRouter = require("./backend/routes/edit/editDramaAPI.route");
+const editDramaAPIRouter = require("./backend/routes/editAPI.route");
 
 // Discuss page routes
-const discussAPIRouter = require("./backend/routes/discuss/discussAPI.route");
-const replyAPIRouter = require("./backend/routes/discuss/replyAPI.route");
-const discussQueryStringAPIRouter = require("./backend/routes/discuss/discussQueryStringAPI.route");
-const discussLikeCountAPIRouter = require("./backend/routes/discuss/discussLikeCountAPI.route");
+const { discussAPIRouter, replyAPIRouter, discussQueryStringAPIRouter, discussLikeCountAPIRouter } = require("./backend/routes/discussAPI.route");
 
 // Chat message route
-const chatHistoryAPIRouter = require("./backend/routes/chat/chatHistoryAPI.route");
+const chatHistoryAPIRouter = require("./backend/routes/chatHistoryAPI.route");
 
 // Member page routes
-const updateMemberPhotoAPIRouter = require("./backend/routes/member/updateMemberPhotoAPI.route");
-const updateMemberPasswordAPIRouter = require("./backend/routes/member/updateMemberPasswordAPI.route");
+const { updateMemberPhotoAPIRouter, updateMemberPasswordAPIRouter } = require("./backend/routes/updateMemberAPI.route");
 
 
 // Dotenv
@@ -64,7 +51,7 @@ const httpsServer = https.createServer(credentials, app);
 
 // Socket.io for chat message
 const io = require("socket.io")(httpsServer);
-const chatSocket = require("./backend/routes/chat/chat");
+const chatSocket = require("./backend/routes/chatSocketIO");
 chatSocket(io);
 
 

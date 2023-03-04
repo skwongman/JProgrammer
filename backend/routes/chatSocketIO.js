@@ -1,5 +1,5 @@
-const { client } = require("../../commons/common");
-const { generateTime, generateChatTime } = require("../../commons/common");
+const { client } = require("../commons/common");
+const { generateTime, generateChatTime } = require("../commons/common");
 
 // Socket.io
 const chatSocket = (io) => {
