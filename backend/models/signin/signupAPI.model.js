@@ -51,7 +51,7 @@ const model = {
                             memberEmail: signupEmail,
                             memberName: signupName,
                             memberPassword: hashedPassword,
-                            memberProfilePicture: "https://d11c6b10livv50.cloudfront.net/icon_profile.png"
+                            memberProfilePicture: "https://d11c6b10livv50.cloudfront.net/BryhArLj.png"
                         };
 
                         collection.insertOne(insertQuery, (err, result) => {

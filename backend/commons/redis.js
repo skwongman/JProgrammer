@@ -15,7 +15,9 @@ const cache = (req, res, next) => {
   const key = req.originalUrl;
 
   // Check if the current route should be cached or not
-  if(key === "/api/drama" || key === "/api/drama/popular" || key === "/api/drama/timetable" || key.startsWith("/api/drama?")){
+  if(key === "/api/drama" || key === "/api/drama/popular" || key === "/api/drama/timetable" ||
+      key.startsWith("/api/drama?") || key.startsWith("/api/drama/search?")
+  ){
     redisClient.get(key, (err, data) => {
         if(err){
           console.error(err);
