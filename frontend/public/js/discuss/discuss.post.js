@@ -66,6 +66,7 @@ export default function discussPost(){
             const replyData = data.data.discussReply;
             const pageNo = location.href.split("page=").pop();
             totalPages = data.totalPages;
+            const myCookie = document.cookie.split("; ").find(cookie => cookie.startsWith("token=")).split("=")[1].slice(-6);
 
             // Redirect to the home page if not existing page is input.
             if(pageNo == "0" || pageNo > totalPages){
@@ -88,7 +89,7 @@ export default function discussPost(){
                     $("#discussCreatedTime").text(` 於 ${discussData.discussCreatedTime.split(".")[0].slice(0, 16).replace(" ", ", ")} 發佈`);
                     $("#discussContent").append(discussData.discussContent);
                     $(".discuss-post-like-click").attr("id", discussData.discussID);
-                    $(".discuss-post-like-click").attr("data-like-id", discussData.discussID + document.cookie.slice(-6));
+                    $(".discuss-post-like-click").attr("data-like-id", discussData.discussID + myCookie);
                     (discussData.likePostCount.length == 0) ? 0 : $("#likePostCount").text(discussData.likePostCount.length);
                 };
 
@@ -114,7 +115,7 @@ export default function discussPost(){
 
                             <!-- Like and quote buttons -->
                             <div class="discuss-reply">
-                                <img id="${replyData[i].replyID}" class="discuss-reply-like-click" data-like-id="like${replyData[i].replyID + document.cookie.slice(-6)}" src="/img/icon_like.png">
+                                <img id="${replyData[i].replyID}" class="discuss-reply-like-click" data-like-id="like${replyData[i].replyID + myCookie}" src="/img/icon_like.png">
                                 <div id="id${replyData[i].replyID}" class="discuss-reply-like-count">${(replyData[i].likeReplyCount.length == 0) ? 0 : replyData[i].likeReplyCount.length}</div>
                     
                                 <img id="${replyData[i].replyNo}" class="discuss-reply-quote-icon" src="/img/icon_reply.png">
