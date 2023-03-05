@@ -66,7 +66,13 @@ export default function discussPost(){
             const replyData = data.data.discussReply;
             const pageNo = location.href.split("page=").pop();
             totalPages = data.totalPages;
-            const myCookie = document.cookie.split("; ").find(cookie => cookie.startsWith("token=")).split("=")[1].slice(-6);
+            let myCookie;
+            if(document.cookie == true){
+                myCookie = document.cookie.split("; ").find(cookie => cookie.startsWith("token=")).split("=")[1].slice(-6);
+            }
+            else{
+                myCookie = "forbidden"
+            };
 
             // Redirect to the home page if not existing page is input.
             if(pageNo == "0" || pageNo > totalPages){

@@ -138,17 +138,51 @@
     font-weight: bold;
 }
 
-.latest-drama-header-underline,
+.latest-drama-header-underline {
+    margin-top: 5px;
+    width: 216px;
+    border-bottom: 4px solid rgb(2, 177, 247);
+}
+
 .popular-drama-header-underline {
     margin-top: 5px;
-    width: 175px;
-    border-bottom: 4px solid rgb(2, 177, 247)
+    width: 209px;
+    border-bottom: 4px solid rgb(2, 177, 247);
 }
 
 .timetable-header-underline {
     margin-top: 5px;
-    width: 153px;
-    border-bottom: 4px solid rgb(2, 177, 247)
+    width: 191px;
+    border-bottom: 4px solid rgb(2, 177, 247);
+}
+
+.latest-drama-header-text-container,
+.popular-drama-header-text-container,
+.timetable-drama-header-text-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.latest-drama-header-icon {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.popular-drama-header-icon {
+    width: 25px;
+    height: 35px;
+    margin-right: 7px;
+    margin-bottom: 5px;
+}
+
+.timetable-drama-header-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 7px;
+    margin-bottom: 7px;
 }
 
 .latest-drama-photo-container,
@@ -196,7 +230,7 @@
     width: 100%;
     height: 7px;
     border-radius: 0px 0px 10px 10px;
-    background-color: rgba(2, 178, 247, 0.596);
+    background: linear-gradient(270deg, rgb(2, 178, 247) 0%, rgba(114, 193, 224, 0.712) 100%);
 }
 
 .latest-drama-photo-bottom-line.long-title {
@@ -295,6 +329,10 @@
 /* Other Devices */
 @media(max-width:1200px) {
 
+    .latest-drama-photo-bottom-line.long-title {
+        bottom: -33px;
+    }
+
     .search-bar {
         width: 85%;
     }
@@ -327,7 +365,25 @@
 
 }
 
+@media(max-width:810px){
+
+    .latest-drama-photo-bottom-line.long-title {
+        bottom: -5px;
+    }
+
+}
+
 @media(max-width:600px) {
+
+    .latest-drama-header-text-container,
+    .popular-drama-header-text-container,
+    .timetable-drama-header-text-container {
+        justify-content: center;
+    }
+
+    .latest-drama-photo-bottom-line.long-title {
+        bottom: -33px;
+    }
 
     .search-bar-title {
         font-size: 25px;
