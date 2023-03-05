@@ -28,7 +28,6 @@ const model = {
             };
 
             client.connect(err => {
-                // Error message.
                 if(err){
                     const errorMessage = "Error(replyAPI.model - 1): " + err;
                     commonView.renderError(err, res, errorMessage);
@@ -40,7 +39,6 @@ const model = {
         
                 // Upload drama cover photo.
                 s3.upload(params, (err, uploadData) => {
-                    // Upload error message.
                     if(err){
                         const errorMessage = "Error(replyAPI.model - 2): " + err;
                         commonView.renderError(err, res, errorMessage);
@@ -52,7 +50,6 @@ const model = {
                     const checkMemberID = { _id: new ObjectId(memberID) };
 
                     memberCollection.findOne(checkMemberID, (err, checkMemberIDResult) => {
-                        // Internal server error message.
                         if(err){
                             const errorMessage = "Error(replyAPI.model - 3): " + err;
                             commonView.renderError(err, res, errorMessage);
@@ -93,7 +90,6 @@ const model = {
                             const checkReplyID = { _id: new ObjectId(insertReplyID) };
                 
                             collection.findOne(checkReplyID, (err, checkReplyIdResult) => {
-                                // Internal server error message.
                                 if(err){
                                     const errorMessage = "Error(replyAPI.model - 5): " + err;
                                     commonView.renderError(err, res, errorMessage);

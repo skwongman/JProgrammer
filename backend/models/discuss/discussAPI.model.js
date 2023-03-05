@@ -32,7 +32,6 @@ const model = {
             };
 
             client.connect(err => {
-                // Error message.
                 if(err){
                     const errorMessage = "Error(discussAPI.model - 1): " + err
                     commonView.renderError(err, res, errorMessage);
@@ -56,7 +55,6 @@ const model = {
                     const checkMemberID = { _id: new ObjectId(memberID) };
 
                     memberCollection.findOne(checkMemberID, (err, checkMemberIDResult) => {
-                        // Internal server error message.
                         if(err){
                             const errorMessage = "Error(discussAPI.model - 3): " + err
                             commonView.renderError(err, res, errorMessage);
@@ -98,7 +96,6 @@ const model = {
                                     const checkdiscussID = { _id: new ObjectId(insertDiscussID) };
                         
                                     collection.findOne(checkdiscussID, (err, checkDiscussIdResult) => {
-                                        // Internal server error message.
                                         if(err){
                                             const errorMessage = "Error(discussAPI.model - 5): " + err
                                             commonView.renderError(err, res, errorMessage);

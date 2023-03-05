@@ -160,8 +160,6 @@ export default function discussChat(){
 
                         // If the leave time is today, then display today instead of date.
                         if(memberLeaveTime.split(", ")[0] == generateToday()){
-                            // console.log(`User ${senderName} is offline at ${memberLeaveTime}`);
-                        
                             $(`#onlineStatus`).empty();
 
                             $(`#onlineStatus`).append(`
@@ -176,7 +174,6 @@ export default function discussChat(){
                         }
                         // Otherwise, display the date and time directly.
                         else{
-                            // console.log(`User ${senderName} is offline at ${memberLeaveTime}`);
                             $(`#onlineStatus`).empty();
 
                             $(`#onlineStatus`).append(`
@@ -205,11 +202,9 @@ export default function discussChat(){
             function otherChatSetting(){
                 // Scrollable chat area
                 $(document).ready(function(){
-                    // scroll to the bottom of the div
                     var div = document.getElementById(`chatArea`);
                     div.scrollTop = div.scrollHeight;
 
-                    // whenever new content is added, scroll to the bottom again
                     $(`#chatArea`).bind("DOMSubtreeModified", function(){
                         div.scrollTop = div.scrollHeight;
                     });
@@ -355,7 +350,6 @@ export default function discussChat(){
                 function chatConnection(){
                     // If member entered to the room, showing that he is online.
                     socket.on("members in room", (members) => {
-                        // $(`#chatArea`).empty();
                         for(const member of members){
                             if(member !== memberDisplayName){
                                 $(`#onlineStatus`).empty();

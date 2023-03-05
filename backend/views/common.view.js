@@ -189,13 +189,11 @@ const view = {
 
     // Signin page.
     renderSigninUserInput: function(req){
-        // User input from frontend side.
         const signupName = req.body.name;
         const signupEmail = req.body.email;
         const signupPassword = req.body.password;
         const updatePassword = req.body.updatePassword;
 
-        // Use regex to verify the user input.
         const nameRegex = /[\u4E00-\u9FFF\u3400-\u4DBF\a-z\d]{1,20}/;
         const emailRegex = /^([\w-]+)@([a-z\d-]+)\.([a-z]{2,8})([\.a-z]{2,8})?$/;
         const passwordRegex = /^[\w`~!@#$%^&*()=+-]{8,20}$/;
@@ -292,6 +290,7 @@ const view = {
         const handleDiscussPostID = parseInt(discussPostID);
         const uploadPhoto = req.file;
         const photoExtension = "." + uploadPhoto.mimetype.split("/").pop();
+
         const titleRegex = /^[\u4e00-\u9fa5a-zA-Z0-9\s!"#$%&'()*+,\-./:;=?@[\\\]^_`{|}~，、？！…。；“”‘’「」【】『』（）《》〈〉￥：‘’“”〔〕·！@#￥%……&*（）—+【】{};:\'\"\[\]\\,.<>\/?@]{1,20}$/;
         const postRegex = /<\s*([a-zA-Z]+\d*)\s*[^>]*>(.*?[\p{L}\p{N}\p{P}\u4E00-\u9FFF]*)<\/\s*\1\s*>/su;
 
@@ -312,6 +311,7 @@ const view = {
         const { replyPostID, replyDramaTitle, replyContent } = req.body;
         const handleReplyPostID = parseInt(replyPostID);
         const uploadPhoto = req.file;
+        
         const photoExtension = "." + uploadPhoto.mimetype.split("/").pop();
         const postRegex = /<\s*([a-zA-Z]+\d*)\s*[^>]*>(.*?[\p{L}\p{N}\p{P}\u4E00-\u9FFF]*)<\/\s*\1\s*>/su;
 

@@ -48,19 +48,19 @@ export default function latestSortlist(){
 
                         function buttonColorChangeEffectFunc(){
                             // CSS and content clearance before button color change effect.
-                            // Week sortlist button.
                             document.querySelectorAll(".latest-sortlist-title").forEach(result => {
                                 result.style.color = "#000";
                                 result.style.border = "none";
                             });
+
                             $("#latestSortlistAll").css("color", "#000");
                             $("#latestSortlistAll").css("border", "none");
 
-                            // Category sortlist button.
                             document.querySelectorAll(".category-list-title").forEach(result => {
                                 result.style.color = "#000";
                                 result.style.border = "none";
                             });
+
                             $("#categoryListAll").css("color", "#000");
                             $("#categoryListAll").css("border", "none");
                             $(`#${e.target.attributes.id.value}`).css("color", "rgb(2, 177, 247)");
@@ -73,7 +73,6 @@ export default function latestSortlist(){
                         function latestSortListItemData(){
                             view.renderAddLoadingEffect();
 
-                            // Fetching API.
                             search = e.target.attributes.id.value;
     
                             async function getData(url){
@@ -102,7 +101,6 @@ export default function latestSortlist(){
                             $("#popularPagination").text("");
                             $("#categoryPagination").text("");
 
-                            // Load the pagination bar.
                             for(let i = 1 ; i <= totalPages; i ++){
                                 $("#lastestSortlistPagination").append(`
                                     <li id="lastestSortlistPagination${i}" class="page-item">

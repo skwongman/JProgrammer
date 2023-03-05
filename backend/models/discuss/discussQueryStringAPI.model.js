@@ -5,14 +5,12 @@ const model = {
 
     init: function(req, res){
         client.connect(err => {
-            // Error handling
             if(err){
                 const errorMessage = "Error(discussQueryStringAPI.model - 1): " + err;
                 commonView.renderError(err, res, errorMessage);
                 return;
             };
             
-            // Assign names
             const id = parseInt(req.params.id);
             const page = parseInt(req.query.page) || 1; // default page is 1
             const limit = 9; // number of records to show per page (not including the first post)

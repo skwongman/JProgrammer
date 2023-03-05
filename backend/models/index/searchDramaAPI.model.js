@@ -4,8 +4,8 @@ const commonView = require("../../views/common.view");
 const model = {
 
     init: function(req, res){
-        const keyword = req.query.keyword; // User input from frontend side.
-        const keywordRegex = /[\u4E00-\u9FFF\u3400-\u4DBF\a-z\d]{1,20}/; // Use regex to verify the user input.
+        const keyword = req.query.keyword;
+        const keywordRegex = /[\u4E00-\u9FFF\u3400-\u4DBF\a-z\d]{1,20}/;
 
         // If the regex is invalid.
         if(!keyword.match(keywordRegex)){
@@ -14,7 +14,6 @@ const model = {
         };
 
         // if the regex is valid.
-        // Connect to database and fetch drama API data
         client.connect(err => {
             if(err){
                 const errorMessage = "Error(searchDramaAPI.route - 1): " + err;

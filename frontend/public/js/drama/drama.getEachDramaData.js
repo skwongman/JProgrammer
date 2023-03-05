@@ -100,14 +100,8 @@ export default function getEachDramaData(){
                     // TV station
                     function tvInformationFunc(){
                         $("#dramaTV").text(dramaData.dramaTV);
-
-                        // First episode date of broadcast
                         $("#dramaDateOfBoardcast").text(`${dramaData.dramaDateOfBoardcast}`);
-            
-                        // Week of broadcast
                         $("#dramaWeek").text(`${dramaData.dramaWeek}`);
-            
-                        // Time of broadcast
                         $("#dramaTimeOfBoardcast").text(dramaData.dramaTimeOfBoardcast.split("~")[0]);
                     };
                     tvInformationFunc();
@@ -244,22 +238,12 @@ export default function getEachDramaData(){
                                         hls.attachMedia(video);
                                         hls.on(Hls.Events.MANIFEST_PARSED, () => {
                                             video.pause();
-                                            // Add the drama video title to the video navigation bar.
                                             $("#videoTitle").text(e.target.attributes.titleChi.value + " / " + e.target.attributes.titleJp.value);
-            
-                                            // Display the drama video player.
                                             $("#videoContainer").css("display", "block");
-            
-                                            // Record the video playing time before hide.
                                             $("#video").prop("currentTime", currentTime);
-            
-                                            // Disable the scrolling function.
                                             $("body").css("overflow", "hidden");
-            
-                                            // Disable mouse right-click function.
                                             $(document).on("contextmenu", preventContextMenu);
             
-                                            // Remove loading effect
                                             topbar.hide();
                                         });
                                     };
@@ -268,7 +252,6 @@ export default function getEachDramaData(){
                             .catch(error => {
                                 console.log("Error(drama.getEachDramaData.js - 1): " + error);
             
-                                // Remove loading effect
                                 topbar.hide();
                             });
             
@@ -292,7 +275,6 @@ export default function getEachDramaData(){
                                 if(data.error && data.message == "forbidden"){
                                     location.href = "/signin";
             
-                                    // Remove loading effect
                                     topbar.hide();
                                 };
             
@@ -300,7 +282,6 @@ export default function getEachDramaData(){
                                 if(data.error && data.message == "restricted to test account at this stage only"){
                                     alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
             
-                                    // Remove loading effect
                                     topbar.hide();
                                 };
             
@@ -313,22 +294,12 @@ export default function getEachDramaData(){
                                         hls.attachMedia(video);
                                         hls.on(Hls.Events.MANIFEST_PARSED, () => {
                                             video.pause();
-                                            // Add the drama video title to the video navigation bar.
                                             $("#videoTitle").text(e.target.attributes.titleJSF.value);
-                    
-                                            // Display the drama video player.
                                             $("#videoContainer").css("display", "block");
-                    
-                                            // Record the video playing time before hide.
                                             $("#video").prop("currentTime", currentTime);
-                    
-                                            // Disable the scrolling function.
                                             $("body").css("overflow", "hidden");
-                    
-                                            // Disable mouse right-click function.
                                             $(document).on("contextmenu", preventContextMenu);
-            
-                                            // Remove loading effect
+
                                             topbar.hide();
                                         });
                                     };
@@ -337,7 +308,6 @@ export default function getEachDramaData(){
                             .catch(error => {
                                 console.log("Error(drama.getEachDramaData.js - 2): " + error);
             
-                                // Remove loading effect
                                 topbar.hide();
                             });
             
@@ -361,7 +331,6 @@ export default function getEachDramaData(){
                                 if(data.error && data.message == "forbidden"){
                                     location.href = "/signin";
             
-                                    // Remove loading effect
                                     topbar.hide();
                                 };
             
@@ -369,33 +338,20 @@ export default function getEachDramaData(){
                                 if(data.error && data.message == "restricted to test account at this stage only"){
                                     alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
             
-                                    // Remove loading effect
                                     topbar.hide();
                                 };
             
                                 if(data.ok){
                                     // Add loading effect
                                     topbar.show();
-            
-                                    // Add the video link to the html DOM.
-                                    $("#video").attr("src", "https://video.jprogrammer.online:5000/api/video?link=" + e.target.attributes.link.value) // "http://140.238.54.62:3000/server?link="  "/api/video?link="
-            
-                                    // Add the drama video title to the video navigation bar.
+
+                                    $("#video").attr("src", "https://video.jprogrammer.online:5000/api/video?link=" + e.target.attributes.link.value)
                                     $("#videoTitle").text(e.target.attributes.titleChi.value + " - " + e.target.attributes.titleEpisode.value);
-            
-                                    // Display the drama video player.
                                     $("#videoContainer").css("display", "block");
-            
-                                    // Record the video playing time before hide.
                                     $("#video").prop("currentTime", currentTime);
-            
-                                    // Disable the scrolling function.
                                     $("body").css("overflow", "hidden");
-            
-                                    // Disable mouse right-click function.
                                     $(document).on("contextmenu", preventContextMenu);
             
-                                    // Remove loading effect
                                     topbar.hide();
                                 };
                             })
@@ -410,19 +366,10 @@ export default function getEachDramaData(){
             
                         // Video Close Button.
                         $("#videoCloseBtn").click(() => {
-                            // Record the current video playing time before close.
                             currentTime = $("#video").prop("currentTime");
-            
-                            // Pause the video before close.
                             $("#video").trigger("pause");
-            
-                            // Close the video player.
                             $("#videoContainer").css("display", "none");
-            
-                            // Enable the scrolling function.
                             $("body").css("overflow", "auto");
-            
-                            // Enable mouse right-click function.
                             $(document).off("contextmenu", preventContextMenu);
                         });
                     };
@@ -597,14 +544,12 @@ export default function getEachDramaData(){
                     // Show content
                     $("#dramaContentContainer").css("visibility", "visible");
 
-                    // Remove loading effect
                     topbar.hide();
                 };
             })
             .catch(error => {
                 console.log("Error(drama.getEachDramaData.js - 3): " + error);
                 
-                // Remove loading effect
                 topbar.hide();
             });
 
@@ -615,20 +560,11 @@ export default function getEachDramaData(){
             $("img.individual-edit-btn").click((e) => {
 
                 const individualBtnID = e.target.attributes.id.value;
-
-                // Store the value to be updated.
                 contentToBeEdit = $(`div.drama-details-content-${individualBtnID}`).text().trim();
 
-                // Hide the drama edit button.
                 $("#dramaEditBtn").css("display", "none");
-
-                // Display the yes/no button.
                 $(`img.confirm-btn-${individualBtnID}`).css("display", "block");
-
-                // Hide the edit button.
                 $("img.individual-edit-btn").css("display", "none");
-
-                // Clear the content to be updated before HTML DOM.
                 $(`div.drama-details-content-${individualBtnID}`).text("");
 
                 // Check whether the click button is edit video link button.
@@ -677,25 +613,12 @@ export default function getEachDramaData(){
 
                 const confirmNoBtnID = e.target.attributes.name.value;
 
-                // Hide the yes/no button.
                 $(`img.confirm-btn-${confirmNoBtnID}`).css("display", "none");
-
-                // Clear the content to be updated before HTML DOM.
                 $(`div.drama-details-content-${confirmNoBtnID}`).text("");
-
-                // Show the drama edit button.
                 $("#dramaEditBtn").css("display", "block");
-
-                // Clear the photo upload function.
                 $("#editDramaCoverPhotoLabel").attr("for", "");
-
-                // Clear the cursor.
                 $("#dramaCoverPhoto").css("cursor", "");
-            
-                // Clear the CSS hover effect.
                 $("#dramaCoverPhoto").off("mouseenter mouseleave");
-
-                // Return to the first tab of video bar.
                 $("#home-tab").click();
 
                 // Check whether the click button is edit video link button, and restore the content to the original one.
@@ -704,9 +627,7 @@ export default function getEachDramaData(){
                 };
 
                 if(confirmNoBtnID == "edit7"){
-                    // $("#dramaDownloadUpload").text("");
 
-                    // Add HTML DOM to the original content.
                     $("#dramaDownloadUpload").append(`${originalEpisodeContent}`);
 
                     // handle each episode button click.
@@ -736,7 +657,6 @@ export default function getEachDramaData(){
                                 if(data.error && data.message == "forbidden"){
                                     location.href = "/signin";
             
-                                    // Remove loading effect
                                     topbar.hide();
                                 };
             
@@ -744,7 +664,6 @@ export default function getEachDramaData(){
                                 if(data.error && data.message == "restricted to test account at this stage only"){
                                     alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
             
-                                    // Remove loading effect
                                     topbar.hide();
                                 };
             
@@ -752,32 +671,19 @@ export default function getEachDramaData(){
                                     // Add loading effect
                                     topbar.show();
             
-                                    // Add the video link to the html DOM.
-                                    $("#video").attr("src", "/api/video?link=" + e.target.attributes.link.value) // "http://140.238.54.62:3000/server?link="
-            
-                                    // Add the drama video title to the video navigation bar.
+                                    $("#video").attr("src", "/api/video?link=" + e.target.attributes.link.value)
                                     $("#videoTitle").text(e.target.attributes.titleChi.value + " - " + e.target.attributes.titleEpisode.value);
-            
-                                    // Display the drama video player.
                                     $("#videoContainer").css("display", "block");
-            
-                                    // Record the video playing time before hide.
                                     $("#video").prop("currentTime", currentTime);
-            
-                                    // Disable the scrolling function.
                                     $("body").css("overflow", "hidden");
-            
-                                    // Disable mouse right-click function.
                                     $(document).on("contextmenu", preventContextMenu);
             
-                                    // Remove loading effect
                                     topbar.hide();
                                 };
                             })
                             .catch(error => {
                                 console.log("Error(drama.getEachDramaData.js - 2): " + error);
             
-                                // Remove loading effect
                                 topbar.hide();
                             });
             
@@ -788,19 +694,16 @@ export default function getEachDramaData(){
                 };
 
                 if(confirmNoBtnID == "edit8"){
-                    // Add HTML DOM to the original content.
                     $("#castContainer").append(`${originalActorContent}`);
                 };
 
                 if(confirmNoBtnID == "edit9"){
-                    // Add HTML DOM to the original content.
                     $("#dramaRating").append(`${originalRatingContent}`);
 
                     ratingData(originalRating, originalRatingMax, originalRatingAvg, originalRatingEpisode);
                 };
 
                 if(confirmNoBtnID == "edit10"){
-                    // Add HTML DOM to the original content.
                     $("#dramaMedia").append(`${originalMediaContent}`);
                 };
                 
@@ -810,8 +713,6 @@ export default function getEachDramaData(){
             $("img#confirmYes").click((e) => {
                 // Add loading effect
                 topbar.show();
-
-                // console.log($("#editDramaContent-edit7").val())
 
                 let editDramaContent = null;
                 const confirmYesBtnID = e.target.attributes.name.value;
@@ -862,61 +763,51 @@ export default function getEachDramaData(){
                     if(data.error && data.message == "The category does not match with the designated format"){
                         alert("請輸入正確劇集類別格式！");
 
-                        // Remove loading effect
                         topbar.hide();
                     }
                     else if(data.error && data.message == "The introduction does not match with the designated format"){
                         alert("請輸入正確劇集概要格式！");
 
-                        // Remove loading effect
                         topbar.hide();
                     }
                     else if(data.error && data.message == "The tv does not match with the designated format"){
                         alert("請輸入正確播放電視台格式！");
 
-                        // Remove loading effect
                         topbar.hide();
                     }
                     else if(data.error && data.message == "The date does not match with the designated format"){
                         alert("請輸入正確播放日期格式！");
 
-                        // Remove loading effect
                         topbar.hide();
                     }
                     else if(data.error && data.message == "The week does not match with the designated format"){
                         alert("請輸入正確播放星期格式！");
 
-                        // Remove loading effect
                         topbar.hide();
                     }
                     else if(data.error && data.message == "The time does not match with the designated format"){
                         alert("請輸入正確播放時間格式！");
 
-                        // Remove loading effect
                         topbar.hide();
                     }
                     else if(data.error && data.message == "The video does not match with the designated format"){
                         alert("請輸入正確磁力連結格式！");
 
-                        // Remove loading effect
                         topbar.hide();
                     }
                     else if(data.error && data.message == "The actor does not match with the designated format"){
                         alert("請輸入正確演員資料格式！");
 
-                        // Remove loading effect
                         topbar.hide();
                     }
                     else if(data.error && data.message == "The rating does not match with the designated format"){
                         alert("請輸入正確收視率格式！");
 
-                        // Remove loading effect
                         topbar.hide();
                     }
                     else if(data.error && data.message == "The media does not match with the designated format"){
                         alert("請輸入正確媒體資料格式！");
 
-                        // Remove loading effect
                         topbar.hide();
                     }
 
@@ -953,12 +844,11 @@ export default function getEachDramaData(){
                                 $("#dramaCoverPhoto").off("mouseenter mouseleave");
                             };
 
-                            // Remove loading effect
                             topbar.hide();
                         };
 
                         if(confirmYesBtnID == "edit7"){
-                            // ## Clear the content before adding the new video content.
+                            // Clear the content before adding the new video content.
                             originalEpisodeContent = "";
 
                             for(let i = 0; i < updatedDramaContent.length; i ++){
@@ -1021,7 +911,6 @@ export default function getEachDramaData(){
                                         if(data.error && data.message == "restricted to test account at this stage only"){
                                             alert("抱歉，觀看劇集功能暫時只提供給以下測試帳戶作為測試用途:\n\n測試帳戶: test@test.com\n\n測試密碼: 12345678");
                     
-                                            // Remove loading effect
                                             topbar.hide();
                                         };
                     
@@ -1047,14 +936,12 @@ export default function getEachDramaData(){
                                             // Disable mouse right-click function.
                                             $(document).on("contextmenu", preventContextMenu);
                     
-                                            // Remove loading effect
                                             topbar.hide();
                                         };
                                     })
                                     .catch(error => {
                                         console.log("Error(drama.getEachDramaData.js - 2): " + error);
                     
-                                        // Remove loading effect
                                         topbar.hide();
                                     });
                     
@@ -1063,7 +950,6 @@ export default function getEachDramaData(){
                             };
                             handleBtnClickAfterDOM();
 
-                            // Remove loading effect
                             topbar.hide();
                         };
 
@@ -1078,7 +964,6 @@ export default function getEachDramaData(){
 
                                 actorToBeEdit = updatedTextarea;
 
-                                // Remove loading effect
                                 topbar.hide();
                             }
                             else{
@@ -1133,7 +1018,6 @@ export default function getEachDramaData(){
 
                                 actorToBeEdit = updatedTextarea;
 
-                                // Remove loading effect
                                 topbar.hide();
                             };
 
@@ -1150,7 +1034,6 @@ export default function getEachDramaData(){
 
                                 ratingToBeEdit = updatedTextarea;
 
-                                // Remove loading effect
                                 topbar.hide();
                             }
                             else{
@@ -1191,7 +1074,6 @@ export default function getEachDramaData(){
             
                                 ratingToBeEdit = updatedTextarea;
             
-                                // Remove loading effect
                                 topbar.hide();
 
                             };
@@ -1213,7 +1095,6 @@ export default function getEachDramaData(){
 
                                 mediaToBeEdit = updatedTextarea;
 
-                                // Remove loading effect
                                 topbar.hide();
                             }
                             else{
@@ -1229,7 +1110,6 @@ export default function getEachDramaData(){
 
                                 mediaToBeEdit = updatedTextarea;
 
-                                // Remove loading effect
                                 topbar.hide();
                             };
 
@@ -1240,7 +1120,6 @@ export default function getEachDramaData(){
                 .catch(error => {
                     console.log("Error(drama.getEachDramaData.js - ): " + error);
 
-                    // Remove loading effect
                     topbar.hide();
                 });
             })

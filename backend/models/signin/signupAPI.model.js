@@ -5,7 +5,6 @@ const commonView = require("../../views/common.view");
 const model = {
 
     init: function(req, res){
-        // User input from frontend side.
         const { signupName, signupEmail, signupPassword, nameRegex, emailRegex, passwordRegex } = commonView.renderSigninUserInput(req);
 
         // If the regex is invalid.
@@ -16,7 +15,6 @@ const model = {
 
         // if the regex is valid.
         client.connect(err => {
-            // Internal server error message.
             if(err){
                 errorMessage = "Error(signupAPI.route - 1): " + err;
                 commonView.renderError(err, res, errorMessage);
@@ -28,7 +26,6 @@ const model = {
             const checkEmail = { memberEmail: signupEmail };
 
             collection.findOne(checkEmail, (err, result) => {
-                // Internal server error message.
                 if(err){
                     errorMessage = "Error(signupAPI.route - 2): " + err;
                     commonView.renderError(err, res, errorMessage);

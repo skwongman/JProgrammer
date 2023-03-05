@@ -44,23 +44,14 @@ export default function editCoverPhoto(){
 
             // Cancel not upload
             $("#editDramaCoverPhotoNotConfirmBtn").click((e) => {
-
                 e.preventDefault();
-
                 $("#dramaCoverPhoto").attr("src", editCoverPhoto);
-
                 $("#editDramaCoverPhotoSubmitContainer").css("display", "none");
-
                 $("#dramaEditBtn").css("display", "block");
-
                 $("img.individual-edit-btn").css("display", "none");
-
                 $("#editDramaCoverPhotoLabel").attr("for", "");
-
                 $("#dramaCoverPhoto").css("cursor", "");
-
                 $("#dramaCoverPhoto").off("mouseenter mouseleave");
-
             });
 
             // Photo upload
@@ -131,15 +122,10 @@ export default function editCoverPhoto(){
             (data.isDark) ? $(".nav-link").css("color", "#fff") : $(".nav-link").css("color", "#000");
 
             $("#editDramaCoverPhotoSubmitContainer").css("display", "none");
-
             $("#dramaEditBtn").css("display", "block");
-
             $("img.individual-edit-btn").css("display", "none");
-    
             $("#editDramaCoverPhotoLabel").attr("for", "");
-
             $("#dramaCoverPhoto").css("cursor", "");
-        
             $("#dramaCoverPhoto").off("mouseenter mouseleave");
 
             view.renderRemoveLoadingEffect();

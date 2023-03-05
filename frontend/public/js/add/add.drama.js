@@ -66,7 +66,6 @@ export default function addDrama(){
                     if(photoToBeUploaded == undefined){
                         alert("請選擇要上載的劇集封面圖片！");
 
-                        // Remove loading effect
                         topbar.hide();
                     }
                     else{

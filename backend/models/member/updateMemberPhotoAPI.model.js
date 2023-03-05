@@ -19,7 +19,6 @@ const model = {
 
             // If the decode is successful.
             client.connect(err => {
-                // Internal server error message.
                 if(err){
                     const errorMessage = "Error(updateMemberPhotoAPI.route - 1): " + err;
                     commonView.renderError(err, res, errorMessage);
@@ -32,7 +31,6 @@ const model = {
                 const checkMemberID = { _id: new ObjectId(memberID) };
         
                 collection.findOne(checkMemberID, (err, checkMemberIDResult) => {
-                    // Internal server error message.
                     if(err){
                         const errorMessage = "Error(updateMemberPhotoAPI.route - 2): " + err;
                         commonView.renderError(err, res, errorMessage);
@@ -40,7 +38,6 @@ const model = {
                     };
 
                     if(checkMemberIDResult){
-                        // Retrieve the drama photo data from the frontend side.
                         const { uploadPhoto, photoExtension, matchTypeOfPhoto, meetPhotoUploadSize } = commonView.renderPhotoUpload(req);
 
                         if(!matchTypeOfPhoto){
@@ -58,7 +55,6 @@ const model = {
                     
                         // Upload profile photo.
                         s3.upload(params, (err, data) => {
-                            // Upload error message.
                             if(err){
                                 const errorMessage = "Error(updateMemberPhotoAPI.route - 3): " + err;
                                 commonView.renderError(err, res, errorMessage);
@@ -69,7 +65,6 @@ const model = {
                             const updatePhotoName = data.Location.split("/").pop();
                             const updatePhotoURL = CdnURL + updatePhotoName;
 
-                            // Assign name for each item.
                             const insertQuery = checkMemberID;
                             const insertValue = { $set: { memberProfilePicture: updatePhotoURL } };
 
