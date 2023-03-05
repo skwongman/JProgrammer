@@ -18,20 +18,17 @@ const model = {
 
             // If the decode is successful.
             client.connect(err => {
-                // Internal server error message.
                 if(err){
                     const errorMessage = "Error(signinStatusAPI.route - 1): " + err;
                     commonView.renderError(err, res, errorMessage);
                     return;
                 };
         
-                // Fetching user data from database.
                 const collection = req.db.collection("member");
                 const memberID = decoded.memberID;
                 const checkMemberID = { _id: new ObjectId(memberID) };
         
                 collection.findOne(checkMemberID, (err, result) => {
-                    // Internal server error message.
                     if(err){
                         const errorMessage = "Error(signinStatusAPI.route - 2): " + err;
                         commonView.renderError(err, res, errorMessage);
@@ -39,7 +36,6 @@ const model = {
                     };
 
                     if(result){
-                        // Return user data.
                         const memberData = {
                             "memberID": result._id.toString(),
                             "memberName": result.memberName,

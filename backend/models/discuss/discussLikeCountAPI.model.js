@@ -18,7 +18,6 @@ const model = {
 
             // If the decode is successful.
             client.connect(err => {
-                // Error message.
                 if(err){
                     const errorMessage = "Error(discussLikeCountAPI.model - 1): " + err;
                     commonView.renderError(err, res, errorMessage);
@@ -31,7 +30,6 @@ const model = {
                 const checkMemberID = { _id: new ObjectId(memberID) };
 
                 memberCollection.findOne(checkMemberID, (err, checkMemberIDResult) => {
-                    // Internal server error message.
                     if(err){
                         const errorMessage = "Error(discussLikeCountAPI.model - 2): " + err;
                         commonView.renderError(err, res, errorMessage);
@@ -47,7 +45,6 @@ const model = {
                         };
 
                         likeCollection.findOne(checkLikeRecord, (err, checkLikeResult) => {
-                            // Internal server error message.
                             if(err){
                                 const errorMessage = "Error(discussLikeCountAPI.model - 3): " + err;
                                 commonView.renderError(err, res, errorMessage);
@@ -77,7 +74,6 @@ const model = {
                                     const checkReplyID = { _id: new ObjectId(insertReplyID) };
                         
                                     likeCollection.findOne(checkReplyID, (err, checkReplyIdResult) => {
-                                        // Internal server error message.
                                         if(err){
                                             const errorMessage = "Error(discussLikeCountAPI.model - 5): " + err;
                                             commonView.renderError(err, res, errorMessage);
@@ -86,7 +82,6 @@ const model = {
                             
                                         if(checkReplyIdResult){
                                             likeCollection.count({ likePostID }, (err, count) => {
-                                                // Internal server error message.
                                                 if(err){
                                                     const errorMessage = "Error(discussLikeCountAPI.model - 6): " + err;
                                                     commonView.renderError(err, res, errorMessage);
@@ -109,7 +104,6 @@ const model = {
                                 };
 
                                 likeCollection.deleteOne(deleteQuery, (err, deleteResult) => {
-                                    // Internal server error message.
                                     if(err){
                                         const errorMessage = "Error(discussLikeCountAPI.model - 7): " + err;
                                         commonView.renderError(err, res, errorMessage);
@@ -118,7 +112,6 @@ const model = {
 
                                     if(deleteResult){
                                         likeCollection.count({ likePostID }, (err, count) => {
-                                            // Internal server error message.
                                             if(err){
                                                 const errorMessage = "Error(discussLikeCountAPI.model - 7): " + err;
                                                 commonView.renderError(err, res, errorMessage);

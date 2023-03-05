@@ -1,12 +1,9 @@
 const { client } = require("../commons/common");
 const { generateTime, generateChatTime } = require("../commons/common");
 
-// Socket.io
 const chatSocket = (io) => {
 
     io.on("connection", (socket) => {
-
-        // console.log("a user connected");
 
         // Member entered to the chat message window.
         socket.on("join room", (roomID, memberName, receiverName, senderID, receiverID) => {
@@ -16,8 +13,6 @@ const chatSocket = (io) => {
             socket.memberName = memberName;
             socket.receiverName = receiverName;
             socket.currentRoomID = roomID;
-
-            // console.log(`User ${memberName} joined room ${roomID}`);
 
             const membersInRoom = Array.from(io.sockets.adapter.rooms.get(roomID) || []).map((socketId) => {
                 return io.sockets.sockets.get(socketId).memberName;
@@ -55,7 +50,6 @@ const chatSocket = (io) => {
 
         // Member left the chat message window.
         socket.on("disconnect", () => {
-            // console.log(`User ${socket.memberName} disconnected`);
 
             socket.memberLeaveTime = generateTime();
 

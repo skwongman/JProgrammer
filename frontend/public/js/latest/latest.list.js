@@ -11,7 +11,6 @@ export default function latestList(){
             function webInitialLoadFunc(){
                 view.renderAddLoadingEffect();
 
-                // Fetching API.
                 async function getData(url){
                     const response = await fetch(url);
                     const data = await response.json();
@@ -38,7 +37,6 @@ export default function latestList(){
                 $("#lastestListPagination").text("");
                 $("#categoryPagination").text("");
 
-                // Load the pagination bar.
                 for(let i = 1 ; i <= totalPages; i ++){
                     $("#lastestListPagination").append(`
                         <li id="pagination${i}" class="page-item">

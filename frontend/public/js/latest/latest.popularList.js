@@ -17,16 +17,10 @@ export default function popularList(){
                             result.style.border = "none";
                         });
     
-                        // Week list button color change effect.
                         $("#latestSortlistAll").css("color", "rgb(2, 177, 247)");
                         $("#latestSortlistAll").css("border", "1px solid rgb(2, 177, 247)");
-    
-                        // Category list button color change effect.
                         $("#categoryListAll").css("color", "rgb(2, 177, 247)");
                         $("#categoryListAll").css("border", "1px solid rgb(2, 177, 247)");
-    
-                        // CSS and content clearance before button color change effect.
-                        // $("#latestListContainer").text("");
                         $("#popularPagination").text("");
                         $("#lastestSortlistPagination").text("");
                         $("#lastestListPagination").text("");
@@ -65,7 +59,6 @@ export default function popularList(){
                         $("#lastestListPagination").text("");
                         $("#categoryPagination").text("");
 
-                        // Load the pagination bar.
                         for(let i = 1 ; i <= totalPages; i ++){
                             $("#popularPagination").append(`
                                 <li id="popularPagination${i}" class="page-item">

@@ -6,7 +6,6 @@ const commonView = require("../../views/common.view");
 const model = {
 
     init: function(req, res){
-        // User input from frontend side.
         const { signupEmail, signupPassword, emailRegex, passwordRegex } = commonView.renderSigninUserInput(req);
 
         // If the regex is invalid.
@@ -17,7 +16,6 @@ const model = {
         
         // if the regex is valid.
         client.connect(err => {
-            // Internal server error message.
             if(err){
                 errorMessage = "Error(signinAPI.route - 1): " + err;
                 commonView.renderError(err, res, errorMessage);
@@ -29,7 +27,6 @@ const model = {
             const checkEmail = { memberEmail: signupEmail };
 
             collection.findOne(checkEmail, (err, result) => {
-                // Internal server error message.
                 if(err){
                     errorMessage = "Error(signinAPI.route - 2): " + err;
                     commonView.renderError(err, res, errorMessage);
@@ -45,7 +42,6 @@ const model = {
                 if(result){
                     // If email is found.
                     bcrypt.compare(signupPassword, result.memberPassword, (err, match) => {
-                        // Internal server error message.
                         if(err){
                             errorMessage = "Error(signinAPI.route - 3): " + err;
                             commonView.renderError(err, res, errorMessage);

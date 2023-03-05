@@ -6,14 +6,12 @@ const model = {
 
     init: function(req, res){
         client.connect(err => {
-            // Error handling
             if(err){
                 const errorMessage = "Error(dramaQueryStringAPI.route - 1): " + err;
                 commonView.renderError(err, res, errorMessage);
                 return;
             };
             
-            // Assign names
             const id = parseInt(req.params.id);
             const collection = req.db.collection("drama");
             const matchDramaID = { $match: { dramaID: id } };

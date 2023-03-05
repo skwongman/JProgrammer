@@ -19,20 +19,17 @@ const model = {
 
             // If the decode is successful.
             client.connect(err => {
-                // Internal server error message.
                 if(err){
                     const errorMessage = "Error(addDramaAPI.model.js - 1): " + err;
                     commonView.renderError(err, res, errorMessage);
                     return;
                 };
         
-                // Fetching user data from database.
                 const collection = req.db.collection("member");
                 const memberID = decoded.memberID;
                 const checkMemberID = { _id: new ObjectId(memberID) };
         
                 collection.findOne(checkMemberID, (err, checkMemberIDResult) => {
-                    // Internal server error message.
                     if(err){
                         const errorMessage = "Error(addDramaAPI.model.js - 2): " + err;
                         commonView.renderError(err, res, errorMessage);
@@ -114,7 +111,6 @@ const model = {
     
                         // if the regex is valid.
                         client.connect(err => {
-                            // Internal server error message.
                             if(err){
                                 const errorMessage = "Error(addDramaAPI.model.js - 3): " + err;
                                 commonView.renderError(err, res, errorMessage);
@@ -126,7 +122,6 @@ const model = {
                             const checkaddDramaTitle = { dramaTitle: addDramaTitle };
                     
                             collection.findOne(checkaddDramaTitle, (err, result) => {
-                                // Internal server error message.
                                 if(err){
                                     const errorMessage = "Error(addDramaAPI.model.js - 4): " + err;
                                     commonView.renderError(err, res, errorMessage);
@@ -189,8 +184,7 @@ const model = {
                                                 } = commonView.renderConvertAddDramaData(
                                                     dramaIdResult, addDramaCategory, addDramaActor, addDramaRating, addDramaVideo, checkMemberIDResult
                                                 );
-        
-                                                // Assign name for each item.
+
                                                 const insertQuery = {
                                                     dramaID: latestDramaID,
                                                     dramaTitle: addDramaTitle,
@@ -226,7 +220,6 @@ const model = {
                                                         const checkDramaID = { _id: new ObjectId(insertDramaID) };
                         
                                                         collection.findOne(checkDramaID, (err, checkaddDramaIdResult) => {
-                                                            // Internal server error message.
                                                             if(err){
                                                                 const errorMessage = "Error(addDramaAPI.model.js - 8): " + err;
                                                                 commonView.renderError(err, res, errorMessage);
@@ -234,7 +227,6 @@ const model = {
                                                             };
 
                                                             if(checkaddDramaIdResult){
-                                                                // Return the newly added drama ID to the frontend.
                                                                 const result = {"addDramaID": checkaddDramaIdResult.dramaID};
                                                                 
                                                                 commonView.renderSuccessfulData(result, res);

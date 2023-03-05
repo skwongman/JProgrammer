@@ -4,7 +4,6 @@ const commonView = require("../../views/common.view");
 const model = {
 
     init: function(req, res){
-        // Connect to database and fetch drama API data.
         client.connect(err => {
             if(err){
                 const errorMessage = "Error(dramaAPI.route - 1): " + err;

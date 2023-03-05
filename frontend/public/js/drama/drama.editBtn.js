@@ -45,17 +45,9 @@ export default function dramaEditBtn(){
             if(data.data){
                 if($("img.individual-edit-btn").css("display") == "block"){
                     $("img.individual-edit-btn").css("display", "none");
-    
-                    // Clear the photo upload function.
                     $("#editDramaCoverPhotoLabel").attr("for", "");
-    
-                    // Clear the cursor.
                     $("#dramaCoverPhoto").css("cursor", "");
-                
-                    // Clear the CSS hover effect.
                     $("#dramaCoverPhoto").off("mouseenter mouseleave");
-    
-                    // Return to the first tab of video bar.
                     $("#home-tab").click();
 
                     view.renderRemoveLoadingEffect();

@@ -72,7 +72,6 @@ export default function categorySortlist(){
                         function categoryListData(){
                             view.renderAddLoadingEffect();
 
-                            // Fetching API.
                             search = e.target.attributes.id.value;
 
                             async function getData(url){
@@ -101,7 +100,6 @@ export default function categorySortlist(){
                             $("#popularPagination").text("");
                             $("#categoryPagination").text("");
 
-                            // Load the pagination bar.
                             for(let i = 1 ; i <= totalPages; i ++){
                                 $("#categoryPagination").append(`
                                     <li id="categoryPagination${i}" class="page-item">
@@ -120,7 +118,6 @@ export default function categorySortlist(){
 
             // Handle pagination click.
             function paginationClickFunc(){
-                // Pagination
                 $("#categoryPagination").click((e) => {
                     const currentPage = e.target;
                     const pageNum = parseInt(e.target.text);
