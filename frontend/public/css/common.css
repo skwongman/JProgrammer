@@ -164,6 +164,26 @@ html {
     margin: 20px;
 }
 
+/* Color */
+:root {
+    --white-color: #fff;
+    --gray-color: gray;
+}
+
+/* Scroll Bar */
+    body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--white-color);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--gray-color);
+    border-radius: 10px;
+}
+
 
 /* Other Devices */
 @media(max-width:1200px) {
