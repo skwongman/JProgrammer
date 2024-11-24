@@ -11,7 +11,7 @@ const model = {
                 return;
             };
     
-            const collection = req.db.collection("drama");
+            const collection = req.db.collection("drama2");
             const sortlisted = { projection: { _id: 0, dramaID: 1, dramaTitle: 1, dramaCoverPhoto: 1, dramaWeek: 1, dramaTimeOfBoardcast: 1 } };
             const filter = { dramaWeek: { $ne: "None" } };
     

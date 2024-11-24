@@ -33,7 +33,7 @@ const model = {
                 const CdnURL = "https://d11c6b10livv50.cloudfront.net/";
                 const addDramaCoverPhotoName = data.Location.split("/").pop();
                 const addDramaCoverPhotoURL = CdnURL + addDramaCoverPhotoName;
-                const collection = req.db.collection("drama");
+                const collection = req.db.collection("drama2");
                 const insertQuery = { dramaID: editDramaID };
                 let insertValue = null;
 

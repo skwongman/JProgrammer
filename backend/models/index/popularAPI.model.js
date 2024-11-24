@@ -11,7 +11,7 @@ const model = {
                 return;
             };
     
-            const collection = req.db.collection("drama");
+            const collection = req.db.collection("drama2");
             const { dataPerPage, page, dataOrderPerPage } = commonView.renderVariables(req);
     
             const sortlisted = {

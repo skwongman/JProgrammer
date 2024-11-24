@@ -13,13 +13,13 @@ const model = {
             };
             
             const id = parseInt(req.params.id);
-            const collection = req.db.collection("drama");
+            const collection = req.db.collection("drama2");
             const matchDramaID = { $match: { dramaID: id } };
             const unwind = { $unwind: "$dramaActor" };
             
             const aggreActor = {
                 $lookup: {
-                    from: "actor",
+                    from: "actor2",
                     localField: "dramaActor",
                     foreignField: "actorNameChi",
                     as: "dramaActor"
@@ -50,7 +50,7 @@ const model = {
 
             const dramaDownloadJp = {
                 $lookup: {
-                    from: "downloadJp",
+                    from: "downloadJp2",
                     localField: "dramaTitle",
                     foreignField: "downloadTitleChi",
                     as: "dramaDownloadJp"

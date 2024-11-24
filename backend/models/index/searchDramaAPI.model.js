@@ -21,7 +21,7 @@ const model = {
                 return;
             };
 
-            const collection = req.db.collection("drama");
+            const collection = req.db.collection("drama2");
             const maxNoOfResult = 5; // Max no. of results in the search menu.
 
             // Keyword search
