@@ -1,5 +1,13 @@
 export default function getLatestSeasonDramaData(){
-        
+    
+    const latestDramaPhoto = document.querySelector('#latestDramaPhotoContainer');
+    const latestDramaNextBtn = document.querySelector('#latestDramaNextBtn');
+    const latestDramaPrevBtn = document.querySelector('#latestDramaPrevBtn');
+
+    let currentIndx = 0;
+    const cardsToShow = 6;
+    let totalCards = 0;
+
     const model = {
 
         init: function(){
@@ -14,6 +22,9 @@ export default function getLatestSeasonDramaData(){
             getData("/api/drama")
             .then(data => {
                 view.render(data);
+                view.renderSlider();
+                view.renderNextBtn();
+                view.renderPrevBtn();
             })
             .catch(err => {
                 view.renderError(err);
@@ -34,20 +45,20 @@ export default function getLatestSeasonDramaData(){
 
         render: function(data){
             if(data.data){
-                data.data.slice(0, 6).map(result => {
-                    const shortenDramaTitle = result.dramaTitle.split("～")[0];
-
+                data.data.map(result => {
                     $("#latestDramaPhotoContainer").append(`
-                        <div class="latest-drama-photo">
+                        <div class="latest-drama-photo" id="latestDramaPhoto">
                             <a href="/drama/${result.dramaID}">
                                 <img class="latest-drama-photo-individual" src="${result.dramaCoverPhoto}">
-                                ${(result.dramaDownload.length != 0) ? `<div class="latest-drama-video">線上觀看</div>` : ""}
-                                <div class="latest-drama-photo-individual-title">${shortenDramaTitle}</div>
+                                ${(result.dramaDownload.length) ? `<div class="latest-drama-video">線上觀看</div>` : ""}
+                                <div class="latest-drama-photo-individual-title">${result.dramaTitle}</div>
                                 <div class="latest-drama-photo-bottom-line"></div>
                             </a>
                         </div>
                     `);
                 });
+
+                totalCards = document.querySelectorAll('#latestDramaPhoto').length;
 
                 // Show whole content (including latest, popular and timetable)
                 setTimeout(() => {
@@ -57,6 +68,30 @@ export default function getLatestSeasonDramaData(){
                 view.renderRemoveLoadingEffect();
             };
         },
+
+        renderSlider: function() {
+            const offest = -currentIndx * 1200;
+            latestDramaPhoto.style.transform = `translateX(${offest}px)`;
+        },
+
+        renderNextBtn: function(){
+            latestDramaNextBtn.addEventListener('click', () => {
+                if (currentIndx < (totalCards / cardsToShow) - 1) {
+                    currentIndx++;
+                    view.renderSlider();
+                };
+            });
+        },
+
+        renderPrevBtn: function(){
+            latestDramaPrevBtn.addEventListener('click', () => {
+                if (currentIndx > 0) {
+                    currentIndx--;
+                    view.renderSlider();
+                };
+            });
+        },
+
         renderError: function(err){
             console.log("Error(index.getLatestSeasonDramaData.js): " + err);
 

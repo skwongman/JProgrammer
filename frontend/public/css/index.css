@@ -185,36 +185,21 @@
     margin-bottom: 7px;
 }
 
-.latest-drama-photo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
+.latest-drama-photo-outer-container,
 .popular-drama-photo-outer-container {
     display: flex;
     width: 100%;
     overflow: hidden;
 }
 
+.latest-drama-photo-container,
 .popular-drama-photo-container {
     display: flex;
     align-items: center;
     transition: transform 0.5s ease;
 }
 
-.latest-drama-photo {
-    flex: auto;
-    width: 20%;
-    height: 300px;
-    margin: 10px;
-    border: 1px solid rgb(223, 218, 218);
-    border-radius: 10px;
-    cursor: pointer;
-    z-index: 2;
-    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
-}
-
+.latest-drama-photo,
 .popular-drama-photo {
     flex: auto;
     min-width: 180px;
@@ -224,7 +209,6 @@
     border: 1px solid rgb(223, 218, 218);
     border-radius: 10px;
     cursor: pointer;
-    z-index: 2;
     box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
 }
 
@@ -247,16 +231,13 @@
     transition: opacity 0.5s;
 }
 
-.latest-drama-photo-bottom-line {
+.latest-drama-photo-bottom-line,
+.popular-drama-photo-bottom-line {
     position: relative;
     width: 100%;
     height: 7px;
     border-radius: 0px 0px 10px 10px;
     background: linear-gradient(270deg, rgb(2, 178, 247) 0%, rgba(114, 193, 224, 0.712) 100%);
-}
-
-.latest-drama-photo-bottom-line.long-title {
-    bottom: -5px;
 }
 
 .latest-drama-video {
@@ -284,6 +265,7 @@
     text-align: center;
 }
 
+.latest-drama-prev-btn,
 .popular-drama-prev-btn {
     position: absolute;
     cursor: pointer;
@@ -292,6 +274,7 @@
     z-index: 1;
 }
 
+.latest-drama-next-btn,
 .popular-drama-next-btn {
     position: absolute;
     cursor: pointer;
@@ -301,7 +284,9 @@
 }
 
 .popular-drama-prev-btn:hover,
-.popular-drama-next-btn:hover {
+.popular-drama-next-btn:hover,
+.latest-drama-prev-btn:hover,
+.latest-drama-next-btn:hover {
     opacity: 100%;
 }
 

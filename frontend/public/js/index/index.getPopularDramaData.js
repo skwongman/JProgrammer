@@ -36,14 +36,12 @@ export default function getPopularDramaData(){
         render: function(data){
             if(data.data){
                 data.data.map(result => {
-                    const shortenDramaTitle = result.dramaTitle.split("～")[0];
-
                     $("#popularDramaPhotoContainer").append(`
                         <div class="popular-drama-photo" id="popularDramaPhoto">
                             <a href="/drama/${result.dramaID}">
                                 <img class="popular-drama-photo-individual" src="${result.dramaCoverPhoto}">
-                                <div class="popular-drama-photo-individual-title">${shortenDramaTitle}</div>
-                                <div class="latest-drama-photo-bottom-line"></div>
+                                <div class="popular-drama-photo-individual-title">${result.dramaTitle}</div>
+                                <div class="popular-drama-photo-bottom-line"></div>
                             </a>
                         </div>
                     `);
