@@ -43,7 +43,7 @@ export default function getPopularDramaData(){
                             <a href="/drama/${result.dramaID}">
                                 <img class="popular-drama-photo-individual" src="${result.dramaCoverPhoto}">
                                 <div class="popular-drama-photo-individual-title">${shortenDramaTitle}</div>
-                                <div class="${shortenDramaTitle.length > 9 ? 'latest-drama-photo-bottom-line long-title' : 'latest-drama-photo-bottom-line'}"></div>
+                                <div class="latest-drama-photo-bottom-line"></div>
                             </a>
                         </div>
                     `);
