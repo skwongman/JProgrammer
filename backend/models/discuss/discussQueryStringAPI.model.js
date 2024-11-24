@@ -28,8 +28,7 @@ const model = {
             };
             
             const aggreMemberPost = {
-                $lookup:
-                {
+                $lookup: {
                     from: "member",
                     let: { pid: "$discussMemberID" },
                     pipeline: [

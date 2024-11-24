@@ -87,12 +87,9 @@ export default function latestList(){
                     // Pagination bar effect.
                     const currentPageElement = document.querySelector(`#pagination${currentPageNum}`);
                     const previousInnerHTML = currentPageElement.innerHTML;
-                    const results = document.querySelectorAll(`li.page-item`)
+                    const results = document.querySelectorAll(`li.page-item`);
 
-                    results.forEach(result => {
-                        result.classList.remove("active");
-                    });
-                
+                    results.forEach(result => result.classList.remove("active"));
                     currentPageElement.classList.add("active");
                     currentPageElement.innerHTML = `<span class="page-link">${currentPageNum}</span>`;
                     currentPageElement.innerHTML = previousInnerHTML;

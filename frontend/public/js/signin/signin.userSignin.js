@@ -56,11 +56,11 @@ export default function userSignin(){
                 }, 500);
             };
 
-            if(data.error && data.message == "The email or password is not correct"){
+            if(data.error && data.message == "The password is not correct"){
                 view.renderRemoveLoadingEffect();
 
                 setTimeout(() => {
-                    alert("電子信箱或密碼不正確，請重新輸入！");
+                    alert("密碼不正確，請重新輸入！");
                 }, 500);
             };
 

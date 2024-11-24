@@ -113,7 +113,7 @@ const model = {
                                     if(deleteResult){
                                         likeCollection.count({ likePostID }, (err, count) => {
                                             if(err){
-                                                const errorMessage = "Error(discussLikeCountAPI.model - 7): " + err;
+                                                const errorMessage = "Error(discussLikeCountAPI.model - 8): " + err;
                                                 commonView.renderError(err, res, errorMessage);
                                                 return;
                                             };
