@@ -185,17 +185,40 @@
     margin-bottom: 7px;
 }
 
-.latest-drama-photo-container,
-.popular-drama-photo-container {
+.latest-drama-photo-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.latest-drama-photo,
-.popular-drama-photo {
+.popular-drama-photo-outer-container {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.popular-drama-photo-container {
+    display: flex;
+    align-items: center;
+    transition: transform 0.5s ease;
+}
+
+.latest-drama-photo {
     flex: auto;
     width: 20%;
+    height: 300px;
+    margin: 10px;
+    border: 1px solid rgb(223, 218, 218);
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 2;
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
+}
+
+.popular-drama-photo {
+    flex: auto;
+    min-width: 180px;
+    width: 180px;
     height: 300px;
     margin: 10px;
     border: 1px solid rgb(223, 218, 218);
@@ -261,6 +284,26 @@
     text-align: center;
 }
 
+.popular-drama-prev-btn {
+    position: absolute;
+    cursor: pointer;
+    transform: translate(-14px, 134px);
+    opacity: 80%;
+    z-index: 1;
+}
+
+.popular-drama-next-btn {
+    position: absolute;
+    cursor: pointer;
+    transform: translate(1163px, 134px);
+    opacity: 80%;
+    z-index: 1;
+}
+
+.popular-drama-prev-btn:hover,
+.popular-drama-next-btn:hover {
+    opacity: 100%;
+}
 
 /* Timetable */
 .timetable-container {
@@ -361,6 +404,11 @@
 
     .timetable-list-title {
         font-size: 15px;
+    }
+
+    .popular-drama-prev-btn,
+    .popular-drama-next-btn {
+        display: none;
     }
 
 }
