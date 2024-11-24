@@ -14,8 +14,9 @@ a:visited {
     color: #000;
 }
 
+a:link:hover,
 a:visited:hover {
-    color: #000;
+    color: rgb(2, 177, 247);
 }
 
 body {
@@ -115,6 +116,10 @@ html {
     cursor: pointer;
 }
 
+.nav-bar-right-title-add-drama:hover {
+    color: rgb(2, 177, 247);
+}
+
 .nav-bar-right-title-signin-icon {
     width: 30px;
     height: auto;
@@ -158,6 +163,26 @@ html {
 
 .footer-text {
     margin: 20px;
+}
+
+/* Color */
+:root {
+    --white-color: #fff;
+    --gray-color: gray;
+}
+
+/* Scroll Bar */
+    body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--white-color);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--gray-color);
+    border-radius: 10px;
 }
 
 

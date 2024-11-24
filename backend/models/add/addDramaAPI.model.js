@@ -118,7 +118,7 @@ const model = {
                             };
                     
                             // Check whether the user input drama title has been registerd in the database.
-                            const collection = req.db.collection("drama");
+                            const collection = req.db.collection("drama2");
                             const checkaddDramaTitle = { dramaTitle: addDramaTitle };
                     
                             collection.findOne(checkaddDramaTitle, (err, result) => {

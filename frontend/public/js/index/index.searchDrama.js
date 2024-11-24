@@ -95,7 +95,7 @@ export default function searchDrama(){
 
                 data.data.map(result => {
                     $("#searchResult").append(`
-                        <div id=dramaTitle dramaID="${result.dramaID}" class="search-result-text">${result.dramaTitle}</div>
+                        <div id="dramaTitle" dramaID="${result.dramaID}" class="search-result-text">${result.dramaTitle}</div>
                     `);
                 });
     

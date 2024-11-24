@@ -11,13 +11,13 @@ const model = {
                 return;
             };
     
-            const collection = req.db.collection("drama");
+            const collection = req.db.collection("drama2");
             const { dataPerPage, keyword, page, dataOrderPerPage } = commonView.renderVariables(req);
     
             // Join to the drama video link table.
             const dramaDownload = {
                 $lookup: {
-                    from: "downloadJp",
+                    from: "downloadJp2",
                     localField: "dramaTitle",
                     foreignField: "downloadTitleChi",
                     as: "dramaDownload"

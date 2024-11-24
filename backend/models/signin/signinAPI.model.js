@@ -22,7 +22,7 @@ const model = {
                 return;
             };
 
-            // Check whether the user input email has been registerd in the database.
+            // Check whether the user input email is found in the database.
             const collection = req.db.collection("member");
             const checkEmail = { memberEmail: signupEmail };
 
@@ -50,7 +50,7 @@ const model = {
 
                         // If the user input password is "not match" with the encrypted password in the database.
                         if(!match){
-                            commonView.renderEmailIncorrect(res);
+                            commonView.renderPasswordIncorrect(res);
                             return;
                         };
 

@@ -147,7 +147,6 @@ export default function latestSortlist(){
                         view.renderLoadPaginationBarError(error);
                     });
 
-
                     // Pagination bar effect.
                     const currentPageElement = document.querySelector(`#lastestSortlistPagination${currentPageNum}`);
                     const previousInnerHTML = currentPageElement.innerHTML;

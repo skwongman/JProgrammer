@@ -139,6 +139,7 @@
 .latest-sortlist-title:hover,
 .latest-sortlist-title-all:hover,
 .popular-list-title-all:hover,
+.category-list-title:hover,
 .category-list-title-all:hover {
     color: rgb(2, 177, 247);
 }

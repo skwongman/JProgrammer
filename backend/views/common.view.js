@@ -133,7 +133,7 @@ const view = {
         const titleJpRegex = /^[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FBFa-zA-Z0-9\s\u3001\u3002\uFF1F\uFF01\u2026\uFF1B\u300C\u300D\u300E\u300F\u3010\u3011\uFF08\uFF09\uFF1C\uFF1E\uFFE5\uFF1A\u2019\u201D\u3014\u3015\u00B7\uFF01\u0040\uFFE5\u0025\u2026\u0026\uFF0A\uFF09\u2014\u3016\u3017\u007B\u007D\u003B\u0027\u0022\u005B\u005D\u005C\u002C\u002E\u003C\u003E\u002F\u003F\u0040]{1,20}$/;
         const categoryRegex = /^[\u4e00-\u9fa5\/]{1,10}$/;
         const introductionRegex = /^[\u4e00-\u9fa5a-zA-Z0-9\s!"#$%&'()*+,\-./:;=?@[\\\]^_`{|}~，、？！…。；“”‘’「」【】『』（）《》〈〉￥：‘’“”〔〕·！@#￥%……&*（）—+【】{};:\'\"\[\]\\,.<>\/?@]{1,200}$/;
-        const TVRegex = /^[\u4e00-\u9fa5]{1,10}$/;
+        const TVRegex = /^[\u4e00-\u9fa5a-zA-Z]{1,10}$/;
         const dateRegex = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
         const weekRegex = /^[\u4e00-\u9fa5]{3}$/;
         const timeRegex = /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
@@ -168,7 +168,7 @@ const view = {
 
     // Index page.
     renderVariables: function(req){
-        const dataPerPage = 8;
+        const dataPerPage = 18;
         const keyword = req.query.keyword || null;
         const page = parseInt(req.query.page) || 0;
         const dataOrderPerPage = page * dataPerPage; // e.g. Page 0: 1-6, Page 1: 7-12, etc.
@@ -210,7 +210,7 @@ const view = {
         // Use cookie to wrap the JWT.
         const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
         const expiryDate = new Date(Date.now() + thirtyDaysInMs);
-        res.cookie("token", token, {expires: expiryDate, httpOnly: false, secure: true, sameSite: true });
+        res.cookie("token", token, {expires: expiryDate, httpOnly: true, secure: true, sameSite: "strict" });
     },
 
     renderMemberData: function(res, memberData){
@@ -221,8 +221,8 @@ const view = {
         res.status(400).json({"error": true, "message": "The email is not found"});
     },
 
-    renderEmailIncorrect: function(res){
-        res.status(400).json({"error": true, "message": "The email or password is not correct"});
+    renderPasswordIncorrect: function(res){
+        res.status(400).json({"error": true, "message": "The password is not correct"});
     },
 
     renderEmailRegistered: function(res){
@@ -378,7 +378,7 @@ module.exports = {
     renderJWTCookie: view.renderJWTCookie,
     renderMemberData: view.renderMemberData,
     renderEmailNotFound: view.renderEmailNotFound,
-    renderEmailIncorrect: view.renderEmailIncorrect,
+    renderPasswordIncorrect: view.renderPasswordIncorrect,
     renderEmailRegistered: view.renderEmailRegistered,
 
     // Add drama page.

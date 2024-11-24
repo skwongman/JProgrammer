@@ -345,7 +345,7 @@ export default function getEachDramaData(){
                                     // Add loading effect
                                     topbar.show();
 
-                                    $("#video").attr("src", "https://video.jprogrammer.online:5000/api/video?link=" + e.target.attributes.link.value)
+                                    $("#video").attr("src", "/api/video?link=" + e.target.attributes.link.value)
                                     $("#videoTitle").text(e.target.attributes.titleChi.value + " - " + e.target.attributes.titleEpisode.value);
                                     $("#videoContainer").css("display", "block");
                                     $("#video").prop("currentTime", currentTime);
