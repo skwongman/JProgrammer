@@ -392,7 +392,9 @@
     }
 
     .popular-drama-prev-btn,
-    .popular-drama-next-btn {
+    .popular-drama-next-btn,
+    .latest-drama-prev-btn,
+    .latest-drama-next-btn {
         display: none;
     }
 
