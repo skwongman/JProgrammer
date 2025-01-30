@@ -1,7 +1,7 @@
 // Commons
 const express = require("express");
 const app = express();
-const { client } = require("./backend/commons/common");
+const { client, authenticateJWT } = require("./backend/commons/common");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
@@ -18,7 +18,7 @@ const { dramaAPIRouter, popularAPIRouter, timetableAPIRouter, searchDramaAPIRout
 const { dramaQueryStringAPIRouter, videoAuthAPIRouter, proxyAPIRouter, videoServerAPIRouter } = require("./backend/routes/dramaAPI.route");
 
 // Signin page routes
-const { signupAPIRouter, signinAPIRouter, signoutAPIRouter, signinStatusAPIRouter } = require("./backend/routes/signinAPI.route");
+const { signupAPIRouter, signinAPIRouter, signoutAPIRouter, signinStatusAPIRouter, signinOauthAPIRouter, signinOauthCallbackAPIRouter, signinOauthStatusAPIRouter } = require("./backend/routes/signinAPI.route");
 
 // Add drama page route
 const addDramaAPIRouter = require("./backend/routes/addAPI.route");
@@ -61,6 +61,10 @@ app.set("views", "frontend/page");
 
 
 // Middleware
+app.use((req, res, next) => {
+    console.log(req.url, req.method);
+    next();
+})
 app.use(express.static("frontend/public"));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
@@ -95,6 +99,11 @@ app.post("/api/user", signupAPIRouter);
 app.put("/api/user/auth", signinAPIRouter);
 app.delete("/api/user/auth", signoutAPIRouter);
 app.get("/api/user/auth", signinStatusAPIRouter);
+
+// Google login (OAuth 2.0)
+app.post("/api/user/oauth/login", signinOauthAPIRouter);
+app.get("/api/user/oauth/callback", signinOauthCallbackAPIRouter);
+app.get("/api/user/oauth", authenticateJWT, signinOauthStatusAPIRouter);
 
 // Add drama page route
 app.post("/api/drama/add", addDramaAPIRouter);

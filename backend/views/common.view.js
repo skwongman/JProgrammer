@@ -90,6 +90,10 @@ const view = {
         console.log(errorMessage);
     },
 
+    renderOauth: function(res){
+        res.status(500).json({"error": true, "message": "Using oauth"});
+    },
+
     renderPhotoUpload: function(req){
         // Retrieve the drama photo data from the frontend side.
         const uploadPhoto = req.file;
@@ -213,6 +217,15 @@ const view = {
         res.cookie("token", token, {expires: expiryDate, httpOnly: true, secure: true, sameSite: "strict" });
     },
 
+    renderOauthJWTCookie: function(res, jwt, userInfo){
+        const secretKey = process.env.JWT_SECRET_KEY;
+        const token = jwt.sign(userInfo.data, secretKey);
+        const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
+        const expiryDate = new Date(Date.now() + thirtyDaysInMs);
+        res.cookie("token", token, {expires: expiryDate, httpOnly: true, secure: true, sameSite: "strict" });
+        res.redirect('/');
+    },
+
     renderMemberData: function(res, memberData){
         res.status(200).json({"data": memberData});
     },
@@ -227,6 +240,11 @@ const view = {
 
     renderEmailRegistered: function(res){
         res.status(400).json({"error": true, "message": "This email has been registered"});
+    },
+
+    renderSigninOauthStatusError: function(res){
+        res.clearCookie("token");
+        res.status(400).json({"error": true, "message": "Error fetching user info"});
     },
 
 
@@ -360,6 +378,7 @@ module.exports = {
     renderVideoFormat: view.renderVideoFormat,
     renderForbidden: view.renderForbidden,
     renderError: view.renderError,
+    renderOauth: view.renderOauth,
     renderPhotoUpload: view.renderPhotoUpload,
     renderAWS: view.renderAWS,
     renderDramaRegex: view.renderDramaRegex,
@@ -376,10 +395,12 @@ module.exports = {
     // Signin page.
     renderSigninUserInput: view.renderSigninUserInput,
     renderJWTCookie: view.renderJWTCookie,
+    renderOauthJWTCookie: view.renderOauthJWTCookie,
     renderMemberData: view.renderMemberData,
     renderEmailNotFound: view.renderEmailNotFound,
     renderPasswordIncorrect: view.renderPasswordIncorrect,
     renderEmailRegistered: view.renderEmailRegistered,
+    renderSigninOauthStatusError: view.renderSigninOauthStatusError,
 
     // Add drama page.
     renderTitleRegistered: view.renderTitleRegistered,
