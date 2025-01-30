@@ -222,7 +222,7 @@ const view = {
         const token = jwt.sign(userInfo.data, secretKey);
         const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
         const expiryDate = new Date(Date.now() + thirtyDaysInMs);
-        res.cookie("token", token, {expires: expiryDate, httpOnly: true, secure: false, sameSite: "strict" });
+        res.cookie("token", token, {expires: expiryDate, httpOnly: true, secure: true, sameSite: "strict" });
         res.redirect('/');
     },
 
