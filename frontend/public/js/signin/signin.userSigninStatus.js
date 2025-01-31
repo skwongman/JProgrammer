@@ -6,7 +6,13 @@ export default function userSigninStatus(){
 
         init: function(){
             async function userSigninStatusData(url){
-                const response = await fetch(url);
+                const token = document.cookie?.split("; ")?.find((row) => row.startsWith("token="))?.split("=")[1]
+
+                const response = await fetch(url, {
+                    headers: {
+                        "Authorization": token
+                    }
+                });
                 const data = await response.json();
                 return data;
             };
@@ -20,7 +26,18 @@ export default function userSigninStatus(){
             })
             .catch(error => {
                 view.renderError(error);
-            });        
+            })
+            
+            userSigninStatusData("/api/user/oauth")
+            .then(data => {
+                view.renderSigninStatus(data);
+            })
+            .then(() => {
+                view.renderMemberProfile();
+            })
+            .catch(error => {
+                view.renderError(error);
+            });
         }
 
     };

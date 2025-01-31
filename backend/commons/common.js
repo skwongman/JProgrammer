@@ -15,6 +15,35 @@ AWS.config.update({
 });
 const s3 = new AWS.S3();
 
+// Google login (OAuth 2.0)
+const { OAuth2Client } = require('google-auth-library');
+
+const { GOOGLE_CLIENT_ID, GOOGLE_SECRET_KEY, JWT_SECRET_KEY, HOST } = process.env;
+
+const oauthClient = new OAuth2Client({
+    clientId: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_SECRET_KEY,
+    redirectUri: `${HOST}/api/user/oauth/callback`,
+});
+
+const jwt = require('jsonwebtoken');
+
+function authenticateJWT(req, res, next) {
+    let token = req.header('Authorization');
+    if (token) {
+        jwt.verify(token, JWT_SECRET_KEY, (err, user) => {
+            if (err) {
+                console.log(err)
+                return res.sendStatus(403);
+            }
+            req.user = user;
+            next();
+        });
+    } else {
+        res.sendStatus(401);
+    }
+}
+
 // Generate time
 function generateTime(){
     const date = new Date();
@@ -64,6 +93,8 @@ module.exports = {
     client,
     ObjectId,
     s3,
+    oauthClient,
+    authenticateJWT,
     generateTime,
     generateChatTime,
     generateTimeString,
