@@ -40,17 +40,12 @@ const { updateMemberPhotoAPIRouter, updateMemberPasswordAPIRouter } = require(".
 require("dotenv").config();
 
 
-// HTTPS server
-const https = require("https");
-const fs = require("fs");
-const privateKey = fs.readFileSync("venv/privkey.pem", "utf8");
-const certificate = fs.readFileSync("venv/fullchain.pem", "utf8");
-const credentials = {key: privateKey, cert: certificate};
-const httpsServer = https.createServer(credentials, app);
-
+// HTTP server
+const http = require('http');
+const httpServer = http.createServer(app);
 
 // Socket.io for chat message
-const io = require("socket.io")(httpsServer);
+const io = require("socket.io")(httpServer);
 const chatSocket = require("./backend/routes/chatSocketIO");
 chatSocket(io);
 
@@ -131,4 +126,4 @@ app.use(pageRouter);
 
 // Port
 const port = process.env.PORT || 5000;
-httpsServer.listen(port, "0.0.0.0", () => console.log(`App listening on: https://localhost:${port}`));
+httpServer.listen(port, "0.0.0.0", () => console.log(`App listening on: http://localhost:${port}`));
