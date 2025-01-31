@@ -35,6 +35,11 @@ const model = {
                         return;
                     };
 
+                    if(!result){
+                        commonView.renderOauth(res);
+                        return;
+                    }
+
                     if(result){
                         const memberData = {
                             "memberID": result._id.toString(),

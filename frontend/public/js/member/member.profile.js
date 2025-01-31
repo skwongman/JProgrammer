@@ -8,13 +8,27 @@ export default function memberProfile(){
             function webInitialLoadFunc(){
                 view.renderAddLoadingEffect();
 
+                const token = document.cookie?.split("; ")?.find((row) => row.startsWith("token="))?.split("=")[1]
+
                 async function userAuth(url){
-                    const response = await fetch(url);
+                    const response = await fetch(url, {
+                        headers: {
+                            'Authorization': token
+                        }
+                    });
                     const data = await response.json();
                     return data;
                 };
 
                 userAuth("/api/user/auth")
+                .then(data => {
+                    view.renderUserAuth(data);
+                })
+                .catch(error => {
+                    view.renderUserAuthError(error);
+                });
+
+                userAuth("/api/user/oauth")
                 .then(data => {
                     view.renderUserAuth(data);
                 })

@@ -52,6 +52,7 @@
     padding: 10px;
     font-size: 20px;
     font-weight: bold;
+    border: none;
     border-radius: 10px;
     text-align: center;
     color: #fff;
@@ -81,4 +82,9 @@
 .signin-reminder-text:hover,
 .signup-reminder-text:hover {
     color: #21abe6;
+}
+
+.signin-btn-google {
+    transform: translateY(-2px);
+    width: 25px;
 }

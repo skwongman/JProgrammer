@@ -35,5 +35,8 @@
     "request": "^2.88.2",
     "socket.io": "^4.6.0",
     "torrent-stream": "^1.2.1"
+  },
+  "dependencies": {
+    "google-auth-library": "^9.15.1"
   }
 }
